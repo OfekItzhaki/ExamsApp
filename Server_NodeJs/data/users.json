@@ -1,0 +1,17 @@
+{
+    "admins" : [
+        {
+            "id": 1,
+            "email": "admin@gmail.com",
+            "username": "admin",
+            "password": "admin"
+        }
+    ],
+    "students": [
+        {
+            "id": 1,
+            "email": "student@gmail.com",
+            "password": "password"
+        }
+    ]
+}

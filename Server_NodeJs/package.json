@@ -10,5 +10,9 @@
   },
   "keywords": [],
   "author": "Ofek Itzhaki",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "json-server": "^0.16.3"
+  }
 }

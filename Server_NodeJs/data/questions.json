@@ -1,0 +1,44 @@
+{
+    "polls" : [
+        {
+            "id": 1,
+            "question": "Which client-side development technology do YOU prefer?",
+            "difficulty": 1,
+            "answers": [
+                { "answerA": "Vue", "correct" : false},
+                { "answerB": "React", "correct" : false},
+                { "answerC": "Angular", "correct" : true}
+            ]
+        },
+        {
+            "id": 2,
+            "question": "What is love?",
+            "difficulty": 1,
+            "answers": [
+                { "answerA": "Baby don't hurt me", "correct" : true},
+                { "answerB": "Don't hurt me", "correct" : false},
+                { "answerC": "No more", "correct" : false}
+            ]
+        },
+        {
+            "id": 3,
+            "question": "?",
+            "difficulty": 2,
+            "answers": [
+                { "answerA": "?", "correct" : false},
+                { "answerB": "?", "correct" : true},
+                { "answerC": "?", "correct" : false}
+            ]
+        },
+        {
+            "id": 4,
+            "question": "something something something?",
+            "difficulty": 3,
+            "answers": [
+                { "answerA": "something", "correct" : true},
+                { "answerB": "something", "correct" : true},
+                { "answerC": "something", "correct" : false}
+            ]
+        }
+    ]
+}
