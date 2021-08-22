@@ -2,14 +2,15 @@
     "admins" : [
         {
             "id": 1,
+            "fullname": "admin admin",
             "email": "admin@gmail.com",
-            "username": "admin",
             "password": "admin"
         }
     ],
     "students": [
         {
             "id": 1,
+            "fullname": "some some",
             "email": "student@gmail.com",
             "password": "password"
         }

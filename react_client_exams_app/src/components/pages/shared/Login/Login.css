@@ -7,7 +7,7 @@
     font-family: "Inter";
 }
 
-.login__form {
+.form-content {
     display: flex;
     flex-direction: column;
 }

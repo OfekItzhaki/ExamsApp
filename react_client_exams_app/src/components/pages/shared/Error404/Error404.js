@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 export default function Error404() {
 
   useEffect(() => {
-      document.title = "Error404";
+      document.title = "Page not found!";
   }, []);
 
   return (

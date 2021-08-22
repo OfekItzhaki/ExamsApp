@@ -1,7 +1,7 @@
 {
   "name": "Server_NodeJs",
   "version": "1.0.0",
-  "description": "Server of the Exam App",
+  "description": "Server of the Test App",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

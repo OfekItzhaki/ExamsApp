@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function FinishExam() {
+export default function FinishTest() {
     return (
         <div>
             

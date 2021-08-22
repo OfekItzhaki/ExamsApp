@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+import './Accordion.css';
 
-const Accordion = ({ title, content }) => {
+export const Accordion = ({ title, content }) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
     <div className="accordion-item">
-      <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
-        <div>{title} {isActive ? '<<' : '>>'}</div>
+      <div onClick={() => setIsActive(!isActive)}>
+        <div className={isActive ? 'accordion-title-activated' : 'accordion-title-deactivated'}> {title} {isActive ? '<<' : '>>'} </div>
 
       </div>
-      {isActive && <div className="accordion-content">{content}</div>}
+      <div className={isActive ? 'accordion-content-activated' : 'accordion-content-deactivated'}>
+        {isActive && <div>{content}</div>}
+      </div>
     </div>
   )
 };
-
-export default Accordion;

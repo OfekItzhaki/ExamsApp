@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ReviewExam(props) {
+export default function ReviewTest(props) {
     return (
         <div>
             

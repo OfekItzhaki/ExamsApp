@@ -2,26 +2,48 @@
     "polls" : [
         {
             "id": 1,
+            "tags": [
+                "Programming",
+                "Development"
+            ],
+            "last_update": "10/12/2018",
+            "number_of_tests": "3",
+            "question_type": "Single",
             "question": "Which client-side development technology do YOU prefer?",
             "difficulty": 1,
             "answers": [
                 { "answerA": "Vue", "correct" : false},
                 { "answerB": "React", "correct" : false},
-                { "answerC": "Angular", "correct" : true}
+                { "answerC": "Angular", "correct" : false},
+                { "answerD": "Technologies are awesome and so is studying them! ", "correct" : true}
             ]
         },
         {
             "id": 2,
+            "tags": [
+                "Music",
+                "Song"
+            ],
+            "last_update": "10/12/2018",
+            "number_of_tests": "3",
+            "question_type": "Multiple",
             "question": "What is love?",
             "difficulty": 1,
             "answers": [
                 { "answerA": "Baby don't hurt me", "correct" : true},
-                { "answerB": "Don't hurt me", "correct" : false},
-                { "answerC": "No more", "correct" : false}
+                { "answerB": "Don't hurt me", "correct" : true},
+                { "answerC": "No more", "correct" : true}
+                { "answerD": "All of the above", "correct" : true}
             ]
         },
         {
             "id": 3,
+            "tags": [
+                "Unclear"
+            ],
+            "last_update": "10/12/2018",
+            "number_of_tests": "2",
+            "question_type": "Single",
             "question": "?",
             "difficulty": 2,
             "answers": [
@@ -32,6 +54,12 @@
         },
         {
             "id": 4,
+            "tags": [
+                "Something"
+            ],
+            "last_update": "10/12/2018",
+            "number_of_tests": "1",
+            "question_type": "Single",
             "question": "something something something?",
             "difficulty": 3,
             "answers": [

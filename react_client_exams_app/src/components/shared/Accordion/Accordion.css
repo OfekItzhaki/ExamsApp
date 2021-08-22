@@ -1,0 +1,23 @@
+.accordion-title-activated {
+    color: orange;
+    font-size: 40px;
+    font-weight: bold;
+    text-decoration-line: underline;
+    transition: 0.5s ease;
+}
+
+.accordion-content-activated {
+    color: black;
+    transition: 0.5s ease;
+}
+
+
+.accordion-title-deactivated {
+    transition: 0.5s ease;
+}
+
+.accordion-content-deactivated {
+    font-size: 15px;
+    color: orange;
+    transition: 0.5s ease;
+}

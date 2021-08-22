@@ -1,0 +1,44 @@
+.sign-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: "Inter";
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-up__form > h1 {
+    font-size: 35px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.sign-up__form > input {
+    min-width: 380px;
+    padding: 20px 0;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    font-family: "Inter";
+    border-radius: 2px;
+    font-size:15px;
+}
+
+.submit__button {
+    min-width: 300px;
+    padding: 17px 30px;
+    margin-top: 10px;
+    background: black;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-family: "Inter";
+    border-radius: 3px;
+}

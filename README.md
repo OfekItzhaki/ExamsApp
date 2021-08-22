@@ -1,2 +1,2 @@
-# ExamsApp
-Exams management platform
+# TestApp
+Test management platform

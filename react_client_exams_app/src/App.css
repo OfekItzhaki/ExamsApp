@@ -12,19 +12,20 @@
   .about,
   .admin-mainpage {
     display: flex;
+    flex-direction: column;
     height: 90vh;
-    justify-content: center;
+    align-items: center;
     font-size: 3rem;
   }
   
   .login {
-    background-image: url('./assets/images/img-2.jpg');
+    background-image: url('./assets/images/img-1.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
     font-size: 100px;
-    align-items: center;
+    justify-content: center;
   }
   
   .sign-up {
@@ -34,7 +35,7 @@
     background-repeat: no-repeat;
     color: #fff;
     font-size: 100px;
-    align-items: center;
+    justify-content: center;
   }
   
   .forgot-password {
@@ -44,21 +45,21 @@
     background-repeat: no-repeat;
     color: #fff;
     font-size: 100px;
-    align-items: center;
+    justify-content: center;
   }
 
   .about {
-    background-image: url('./assets/images/img-4.jpg');
+    background-image: url('./assets/images/img-1.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
     font-size: 100px;
-    align-items: center;
+    justify-content: center;
   }
 
   .admin-mainpage {
-    background-image: url('./assets/images/img-4.jpg');
+    background-image: url('./assets/images/img-1.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

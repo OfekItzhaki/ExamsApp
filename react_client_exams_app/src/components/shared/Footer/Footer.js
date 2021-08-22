@@ -22,21 +22,21 @@ export default function Footer() {
                     </form>
                 </div>
             </section>
-            <div class='footer-links'>
+            <div className='footer-links'>
                 <div className='footer-link-wrapper'>
-                    <div class='footer-link-items'>
+                    <div className='footer-link-items'>
                         <h2> About Us </h2>
                         <Link to='/about'> Additional Information </Link>
                         <Link to='/terms-of-service'> Terms of Service </Link>
                     </div>
-                    <div class='footer-link-items'>
+                    <div className='footer-link-items'>
                         <h2> Contact Us </h2>
                         <Link to='/contact'> Contact Information </Link>
                         <Link to='https://www.paypal.com/donate?hosted_button_id=WLXFDL7PFQ7HN'> Support Us </Link>
                     </div>
-                    </div>
-                    <div className='footer-link-wrapper'>
-                    <div class='footer-link-items'>
+                </div>
+                <div className='footer-link-wrapper'>
+                    <div className='footer-link-items'>
                         <h2> Social Media </h2>
                         <Link to='https://www.instagram.com/ofek.itzhaki/'> Instagram </Link>
                         <Link to='https://www.facebook.com/ofek.itzhaki/'> Facebook </Link>
@@ -53,18 +53,18 @@ export default function Footer() {
                             OIES <i className="fab fa-typo3"></i>
                         </Link>
                     </div>
-                    <small className="website-rights"> OI Exam System © 2021 </small>
+                    <small className="website-rights"> OI Test System © 2021 </small>
                     <div className="social-icons">
-                        <Link onClick={() => SendToExternalLink('https://www.facebook.com/ofek.itzhaki/')} target='_blank' aria-label='Facebook' className="social-icon-link facebook">
+                        <Link to="" onClick={() => SendToExternalLink('https://www.facebook.com/ofek.itzhaki/')} target='_blank' aria-label='Facebook' className="social-icon-link facebook">
                             <i className="fab fa-facebook-f"></i>
                         </Link>
-                        <Link onClick={() => SendToExternalLink('https://www.instagram.com/ofek.itzhaki/')} target='_blank' aria-label='Instagram' className="social-icon-link instagram">
+                        <Link to="" onClick={() => SendToExternalLink('https://www.instagram.com/ofek.itzhaki/')} target='_blank' aria-label='Instagram' className="social-icon-link instagram">
                             <i className="fab fa-instagram"></i>
                         </Link>
-                        <Link onClick={() => SendToExternalLink('https://github.com/OfekItzhaki/')} target='_blank' aria-label='Github' className="social-icon-link github">
+                        <Link to="" onClick={() => SendToExternalLink('https://github.com/OfekItzhaki/')} target='_blank' aria-label='Github' className="social-icon-link github">
                             <i className="fab fa-github"></i>
                         </Link>
-                        <Link onClick={() => SendToExternalLink('https://www.linkedin.com/in/ofekitzhaki/')} target='_blank' aria-label='Linkedin' className="social-icon-link linkedin">
+                        <Link to="" onClick={() => SendToExternalLink('https://www.linkedin.com/in/ofekitzhaki/')} target='_blank' aria-label='Linkedin' className="social-icon-link linkedin">
                             <i className="fab fa-linkedin"></i>
                         </Link>
                     </div>
