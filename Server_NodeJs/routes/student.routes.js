@@ -1,13 +1,13 @@
 
 const router = require("express").Router();
 
-const basic = require("../controllers/basic.controller.js");
+const student = require("../controllers/student.controller.js");
 
 // Retrieve home page
-router.get('/', basic.home);
+router.get('/', student.home);
 
 // Retrieve about page
-router.get('/about', basic.about);
+router.get('/about', student.about);
 
 
 

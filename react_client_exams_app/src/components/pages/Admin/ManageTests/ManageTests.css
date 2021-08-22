@@ -1,0 +1,7 @@
+#tests-table {
+    border: 1px solid black;
+}
+
+th {
+    padding-right: 25px;
+}

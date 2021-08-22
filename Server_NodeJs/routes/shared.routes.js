@@ -1,13 +1,13 @@
 
 const router = require("express").Router();
 
-const basic = require("../controllers/basic.controller.js");
+const shared = require("../controllers/shared.controller.js");
 
 // Retrieve home page
-router.get('/', basic.home);
+router.get('/', shared.home);
 
 // Retrieve about page
-router.get('/about', basic.about);
+router.get('/about', shared.about);
 
 
 

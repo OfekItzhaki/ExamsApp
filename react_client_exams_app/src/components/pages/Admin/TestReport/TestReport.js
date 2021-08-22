@@ -19,17 +19,6 @@ export const TestReport = ({
                 <label id='filter-state'></label>
                 <label id='amount-filtered'></label>
             </div>
-            <div className="table-container">
-                <table>
-                    <tr>
-                        <th> ID </th>
-                        <th> Question Text and Tags </th>
-                        <th> Last Update </th>
-                        <th> Question Type </th>
-                        <th> # of Tests </th>
-                    </tr>
-                </table>
-            </div>
 
         </div>
     )

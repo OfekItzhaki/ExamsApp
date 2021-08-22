@@ -8,7 +8,7 @@ export const AdminMenu = [
         content: <ManageQuestions></ManageQuestions>
     },
     {
-        title: 'Manage Test',
+        title: 'Manage Tests',
         content: <ManageTests></ManageTests>
     },
     {
