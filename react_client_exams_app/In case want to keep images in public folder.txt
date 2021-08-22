@@ -1,0 +1,7 @@
+Heads up - some of the updated ReactJS packages aren't showing images properly.  In order for them to show up now, you have to write them in like this:
+
+src = {require('../images/img-9.jpg').default}
+
+or depending on what your file structure looks like:
+
+src = {require('images/img-9.jpg').default}
