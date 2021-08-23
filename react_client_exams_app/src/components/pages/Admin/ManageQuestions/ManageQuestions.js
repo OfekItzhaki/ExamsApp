@@ -1,5 +1,5 @@
 import React from 'react';
-import questions_styles from './ManageQuestions.css';
+import styles from './ManageQuestions.module.css';
 
 export const ManageQuestions = ({
     children, 
@@ -9,19 +9,19 @@ export const ManageQuestions = ({
 
 
     return (
-        <div className='main-container'>
-            <div className="headers-container">
+        <div id={styles.main__container}>
+            <div id={styles.headers__container}>
                 <h1> Available questions for </h1>
-                <h1 className="type"> {type} </h1>
+                <h1 id={type}> {type} </h1>
             </div>
-            <div className="filter-container">
+            <div id={styles.filter__container}>
                 <label> Filter by tags or content: </label>
-                <input id='filter-content' type='text' placeholder='parameter'/>
-                <label id='filter-state'></label>
-                <label id='amount-filtered'></label>
+                <input id={styles.filter__content} type='text' placeholder='parameter'/>
+                <label id={styles.filter__state}></label>
+                <label id={styles.amount__filtered}></label>
             </div>
-            <div className="table-container">
-                <table id='questions-table'>
+            <div id={styles.table__container}>
+                <table id={styles.questions__table}>
                     <tr>
                         <th> ID </th>
                         <th> Question Text and Tags </th>

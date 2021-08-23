@@ -1,4 +1,6 @@
 import React from 'react';
+import styles from './ManageTests.module.css';
+
 
 export const ManageTests = ({
     children, 
@@ -6,19 +8,19 @@ export const ManageTests = ({
 }) => {
 
     return (
-        <div className='main-container'>
-            <div className="headers-container">
+        <div id={styles.main__container}>
+            <div id={styles.headers__container}>
                 <h1> Available questions for </h1>
-                <h1 className="type"> {type} </h1>
+                <h1 id={type}> {type} </h1>
             </div>
-            <div className="filter-container">
+            <div id={styles.filter__container}>
                 <label> Filter by tags or content: </label>
-                <textblock id='filter-content'/>
-                <label id='filter-state'></label>
-                <label id='amount-filtered'></label>
+                <input id={styles.filter__content} type='text' placeholder='parameter'/>
+                <label id={styles.filter__state}></label>
+                <label id={styles.amount__filtered}></label>
             </div>
-            <div className="table-container">
-                <table id='tests-table'>
+            <div id={styles.table__container}>
+                <table id={styles.questions__table}>
                     <tr>
                         <th> ID </th>
                         <th> Question Text and Tags </th>
@@ -39,7 +41,7 @@ export const ManageTests = ({
                     </tr>
                 </table>
             </div>
-            
+
         </div>
     )
 };

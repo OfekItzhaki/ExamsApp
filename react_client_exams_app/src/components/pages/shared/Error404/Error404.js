@@ -1,6 +1,6 @@
 import react from 'react';
 import React, { useState, useEffect } from 'react';
-// import styles from './Error404.css';
+// import styles from './Error404.module.css';
 
 export default function Error404() {
 

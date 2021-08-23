@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../../../App.css';
+// import '../../../../App.css';
 import HeroSection from '../../../shared/HeroSection/HeroSection';
 
 export default function Home () {

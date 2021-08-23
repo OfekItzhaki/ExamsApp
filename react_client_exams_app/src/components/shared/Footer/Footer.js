@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button } from '../Button/Button';
-import './Footer.css';
+import './Footer.module.css';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {

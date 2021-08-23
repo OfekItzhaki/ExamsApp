@@ -1,0 +1,36 @@
+#main__container {
+    background-color: lightgrey;
+    border-style: ridge;
+    min-width: 700px;
+    min-height: 600px;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+#content__container {
+    padding-top: 5%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#select__container {
+    display: flex;
+    padding: 10px 0;
+}
+
+#label__choose {
+    color: black;
+    text-decoration: underline;
+    padding-right: 20px;
+}
+
+#header__container {
+    width: 100%;
+    text-align: center;
+    background-color: steelblue;
+}
+
+/* #accordion__table_row {
+    cursor: pointer;
+} */

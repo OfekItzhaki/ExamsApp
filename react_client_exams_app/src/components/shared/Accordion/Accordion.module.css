@@ -1,0 +1,39 @@
+.accordion_item_activated,
+.accordion_title_activated,
+.accordion_content_activated,
+.accordion_item_deactivated,
+.accordion_title_deactivated,
+.accordion_content_deactivated {
+    transition: 0.5s ease;
+}
+
+.accordion_item_activated {
+    border-style: groove;
+    padding: 10px 10px 20px 20px;
+}
+
+.accordion_title_activated {
+    cursor: pointer;
+    font-weight: bold;
+    color: orangered;
+    text-decoration-line: underline;
+}
+
+.accordion_title_deactivated {
+    cursor: pointer;
+    color: orangered;
+}
+
+.accordion_content_activated {
+    color: black;
+    /* transition: 0.5s ease; */
+}
+
+.accordion_content_deactivated {
+    font-size: 15px;
+    color: white;
+}
+
+.accordion_content_activated > table {
+    border: black;
+}
