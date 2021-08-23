@@ -10,14 +10,14 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-      document.title = "Sign-up";
+      document.title = "Sign up";
   }, [])
 
   return (
-    <div className='sign-up'>
+    <div className='sign_up'>
+      <h1> Sign-up </h1>
       <form className='sign-up__form'>
         <div className='form-content'>
-          <h1> Sign-up </h1>
           <input type='name' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
           <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
           <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />

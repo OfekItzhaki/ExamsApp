@@ -7,10 +7,10 @@
   
   .home,
   .login,
-  .sign-up,
-  .forgot-password,
+  .sign_up,
+  .forgot_password,
   .about,
-  .admin-mainpage {
+  .admin_mainpage {
     display: flex;
     flex-direction: column;
     height: 90vh;
@@ -28,7 +28,7 @@
     justify-content: center;
   }
   
-  .sign-up {
+  .sign_up {
     background-image: url('./assets/images/img-1.jpg');
     background-position: center;
     background-size: fill;
@@ -38,7 +38,7 @@
     justify-content: center;
   }
   
-  .forgot-password {
+  .forgot_password {
     background-image: url('./assets/images/img-8.jpg');
     background-position: center;
     background-size: cover;
@@ -58,7 +58,7 @@
     justify-content: center;
   }
 
-  .admin-mainpage {
+  .admin_mainpage {
     background-image: url('./assets/images/img-1.jpg');
     background-position: center;
     background-size: cover;

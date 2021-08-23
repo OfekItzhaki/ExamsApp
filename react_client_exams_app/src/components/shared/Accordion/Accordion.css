@@ -1,23 +1,39 @@
-.accordion-title-activated {
-    color: orange;
-    font-size: 40px;
+.accordion_item_activated,
+.accordion_title_activated,
+.accordion_content_activated,
+.accordion_item_deactivated,
+.accordion_title_deactivated,
+.accordion_content_deactivated {
+    transition: 0.5s ease;
+}
+
+.accordion_item_activated {
+    border-style: groove;
+    padding: 10px 10px 20px 20px;
+}
+
+.accordion_title_activated {
+    cursor: pointer;
     font-weight: bold;
+    color: orangered;
     text-decoration-line: underline;
-    transition: 0.5s ease;
 }
 
-.accordion-content-activated {
+.accordion_title_deactivated {
+    cursor: pointer;
+    color: orangered;
+}
+
+.accordion_content_activated {
     color: black;
-    transition: 0.5s ease;
+    /* transition: 0.5s ease; */
 }
 
-
-.accordion-title-deactivated {
-    transition: 0.5s ease;
-}
-
-.accordion-content-deactivated {
+.accordion_content_deactivated {
     font-size: 15px;
-    color: orange;
-    transition: 0.5s ease;
+    color: white;
+}
+
+.accordion_content_activated > table {
+    border: black;
 }
