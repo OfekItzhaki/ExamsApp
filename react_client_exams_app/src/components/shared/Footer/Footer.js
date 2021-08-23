@@ -1,42 +1,42 @@
 import React, { useEffect } from 'react';
 import { Button } from '../Button/Button';
-import './Footer.module.css';
+import styles from './Footer.module.css';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
 
     return (
-        <div className='footer-container'>
-            <section className="footer-subscription">
-                <p className="footer-subscription-heading">
+        <div id={styles.footer__container}>
+            <section id={styles.footer__subscription}>
+                <p id={styles.footer__subscription_heading}>
                     Join us to get notifications on any relevant new tests coming up
                 </p>
 
-                <p className="footer-subscription-text">
+                <p id={styles.footer__subscription_text}>
                     You can unsubscribe at any time.
                 </p>
-                <div className="input-areas">
+                <div id={styles.input_areas}>
                     <form>
-                        <input type="email" name="email" placeholder='Your email' className='footer-input'/>
+                        <input type="email" name="email" placeholder='Your email' className={styles.footer__input}/>
                         <Button buttonStyle='btn--outline'> Subscribe </Button>
                     </form>
                 </div>
             </section>
-            <div className='footer-links'>
-                <div className='footer-link-wrapper'>
-                    <div className='footer-link-items'>
+            <div id={styles.footer__links}>
+                <div className={styles.footer__link_wrapper}>
+                    <div className={styles.footer__link_items}>
                         <h2> About Us </h2>
                         <Link to='/about'> Additional Information </Link>
                         <Link to='/terms-of-service'> Terms of Service </Link>
                     </div>
-                    <div className='footer-link-items'>
+                    <div className={styles.footer__link_items}>
                         <h2> Contact Us </h2>
                         <Link to='/contact'> Contact Information </Link>
                         <Link to='https://www.paypal.com/donate?hosted_button_id=WLXFDL7PFQ7HN'> Support Us </Link>
                     </div>
                 </div>
-                <div className='footer-link-wrapper'>
-                    <div className='footer-link-items'>
+                <div className={styles.footer__link_wrapper}>
+                    <div className={styles.footer__link_items}>
                         <h2> Social Media </h2>
                         <Link to='https://www.instagram.com/ofek.itzhaki/'> Instagram </Link>
                         <Link to='https://www.facebook.com/ofek.itzhaki/'> Facebook </Link>
@@ -46,25 +46,26 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <section className="social-media">
-                <div className="social-media-wrap">
-                    <div className="footer-logo">
-                        <Link to='/' className="social-logo">
-                            OIES <i className="fab fa-typo3"></i>
+            <section id={styles.social_media}>
+                <div id={styles.social_media__wrap}>
+                    <div id={styles.footer__logo}>
+                        <Link to='/' id={styles.social_logo}>
+                            OIES <i className='fab fa-typo3'></i>
                         </Link>
                     </div>
-                    <small className="website-rights"> OI Test System © 2021 </small>
-                    <div className="social-icons">
-                        <Link to="" onClick={() => SendToExternalLink('https://www.facebook.com/ofek.itzhaki/')} target='_blank' aria-label='Facebook' className="social-icon-link facebook">
+                    <small id={styles.website_rights}> OI Test System © 2021 </small>
+                    <div id={styles.social_icons}>
+                        <Link to="" onClick={() => SendToExternalLink('https://www.facebook.com/ofek.itzhaki/')} target='_blank' aria-label='Facebook' className={`${styles.social_icon__link} facebook`}>
                             <i className="fab fa-facebook-f"></i>
                         </Link>
-                        <Link to="" onClick={() => SendToExternalLink('https://www.instagram.com/ofek.itzhaki/')} target='_blank' aria-label='Instagram' className="social-icon-link instagram">
+                        <Link to="" onClick={() => SendToExternalLink('https://www.instagram.com/ofek.itzhaki/')} target='_blank' aria-label='Instagram' className={`${styles.social_icon__link} instagram`}>
                             <i className="fab fa-instagram"></i>
                         </Link>
-                        <Link to="" onClick={() => SendToExternalLink('https://github.com/OfekItzhaki/')} target='_blank' aria-label='Github' className="social-icon-link github">
+                        <Link to="" onClick={() => SendToExternalLink('https://github.com/OfekItzhaki/')} target='_blank' aria-label='Github' className={`${styles.social_icon__link} github`}>
                             <i className="fab fa-github"></i>
                         </Link>
-                        <Link to="" onClick={() => SendToExternalLink('https://www.linkedin.com/in/ofekitzhaki/')} target='_blank' aria-label='Linkedin' className="social-icon-link linkedin">
+                        <i className="fab fa-github"></i>
+                        <Link to="" onClick={() => SendToExternalLink('https://www.linkedin.com/in/ofekitzhaki/')} target='_blank' aria-label='Linkedin' className={`${styles.social_icon__link} linkedin`}>
                             <i className="fab fa-linkedin"></i>
                         </Link>
                     </div>

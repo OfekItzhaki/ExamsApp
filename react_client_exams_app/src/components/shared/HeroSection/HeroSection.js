@@ -1,15 +1,15 @@
 import React from 'react'
 // import '../../App.module.css';
 import { Button } from '../Button/Button';
-import './HeroSection.module.css';
+import styles from './HeroSection.module.css';
 
 export default function HeroSection() {
     return (
-        <div className='hero-container'>
+        <div id={styles.hero__container}>
             <video src="/videos/video-1.mp4" autoPlay loop muted />
             <h1> OI Exam System </h1>
             <p> It appears you are not logged in. </p>
-            <div className='hero-btns'>
+            <div id={styles.hero__btns}>
                 <Button className='btns' link='/login' buttonStyle='btn--outline' buttonSize='btn--large'>
                     Login
                 </Button>

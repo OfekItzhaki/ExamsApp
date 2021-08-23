@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import './Navbar.module.css';
+import styles from './Navbar.module.css';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/components/Logo_v1.png';
 import { Button } from '../Button/Button';
@@ -19,41 +19,46 @@ export default function Navbar() {
         }
     };
 
+    const headFunc = () => {
+        showButton();
+        closeMoblieMenu();
+    }
+
     useEffect(() => {
         showButton();
     }, []);
 
     // Every time the window size changes
-    window.addEventListener('resize', showButton);
+    window.addEventListener('resize', headFunc);
 
     return (
         <>
-        <nav className="navbar">
-            <div className="navbar-container">
-                <Link to="/" className="navbar-logo" onClick={closeMoblieMenu}>
-                    <img className="logo-img" src={logo} alt="logo"></img>
+        <nav id={styles.navbar}>
+            <div id={styles.navbar__container}>
+                <Link to="/" id={styles.navbar__logo} onClick={closeMoblieMenu}>
+                    <img id={styles.logo_img} src={logo} alt="logo"></img>
                 </Link>
-                <div className="menu-icon" onClick={handleClick}>
+                <div id={styles.menu__icon} onClick={handleClick}>
                     <i id="icon" className={click ? 'fas fa-times' : 'fas fa-bars'} />
                 </div>
-                <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                    <li className='nav-item'>
-                        <Link to='/' className='nav-links' onClick={closeMoblieMenu}>
+                <ul id={click ? `${styles.nav__menu}' active'` : styles.nav__menu}>
+                    <li className={styles.nav__item}>
+                        <Link to='/' className={styles.nav_links} onClick={closeMoblieMenu}>
                             Home
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='/login' className='nav-links' onClick={closeMoblieMenu}>
+                    <li className={styles.nav__item}>
+                        <Link to='/login' className={styles.nav_links} onClick={closeMoblieMenu}>
                             Login
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='/sign-up' className='nav-links' onClick={closeMoblieMenu}>
+                    <li className={styles.nav__item}>
+                        <Link to='/sign-up' className={styles.nav_links} onClick={closeMoblieMenu}>
                             Sign-up
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='/about' className='nav-links' onClick={closeMoblieMenu}>
+                    <li className={styles.nav__item}>
+                        <Link to='/about' className={styles.nav_links} onClick={closeMoblieMenu}>
                             About
                         </Link>
                     </li>
