@@ -25,25 +25,20 @@ export default function CreateEditQuestion() {
 
           {/* Might not work, JUST FOR NOW !!! */}
           <select id='question_type'>
-            <option value={type} onChange={(e) => setType(e.target.value)}> Single Answer Question    </option>
-            <option value={type} onChange={(e) => setType(e.target.value)}> Multiple Answer Question  </option>
+            <option value={type} onChange={(e) => setType (e.target.value)} > Single Answer Question    </option>
+            <option value={type} onChange={(e) => setType (e.target.value)} > Multiple Answer Question  </option>
           </select>
           <input type='text' placeholder='Enter your question here' value={questionText}  onChange={(e) => setQuestionText  (e.target.value)} />
           <input type='text' placeholder='Type something'           value={textBelow}     onChange={(e) => setTextBelow     (e.target.value)} />
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
+        <div className="content__section">
+        <input type='text' placeholder='first answer'   value={questionText}  onChange={(e) => setQuestionText(e.target.value)} />
+        <input type='text' placeholder='second answer'  value={questionText}  onChange={(e) => setQuestionText(e.target.value)} />
+        <input type='text' placeholder='third answer'   value={questionText}  onChange={(e) => setQuestionText(e.target.value)} />
           <button onClick={Add_Answer()}></button>
         </div>
+
       </form>
     </div>
   )
