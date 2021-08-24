@@ -8,12 +8,12 @@ export const ManageTests = ({
     return (
         <div className='main-container'>
             <div className="headers-container">
-                <h1> Available questions for </h1>
+                <h1> Available Tests for </h1>
                 <h1 className="type"> {type} </h1>
             </div>
             <div className="filter-container">
-                <label> Filter by tags or content: </label>
-                <textblock id='filter-content'/>
+                <label> Filter name by keywords: </label>
+                <input id='filter-content' type='text' placeholder='Enter a list of keywords separated by commas'/>
                 <label id='filter-state'></label>
                 <label id='amount-filtered'></label>
             </div>
@@ -27,17 +27,25 @@ export const ManageTests = ({
                         <th> # of Tests </th>
                     </tr>
                     <tr >
-                        {/* {children.map(({ ID, Tnt, update, type, amount }) => (
+                        {/* {children.map(({ ID, Link, name, update, type, version }) => (
                             
                         <td> {ID} </td>
-                        <td> {TnT} </td>
+                        <td> {Link} </td>
+                        <td> {name} </td>
                         <td> {update} </td>
                         <td> {type} </td>
-                        <td> {amount} </td>
+                        <td> {version} </td>
                         <td> </td>
                         ))} */}
                     </tr>
                 </table>
+            </div>
+
+            <label type="text" id="showing-questions"> showing {`SOMETHING`} of available Tests </label>
+
+            <div id="buttons-container">
+                <button> {`<<`} Back </button>
+                <button> Create a Test {`>>`} </button>
             </div>
             
         </div>

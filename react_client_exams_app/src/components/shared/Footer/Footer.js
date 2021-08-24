@@ -1,7 +1,8 @@
+
 import React, { useEffect } from 'react';
-import { Button } from '../Button/Button';
-import './Footer.css';
-import { Link } from 'react-router-dom';
+import        { Button }    from '../Button/Button';
+import        { Link }      from 'react-router-dom';
+import styles               from './Footer.css';
 
 export default function Footer() {
 

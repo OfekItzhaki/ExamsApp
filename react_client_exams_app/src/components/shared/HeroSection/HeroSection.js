@@ -1,7 +1,6 @@
-import React from 'react'
-// import '../../App.css';
-import { Button } from '../Button/Button';
-import './HeroSection.css';
+import React            from 'react';
+import styles           from './HeroSection.css';
+import { Button }       from '../Button/Button';
 
 export default function HeroSection() {
     return (
