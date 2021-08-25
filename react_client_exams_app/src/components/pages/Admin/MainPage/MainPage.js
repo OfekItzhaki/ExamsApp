@@ -20,7 +20,7 @@ export default function MainPage() {
                         <tr>
                             <td>
                                 <div id='select__container'>
-                                <label id='label__choose'> Choose a field of study:</label>
+                                    <label id='label__choose'> Choose a field of study:</label>
                                     <select id='field'>
                                         <option value='development'> Development </option>
                                     </select>

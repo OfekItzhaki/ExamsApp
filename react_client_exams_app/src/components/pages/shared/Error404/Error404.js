@@ -10,6 +10,7 @@ export default function Error404() {
 
   return (
       <>
+      <div className="error404">
         <div id={styles.clouds}>
             <div className={`${styles.cloud} ${styles.x1}`}   ></div>
             <div className={`${styles.cloud} ${styles.x1_5}`} ></div>
@@ -24,6 +25,7 @@ export default function Error404() {
             <div className={styles._1}    >THE PAGE</div>
             <div className={styles._2}    >WAS NOT FOUND</div>
         </div>
+      </div>
       </>
   )
 };

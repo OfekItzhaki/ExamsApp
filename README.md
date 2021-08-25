@@ -1,2 +1,4 @@
-# TestApp
-Test management platform
+# ExamApp
+Exam management platform:
+
+*In early development state.*

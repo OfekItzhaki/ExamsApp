@@ -1,27 +1,37 @@
-import React  from 'react';
-import styles from './ManageQuestions.css';
+import React, { useEffect, useState }   from 'react';
+import styles                           from './ManageQuestions.css';
 
 export const ManageQuestions = ({
     children, 
     type, 
 }) => {
 
+    const [filter, setFilter] = useState(false);
+    const [filterContent, setFilterContent] = useState("");
 
+    useEffect(() => {
+        document.title = "Manage Questions";
+    }, [])
 
     return (
-        <div className='main-container'>
-            <div className="headers-container">
+        <div className='manage_questions'>
+            <div id="headers__container">
                 <h1> Available Questions for </h1>
-                <h1 className="type"> {type} </h1>
+                <h1 id="type"> {type} </h1>
             </div>
-            <div className="filter-container">
-                <label> Filter by tags or content: </label>
-                <input id='filter-content' type='text' placeholder='Enter a list of keywords separated by commas'/>
-                <label id='filter-state'></label>
-                <label id='amount-filtered'></label>
+            <div id="filter__container">
+                <div id="filter_tags__container">    
+                    <label> Filter by tags or content: </label>
+                    <input id="filter__input" type='text' 
+                        value={filterContent}
+                        onChange={(e) => { setFilterContent(e.target.value); filterContent === "" ? setFilter(false) : setFilter(true)} }
+                        placeholder="Enter a list of keywords separated by commas"/>
+                    <label id="filter__state"> Filter is {filter === false ? "OFF" : "ON"} </label>
+                </div>
+                <label id="amount__filtered"> Filtered {`AMOUNT`} of total {`AMOUNT`} </label>
             </div>
-            <div className="table-container">
-                <table id='questions-table'>
+            <div id="table__container">
+                <table id="questions__table">
                     <tr>
                         <th> ID </th>
                         <th> Question Text and Tags </th>
@@ -42,22 +52,24 @@ export const ManageQuestions = ({
                     </tr>
                 </table>
                 
-                <label type="text" id="showing-questions"> showing {`SOMETHING`} of filtered Questions </label>
+                <label type="text" id="showing_questions"> showing 1-{`AMOUNT`} of filtered Questions </label>
             </div>
 
-            <div id="buttons-container">
-                <button onClick={Back()}> {`<<`} Back </button>
-                <button onClick={New_Question()}> New Question {`>>`} </button>
+            <div id="buttons__container">
+                <button onClick={       Back()      }>  {`<<` } Back         </button>
+                <button onClick={   New_Question()  }>  New Question {`>>`}  </button>
             </div>
 
         </div>
     )
 };
 
+// NEED TO CHECK WHY THESE GUYS AUTOMATICALLY START
+
 function Back() {
-    
+    // window.location.href = history.back;
 }
 
 function New_Question() {
-
+    // window.location.href = "/new-question";
 }

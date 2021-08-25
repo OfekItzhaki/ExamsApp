@@ -193,6 +193,11 @@
                 -moz-animation: moveclouds 20s linear infinite;
                 -o-animation: moveclouds 20s linear infinite;
             }
+            
+            @keyframes moveclouds {
+                0% {margin-left: 1000px;}
+                100% {margin-left: -1000px;}
+            }
 
             @-webkit-keyframes moveclouds {
                 0% {margin-left: 1000px;}
