@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start:server": "json-server --watch data/db.json --port 8000"
   },
   "keywords": [],
   "author": "Ofek Itzhaki",
