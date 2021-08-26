@@ -15,7 +15,7 @@ export const TestReport = ({
     }, [])
 
     return (
-        <div className='test_report'>
+        <div className='test_report noselect'>
             <div id="headers__container">
                 <h1> Test result for {testName} </h1>
             </div>
@@ -34,27 +34,29 @@ export const TestReport = ({
 
                 <button onClick={      Expand_All()         }>  Expand All      </button>
                 <table id='Details__table'>
-                    <tr>
-                        <th>        ID                     </th>
-                        <th>        Question               </th>
-                        <th>        Answered Correctly?    </th>
-                        <th>        Date Answered          </th>
-                    </tr>
-                    {/* {{AdminMenu.map(({ title, content }) => (                              <<-------------------    EXAMPLE
-                                    <Accordion title={title} content={content} />
-                                ))}}
-                    <tr >                                                                 <<-------------------    EXAMPLE 2  
-                        { {children.map(({ ID, Link, name, update, type, version }) => (
-                            
-                        <td> {ID} </td>
-                        <td> {Link} </td>
-                        <td> {name} </td>
-                        <td> {update} </td>
-                        <td> {type} </td>
-                        <td> {version} </td>
-                        <td> </td>
-                        ))}}
-                    </tr> */}
+                    <tbody>
+                        <tr>
+                            <th>        ID                     </th>
+                            <th>        Question               </th>
+                            <th>        Answered Correctly?    </th>
+                            <th>        Date Answered          </th>
+                        </tr>
+                        {/* {{AdminMenu.map(({ title, content }) => (                              <<-------------------    EXAMPLE
+                                        <Accordion title={title} content={content} />
+                                    ))}}
+                        <tr >                                                                 <<-------------------    EXAMPLE 2  
+                            { {children.map(({ ID, Link, name, update, type, version }) => (
+                                
+                            <td> {ID} </td>
+                            <td> {Link} </td>
+                            <td> {name} </td>
+                            <td> {update} </td>
+                            <td> {type} </td>
+                            <td> {version} </td>
+                            <td> </td>
+                            ))}}
+                        </tr> */}
+                    </tbody>
                 </table>
 
                 <div id="buttons__container">

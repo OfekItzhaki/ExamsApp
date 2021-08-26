@@ -9,14 +9,18 @@ import styles                         from './CreateEditQuestion.css';
     question
   }) => {
 
-  const [type,            setType]            = useState("");
-  const [questionText,    setQuestionText]    = useState("");
-  const [textBelow,       setTextBelow]       = useState("");
+  // ------------------------- Content Hooks -------------------------
+  // *Question Table*
+  const [ type,            setType           ]  = useState("");
+  const [ questionText,    setQuestionText   ]  = useState("");
+  const [ textBelow,       setTextBelow      ]  = useState("");
 
-  const [possibleAnswers, setPossibleAnswers] = useState("");
-  const [answersLayout,   setAnswersLayout]   = useState("");
+  // *Answers Table*
+  const [ possibleAnswers, setPossibleAnswers]  = useState("");
+  const [ answersLayout,   setAnswersLayout  ]  = useState("");
 
-  const [tags,            setTags]            = useState('');
+  // *Tags Table*
+  const [ tags,            setTags           ]  = useState('');
 
   const handleAnswerClick = (id) => {
     console.log(id);
@@ -46,105 +50,83 @@ import styles                         from './CreateEditQuestion.css';
 
   return (
     <div className="create_edit_question">
-      <h1> {question === undefined ? "Create" : "Edit"} Question </h1>
+      <h1 className="page__header"> {question === undefined ? "Create" : "Edit"} Question </h1>
       <form className="new_question__form">
 
         <div className="content__section">
 
           {/* Might not work, JUST FOR NOW !!! */}
-          <table>
-            <tr>
-              <td>
-                <label> Field: </label>
-              </td>
-              <td>
-                <label id="field__label"> {field} </label>
-              </td>
-            </tr>
+          <table id="question__table">
+            <tbody>
+              <tr>
+                <td> <label> Field: </label> </td>
+                <td> <label id="field__label"> {field} </label> </td>
+              </tr>
 
-            <tr>
-              <td>
-                <label> Question type: </label>
-              </td>
-              <td>
-                <select id="question_type__select">
-                  <option className="question_type" value={type} onChange={(e) => setType (e.target.value)} > Single Answer Question    </option>
-                  <option className="question_type" value={type} onChange={(e) => setType (e.target.value)} > Multiple Answer Question  </option>
-                </select>
-              </td>
-            </tr>
+              <tr>
+                  <td> <label> Question type: </label> </td>
+                  <td> <select id="question_type__select">
+                          <option value={type} onChange={(e) => setType (e.target.value)} > Single Answer Question    </option>
+                          <option value={type} onChange={(e) => setType (e.target.value)} > Multiple Answer Question  </option>
+                        </select> </td>
+              </tr>
 
-            <tr>
-              <td>
-                <label> Question header: </label>
-              </td>
-              <td>
-                <input id="question_header__input" type="text" placeholder="Enter your question here" value={questionText} onChange={(e) => setQuestionText (e.target.value)} />    
-              </td>
-            </tr>
+              <tr>
+                <td> <label> Question header: </label> </td>
+                <td> <input id="question_header__input"       type="text" placeholder="Enter your question here" value={questionText} onChange={(e) => setQuestionText(e.target.value)} /> </td>
+              </tr>
 
-            <tr>
-              <td>
-                <label> Question additional information: </label>
-              </td>
-              <td>
-                <input id="quesiton_information__input" type="text" placeholder="Type something" value={textBelow} onChange={(e) => setTextBelow (e.target.value)} />
-              </td>
-            </tr>
+              <tr>
+                <td> <label> Question additional information: </label> </td>
+                <td> <input id="question_information__input"  type="text" placeholder="Type something"            value={textBelow} onChange={(e)   => setTextBelow(e.target.value)}    /> </td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
-
-        {/* NEED TO THINK OF A WAY TO MAKE THE ANSWERS PART DYMANIC */}
-
         <div className="content__section">
-          <table>
-            <tr>
-              <td>
-                <label>  Possible answers: </label>
-              </td>
-              <td>
-                <div className="answer__container">
-                  <button onClick={removeAnswer()}> X </button>
-                  <input id="answer_1" type='text' placeholder='First answer'   value={questionText}  onChange={(e) => setQuestionText(e.target.value)} />
-                  <input id="radio_1"  type="radio"    value="" onChange={(e) => handleAnswerClick(e.target.id)}   />    <label htmlFor="answer_1"   >  Incorrect  </label>
-                </div>
-              </td>
-            </tr>
+          <table id="answers__table">
+            <tbody>
+              <tr>
+                <td> <label>  Possible answers: </label> </td>
+                <td> <button  onClick={removeAnswer()} > X </button> </td>
+                <td> <input   id="answer_1" type='text'      placeholder='First answer'                                 />    </td>
+                <td> <input   id="radio_1"  type="radio"     value="" onClick={(e) => handleAnswerClick(e.target.id)}   />    <label htmlFor="answer_1"   >  Incorrect  </label> </td>
+              </tr>
 
-            <tr>
-              <td>
-                <label></label>
-              </td>
-              <td>
-                <div className="answer__container">
-                  <button onClick={removeAnswer()}> X </button>
-                  <input id="answer_2" type='text' placeholder='Second answer' value={questionText}  onChange={(e) => setQuestionText(e.target.value)} />
-                  <input id="radio_2"  type="radio"    value="" onClick={(e) => handleAnswerClick(e.target.id)}   />    <label htmlFor="answer_2"   >  Incorrect  </label>
-                </div>
-              </td>
-            </tr>
+              <tr>
+                <td></td>
+                <td> <button  onClick={removeAnswer()} > X </button> </td>
+                <td> <input   id="answer_2" type='text'      placeholder='Second answer'                                />    </td>
+                <td> <input   id="radio_2"  type="radio"     value="" onClick={(e) => handleAnswerClick(e.target.id)}   />    <label htmlFor="answer_2"   >  Incorrect  </label> </td>
+              </tr>
 
-            <tr>
-              <td>
-                <label></label>
-              </td>
-              <td>
-                <div className="answer__container">
-                  <button onClick={removeAnswer()}> X </button>
-                  <input id="answer_3" type='text' placeholder='Third answer'   value={questionText}  onChange={(e) => setQuestionText(e.target.value)} />
-                  <input id="radio_3"  type="radio"    value="" onClick={(e) => handleAnswerClick(e.target.id)}   />    <label htmlFor="answer_3"   >  Incorrect  </label>
-                </div>
-              </td>
-            </tr>
+              <tr>
+                <td> </td>
+                <td> <button  onClick={removeAnswer()} > X </button> </td>
+                <td> <input   id="answer_3" type='text'      placeholder='Third answer'                                />    </td>
+                <td> <input   id="radio_3"  type="radio"     value="" onClick={(e) => handleAnswerClick(e.target.id)}   />    <label htmlFor="answer_3"   >  Incorrect  </label> </td>
+              </tr>
+            </tbody>
           </table>
 
           <div className="answer_layout__container">
             <label name="layout__label"> Answers layout: </label>
-            <input id="vertical"    type="radio"  name="answer_layout"  defaultChecked={true}  />    <label htmlFor="vertical"   >  Vertical   </label>
-            <input id="horizontal"  type="radio"  name="answer_layout"                         />    <label htmlFor="horizontal" >  Horizontal </label>
+            <input id="vertical"    type="radio"  name="answer_layout"  defaultChecked  />    <label htmlFor="vertical"   >  Vertical   </label>
+            <input id="horizontal"  type="radio"  name="answer_layout"                  />    <label htmlFor="horizontal" >  Horizontal </label>
             <button onClick={Add_Answer()}> Add an Answer </button>
           </div>
+        </div>
+
+        <div id="tags__container">
+          <table id="tags__table">
+            <tbody>
+              <tr>
+                <td> <label> Tags: </label> </td>
+                <td> <input id="tags__input" type="text" placeholder="Enter tags"/> </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div id="buttons__container">

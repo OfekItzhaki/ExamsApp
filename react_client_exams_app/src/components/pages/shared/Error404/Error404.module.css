@@ -1,10 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=opensans:500);
+/* @import url(https://fonts.googleapis.com/css?family=opensans:500); */
             body{
                 background: #33cc99;
                 color:#fff;
                 font-family: 'Open Sans', sans-serif;
                 max-height:700px;
-                /* overflow: hidden; */
+                max-width: 100%;
+                overflow-x: hidden;
             }
             .c{
                 text-align: center;

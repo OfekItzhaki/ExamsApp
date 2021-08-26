@@ -4,30 +4,32 @@ import styles                           from './ReportbyRespondentName.css'
 export const ReportByRespondentName = ({
     children, 
     type, 
-}) => {
+}) => {                                                     // LOOk OVER THIS CODE
 
-    const [filterContent,       setFilterContent]       = useState("");
-    const [respondentChosen,    setRespondentChosen]    = useState(false);
-    const [averageGrade,        setAverageGrade]        = useState(0);
-
-    const [testName,            setTestName]            = useState(0);
+    const [ testName,            setTestName         ]       = useState(0);
+    
+    const [ filterContent,       setFilterContent    ]       = useState("");
+    const [ respondentChosen,    setRespondentChosen ]       = useState(false);
+    const [ averageGrade,        setAverageGrade     ]       = useState(0);
 
     let input = document.getElementById("filter__input");
-    input.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-            if (filterContent === "") {
-                setRespondentChosen(false)
-            } else {
-                setRespondentChosen(true)}
-            }
-    });
+    if (input) {
+        // input.addEventListener("keyup", (event) => {
+        //     if (event.key === "Enter") {
+        //         if (filterContent === "") {
+        //             setRespondentChosen(false)
+        //         } else {
+        //             setRespondentChosen(true)}
+        //         }
+        // });
+    }
 
     useEffect(() => {
         document.title = "Report by Name";
     }, []);
 
     return (
-        <div className='report_by_name'>
+        <div className='report_by_name noselect'>
             <div id="headers__container">
                 <h1> Report by Respondent Name </h1>
             </div>
@@ -48,27 +50,29 @@ export const ReportByRespondentName = ({
                     </div>
 
                     <table id='respondents__table'>
-                        <tr>
-                            <th> ID             </th>
-                            <th> Respondent     </th>
-                            <th> Email          </th>
-                            <th> Last Activity  </th>
-                        </tr>
-                        {/* {{AdminMenu.map(({ title, content }) => (                              <<-------------------    EXAMPLE
-                                        <Accordion title={title} content={content} />
-                                    ))}}
-                        <tr >                                                                 <<-------------------    EXAMPLE 2  
-                            { {children.map(({ ID, Link, name, update, type, version }) => (
-                                
-                            <td> {ID} </td>
-                            <td> {Link} </td>
-                            <td> {name} </td>
-                            <td> {update} </td>
-                            <td> {type} </td>
-                            <td> {version} </td>
-                            <td> </td>
-                            ))}}
-                        </tr> */}
+                        <tbody>
+                            <tr>
+                                <th> ID             </th>
+                                <th> Respondent     </th>
+                                <th> Email          </th>
+                                <th> Last Activity  </th>
+                            </tr>
+                            {/* {{AdminMenu.map(({ title, content }) => (                              <<-------------------    EXAMPLE
+                                            <Accordion title={title} content={content} />
+                                        ))}}
+                            <tr >                                                                 <<-------------------    EXAMPLE 2  
+                                { {children.map(({ ID, Link, name, update, type, version }) => (
+                                    
+                                <td> {ID} </td>
+                                <td> {Link} </td>
+                                <td> {name} </td>
+                                <td> {update} </td>
+                                <td> {type} </td>
+                                <td> {version} </td>
+                                <td> </td>
+                                ))}}
+                            </tr> */}
+                        </tbody>
                     </table>
                 </div>
 
@@ -79,17 +83,19 @@ export const ReportByRespondentName = ({
                     </div>
 
                     <table id="activity_report__table">
-                        <tr>
-                            <th> Instance       </th>
-                            <th> Test Code      </th>
-                            <th> Test Name      </th>
-                            <th> Grade          </th>
-                            <th> Last Activity  </th>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th> Instance       </th>
+                                <th> Test Code      </th>
+                                <th> Test Name      </th>
+                                <th> Grade          </th>
+                                <th> Last Activity  </th>
+                            </tr>
 
-                        <tr>
+                            <tr>
 
-                        </tr>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
 

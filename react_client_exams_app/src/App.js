@@ -7,14 +7,16 @@ import
 }                     from 'react-router-dom';
 import styles         from './App.css';
 
-import Home           from './components/pages/shared/Home/Home';
-import About          from './components/pages/shared/About/About';
-import Login          from "./components/pages/shared/Login/Login";
-import SignUp         from "./components/pages/shared/SignUp/SignUp";
-import ForgotPassword from "./components/pages/shared/ForgotPassword/ForgotPassword";
-import Error404       from "./components/pages/shared/Error404/Error404";
-import Footer         from "./components/shared/Footer/Footer";
+// ---------------------------------------------- Shared pages ----------------------------------------------
+import Home                   from './components/pages/shared/Home/Home';
+import About                  from './components/pages/shared/About/About';
+import Login                  from "./components/pages/shared/Login/Login";
+import SignUp                 from "./components/pages/shared/SignUp/SignUp";
+import ForgotPassword         from "./components/pages/shared/ForgotPassword/ForgotPassword";
+import Error404               from "./components/pages/shared/Error404/Error404";
+import Footer                 from "./components/shared/Footer/Footer";
 
+// ---------------------------------------------- Admin pages ----------------------------------------------
 import MainPage               from "./components/pages/Admin/MainPage/MainPage";
 import { CreateEditQuestion } from "./components/pages/Admin/CreateEditQuestion/CreateEditQuestion";
 import { CreateEditTest     } from "./components/pages/Admin/CreateEditTest/CreateEditTest";
@@ -33,13 +35,13 @@ export default function App() {
           <Switch>
 
             {/* Shared */}
-            <Route path='/' exact           component={Home}              />
-            <Route path='/home'             component={Home}              />
-            <Route path='/login'            component={Login}             />
-            <Route path='/sign-up'          component={SignUp}            />
-            <Route path='/forgot-password'  component={ForgotPassword}    />
-            <Route path='/about'            component={About}             />
-            <Route path='/error404'         component={Error404}          />
+            <Route path='/' exact                   component={Home}              />
+            <Route path='/home'                     component={Home}              />
+            <Route path='/login'                    component={Login}             />
+            <Route path='/sign-up'                  component={SignUp}            />
+            <Route path='/forgot-password'          component={ForgotPassword}    />
+            <Route path='/about'                    component={About}             />
+            <Route path='/error404'                 component={Error404}          />
 
             {/* Admin */}
             <Route path='/admin/main-page'          component={MainPage}            />

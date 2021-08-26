@@ -14,8 +14,8 @@ export default function SignUp() {
   }, [])
 
   return (
-    <div className='sign_up'>
-      <h1> Sign-up </h1>
+    <div className='sign_up noselect'>
+      <h1 className="page__header"> Sign-up </h1>
       <form className='sign-up__form'>
         <div className='form-content'>
           <input type='name' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />

@@ -13,8 +13,8 @@ export default function Login() {
   }, [])
 
   return (
-    <div className='login'>
-      <h1> Login </h1>
+    <div className='login noselect'>
+      <h1 className="page__header"> Login </h1>
       <form className='login__form'>
         <div className='form-content'>
           <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />

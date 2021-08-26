@@ -4,7 +4,7 @@ import { Button }       from '../Button/Button';
 
 export default function HeroSection() {
     return (
-        <div className='hero-container'>
+        <div className='hero-container noselect'>
             <video src="/videos/video-1.mp4" autoPlay loop muted />
             <h1> OI Exam System </h1>
             <p> It appears you are not logged in. </p>

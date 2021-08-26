@@ -8,8 +8,8 @@ export default function ForgotPassword() {
   })
 
   return (
-    <div>
-      <h1 className='forgot-password'> Forgot Password </h1>
+    <div className="forgot_password noselect">
+      <h1 className="page__header"> Forgot Password </h1>
     </div>
   )
 };

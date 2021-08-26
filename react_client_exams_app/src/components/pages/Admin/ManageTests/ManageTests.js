@@ -14,7 +14,7 @@ export const ManageTests = ({
     }, [])
 
     return (
-        <div className='manage_tests'>
+        <div className='manage_tests noselect'>
             <div id="headers__container">
                 <h1> Available Tests for </h1>
                 <h1 id="type"> {type} </h1>

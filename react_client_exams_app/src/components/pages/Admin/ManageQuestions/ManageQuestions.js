@@ -14,7 +14,7 @@ export const ManageQuestions = ({
     }, [])
 
     return (
-        <div className='manage_questions'>
+        <div className='manage_questions noselect'>
             <div id="headers__container">
                 <h1> Available Questions for </h1>
                 <h1 id="type"> {type} </h1>
@@ -32,24 +32,26 @@ export const ManageQuestions = ({
             </div>
             <div id="table__container">
                 <table id="questions__table">
-                    <tr>
-                        <th> ID </th>
-                        <th> Question Text and Tags </th>
-                        <th> Last Update </th>
-                        <th> Question Type </th>
-                        <th> # of Tests </th>
-                    </tr>
-                    <tr >
-                        {/* {children.map(({ ID, Tnt, update, type, amount }) => (
-                            
-                        <td> {ID} </td>
-                        <td> {TnT} </td>
-                        <td> {update} </td>
-                        <td> {type} </td>
-                        <td> {amount} </td>
-                        <td> </td>
-                        ))} */}
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <th> ID </th>
+                            <th> Question Text and Tags </th>
+                            <th> Last Update </th>
+                            <th> Question Type </th>
+                            <th> # of Tests </th>
+                        </tr>
+                        <tr >
+                            {/* {children.map(({ ID, Tnt, update, type, amount }) => (
+                                
+                            <td> {ID} </td>
+                            <td> {TnT} </td>
+                            <td> {update} </td>
+                            <td> {type} </td>
+                            <td> {amount} </td>
+                            <td> </td>
+                            ))} */}
+                        </tr>
+                    </tbody>
                 </table>
                 
                 <label type="text" id="showing_questions"> showing 1-{`AMOUNT`} of filtered Questions </label>

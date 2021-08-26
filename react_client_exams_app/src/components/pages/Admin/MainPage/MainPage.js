@@ -10,32 +10,30 @@ export default function MainPage() {
     }, []);
 
     return (
-        <div className='admin_mainpage'>
+        <div className='admin_mainpage noselect'>
             <div id='main__container'>
                 <div id='header__container'>
                     <h1> Administrator panel </h1>
                 </div>
                 <div id='content__container'>
                     <table id='content__table'>
-                        <tr>
-                            <td>
-                                <div id='select__container'>
+                        <tbody>
+                            <tr id="select__tr">
+                                <td id='select__td'>
                                     <label id='label__choose'> Choose a field of study:</label>
                                     <select id='field'>
                                         <option value='development'> Development </option>
                                     </select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr id='accordion__table_row'>
-                            <div id='accordions__container'>
-                                <div className='accordion'>
+                                </td>
+                            </tr>
+                            <tr id='accordion__tr'>
+                                <td>
                                     {AdminMenu.map(({ title, content }) => (
-                                        <Accordion title={title} content={content} />
-                                    ))}
-                                </div>
-                            </div>
-                        </tr>
+                                                    <Accordion key={title} title={title} content={content} />
+                                                ))}
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
