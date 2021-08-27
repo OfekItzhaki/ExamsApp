@@ -3,7 +3,8 @@ import Navbar         from "./components/shared/Navbar/Navbar";
 import
 {
   BrowserRouter as Router,
-  Switch, Route 
+  Switch,
+  Route 
 }                     from 'react-router-dom';
 import styles         from './App.css';
 
@@ -23,6 +24,7 @@ import { CreateEditTest     } from "./components/pages/Admin/CreateEditTest/Crea
 import { ManageQuestions    } from "./components/pages/Admin/ManageQuestions/ManageQuestions";
 import { ManageTests        } from "./components/pages/Admin/ManageTests/ManageTests";
 import { Reports            } from "./components/pages/Admin/Reports/Reports";
+import { ReportByRespondentName } from "./components/pages/Admin/ReportByRespondentName/ReportByRespondentName";
 
 
 
@@ -35,23 +37,24 @@ export default function App() {
           <Switch>
 
             {/* Shared */}
-            <Route path='/' exact                   component={Home}              />
-            <Route path='/home'                     component={Home}              />
-            <Route path='/login'                    component={Login}             />
-            <Route path='/sign-up'                  component={SignUp}            />
-            <Route path='/forgot-password'          component={ForgotPassword}    />
-            <Route path='/about'                    component={About}             />
-            <Route path='/error404'                 component={Error404}          />
+            <Route path='/' exact                   component={Home}                    />
+            <Route path='/home'                     component={Home}                    />
+            <Route path='/login'                    component={Login}                   />
+            <Route path='/sign-up'                  component={SignUp}                  />
+            <Route path='/forgot-password'          component={ForgotPassword}          />
+            <Route path='/about'                    component={About}                   />
+            <Route path='/error404'                 component={Error404}                />
 
             {/* Admin */}
-            <Route path='/admin/main-page'          component={MainPage}            />
-            <Route path='/admin/create-question'    component={CreateEditQuestion}  />
-            <Route path='/admin/edit-question'      component={CreateEditQuestion}  />
-            <Route path='/admin/create-test'        component={CreateEditTest}      />
-            <Route path='/admin/edit-test'          component={CreateEditTest}      />
-            <Route path='/admin/manage-questions'   component={ManageQuestions}     />
-            <Route path='/admin/manage-tests'       component={ManageTests}         />
-            <Route path='/admin/reports'            component={Reports}             />
+            <Route path='/admin/main-page'          component={MainPage}                />
+            <Route path='/admin/create-question'    component={CreateEditQuestion}      />
+            <Route path='/admin/edit-question'      component={CreateEditQuestion}      />
+            <Route path='/admin/create-test'        component={CreateEditTest}          />
+            <Route path='/admin/edit-test'          component={CreateEditTest}          />
+            <Route path='/admin/manage-questions'   component={ManageQuestions}         />
+            <Route path='/admin/manage-tests'       component={ManageTests}             />
+            <Route path='/admin/reports'            component={Reports}                 />
+            <Route path='/admin/report-by-name'     component={ReportByRespondentName}  />
             {/* <Route path='/admin/test-report'    component={TestReport} />       ROUTE FOR THE TEST REPORT ITSELF */}
             
           </Switch>

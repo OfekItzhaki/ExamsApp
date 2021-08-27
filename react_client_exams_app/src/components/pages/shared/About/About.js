@@ -8,7 +8,7 @@ export default function About() {
   }, []);
 
   return (
-    <div className='about noselect'>
+    <div className="about noselect">
       <h1 className="page__header"> About </h1>
     </div>
   )

@@ -1,10 +1,7 @@
 import React, { useEffect, useState }   from 'react';
 import styles                           from './ManageTests.css'
 
-export const ManageTests = ({
-    children, 
-    type, 
-}) => {
+export const ManageTests = ({ field }) => {
 
     const [filter, setFilter] = useState(false);
     const [filterContent, setFilterContent] = useState("");
@@ -14,23 +11,23 @@ export const ManageTests = ({
     }, [])
 
     return (
-        <div className='manage_tests noselect'>
+        <div className="manage_tests noselect">
             <div id="headers__container">
                 <h1> Available Tests for </h1>
-                <h1 id="type"> {type} </h1>
+                <h1 id="field"> {field} </h1>
             </div>
             <div id="filter__container">
                 <div id="filter_keywords__container">    
                     <label> Filter name by keywords: </label>
-                    <input id="filter__input" type='text' value={filterContent}
+                    <input id="filter__input" type="text" value={filterContent}
                             onChange={(e) => { setFilterContent(e.target.value); filterContent === "" ? setFilter(false) : setFilter(true)} }
-                            placeholder='Enter a list of keywords separated by commas'/>
+                            placeholder="Enter a list of keywords separated by commas"/>
                     <label id="filter_state"> Filter is {filter === false ? "OFF" : "ON"}  </label>
                 </div>
                 <label id="amount_filtered"> Filtered {`AMOUNT`} of total {`AMOUNT`} </label>
             </div>
             <div id="table__container">
-                <table id='tests__table'>
+                <table id="tests__table">
                     <tr>
                         <th> ID </th>
                         <th> Question Text and Tags </th>

@@ -1,10 +1,7 @@
-import React, { useEffect, useState }  from 'react';
-import styles from './Reports.css';
+import React, { useEffect, useState }   from 'react';
+import styles                           from './Reports.css';
 
-export const Reports = ({
-    children, 
-    type, 
-}) => {
+export const Reports = ({ type }) => {
 
     const [dateTo,      setDateTo]      = useState("");
     const [dateFrom,    setDateFrom]    = useState("");
@@ -15,7 +12,7 @@ export const Reports = ({
     }, [])
 
     return (
-        <div className='reports noselect'>
+        <div className="reports noselect">
             <div id="headers__container">
                 <h1> Test Report for </h1>
                 <h1 id="type"> {type} </h1>
@@ -31,8 +28,8 @@ export const Reports = ({
                             <td>
 
                                 {/* MAP FOR EACH TEST */}
-                                <select id='tests_names'>
-                                    <option value='5'> 5 - javascript basics - (Predefined) </option>
+                                <select id="tests_names">
+                                    <option value="5"> 5 - javascript basics - (Predefined) </option>
                                 </select>
                             </td>
                         </tr>

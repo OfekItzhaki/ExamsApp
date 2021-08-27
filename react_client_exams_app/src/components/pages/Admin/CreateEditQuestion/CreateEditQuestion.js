@@ -3,13 +3,10 @@ import        { Button }              from '../../../shared/Button/Button';
 import styles                         from './CreateEditQuestion.css';
 
 
-  export const CreateEditQuestion = ({
-    children, 
-    field, 
-    question
-  }) => {
+  export const CreateEditQuestion = ({ question, field }) => {
 
   // ------------------------- Content Hooks -------------------------
+
   // *Question Table*
   const [ type,            setType           ]  = useState("");
   const [ questionText,    setQuestionText   ]  = useState("");
@@ -20,7 +17,9 @@ import styles                         from './CreateEditQuestion.css';
   const [ answersLayout,   setAnswersLayout  ]  = useState("");
 
   // *Tags Table*
-  const [ tags,            setTags           ]  = useState('');
+  const [ tags,            setTags           ]  = useState("");
+
+  // -----------------------------------------------------------------
 
   const handleAnswerClick = (id) => {
     console.log(id);

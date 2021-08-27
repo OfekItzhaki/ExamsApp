@@ -1,28 +1,41 @@
 import React, { useEffect, useState }   from 'react';
+import { QuestionTableRow }             from '../../../Admin/QuestionTableRow/QuestionTableRow';
 import styles                           from './ManageQuestions.css';
 
-export const ManageQuestions = ({
-    children, 
-    type, 
-}) => {
+export const ManageQuestions = ({ field }) => {
 
-    const [filter, setFilter] = useState(false);
-    const [filterContent, setFilterContent] = useState("");
+    const [ questions,          setQuestions     ]  = useState(null);
+
+    const [ filter,             setFilter        ]  = useState(false);
+    const [ filterContent,      setFilterContent ]  = useState("");
+
+    const handleDelete = (id) => {
+        const newQuestions = questions.filter(question => questions.id !== id);
+        setQuestions(newQuestions);
+    }
 
     useEffect(() => {
         document.title = "Manage Questions";
+        fetch("http://localhost:8000/questions")
+        .then(res => {
+            return res.json();
+        })
+        .then((data) => {
+        //    console.log(data); 
+           setQuestions(data);
+        });
     }, [])
 
     return (
-        <div className='manage_questions noselect'>
+        <div className="manage_questions noselect">
             <div id="headers__container">
                 <h1> Available Questions for </h1>
-                <h1 id="type"> {type} </h1>
+                <h1 id="field"> {field} </h1>
             </div>
             <div id="filter__container">
                 <div id="filter_tags__container">    
                     <label> Filter by tags or content: </label>
-                    <input id="filter__input" type='text' 
+                    <input id="filter__input" type="text"
                         value={filterContent}
                         onChange={(e) => { setFilterContent(e.target.value); filterContent === "" ? setFilter(false) : setFilter(true)} }
                         placeholder="Enter a list of keywords separated by commas"/>
@@ -39,18 +52,10 @@ export const ManageQuestions = ({
                             <th> Last Update </th>
                             <th> Question Type </th>
                             <th> # of Tests </th>
+                            <th>  </th>
                         </tr>
-                        <tr >
-                            {/* {children.map(({ ID, Tnt, update, type, amount }) => (
-                                
-                            <td> {ID} </td>
-                            <td> {TnT} </td>
-                            <td> {update} </td>
-                            <td> {type} </td>
-                            <td> {amount} </td>
-                            <td> </td>
-                            ))} */}
-                        </tr>
+
+                        {questions && <QuestionTableRow questions={questions} handleDelete={handleDelete} /> }
                     </tbody>
                 </table>
                 

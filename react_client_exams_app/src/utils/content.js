@@ -3,21 +3,25 @@ import { ManageTests }      from "../components/pages/Admin/ManageTests/ManageTe
 import { ManageQuestions }  from "../components/pages/Admin/ManageQuestions/ManageQuestions";
 import { ReportByRespondentName } from "../components/pages/Admin/ReportByRespondentName/ReportByRespondentName";
 
-export const AdminMenu = [
+export const AdminMainPageMenu = [
     {
         title: 'Manage Questions',
-        content: <ManageQuestions></ManageQuestions>
+        content: <ManageQuestions></ManageQuestions>,
+        link: "/admin/manage-questions"
     },
     {
         title: 'Manage Tests',
-        content: <ManageTests></ManageTests>
+        content: <ManageTests></ManageTests>,
+        link: "/admin/manage-tests"
     },
     {
         title: 'Manage Reports',
-        content: <Reports></Reports>
+        content: <Reports></Reports>,
+        link: "/admin/reports"
     },
     {
         title: 'Report by Respondent Name',
-        content: <ReportByRespondentName></ReportByRespondentName>
+        content: <ReportByRespondentName></ReportByRespondentName>,
+        link: "/admin/report-by-name"
     }
 ];

@@ -9,7 +9,7 @@ export default function Navbar() {
     const [button, setButton] = useState(true);
 
     const handleClick = () => setClick(!click);
-    const closeMoblieMenu = () => setClick(false);
+    const closeMobileMenu = () => setClick(false);
 
     const showButton = () => {
         if (window.innerWidth <= 960) {
@@ -30,7 +30,7 @@ export default function Navbar() {
         <>
         <nav className="navbar">
             <div className="navbar-container">
-                <Link to="/" className="navbar-logo" onClick={closeMoblieMenu}>
+                <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                     <img className="logo-img" src={logo} alt="logo"></img>
                 </Link>
                 <div className="menu-icon" onClick={handleClick}>
@@ -38,22 +38,22 @@ export default function Navbar() {
                 </div>
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className='nav-item'>
-                        <Link to='/' className='nav-links' onClick={closeMoblieMenu}>
+                        <Link to='/'        className='nav-links'   onClick={closeMobileMenu}>
                             Home
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to='/login' className='nav-links' onClick={closeMoblieMenu}>
+                        <Link to='/login'   className='nav-links'   onClick={closeMobileMenu}>
                             Login
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to='/sign-up' className='nav-links' onClick={closeMoblieMenu}>
+                        <Link to='/sign-up' className='nav-links'   onClick={closeMobileMenu}>
                             Sign-up
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to='/about' className='nav-links' onClick={closeMoblieMenu}>
+                        <Link to='/about'   className='nav-links'   onClick={closeMobileMenu}>
                             About
                         </Link>
                     </li>

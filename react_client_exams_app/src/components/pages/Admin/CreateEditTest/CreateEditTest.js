@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import        { Button }              from '../../../shared/Button/Button';
-import styles                         from './CreateEditTest.css';
 import        { Link }                from 'react-router-dom';
+import styles                         from './CreateEditTest.css';
 
 
-export const CreateEditTest = ({
-  children, 
-  field, 
-  test
-}) => {
+export const CreateEditTest = ({ children, field, test }) => {
 
-  // ------------------------- Top Content Hooks -------------------------
+  // ----------------------------- Top Content Hooks -----------------------------
+
   // *General Details Table*
   const [ language,                   setLanguage               ] = useState("");
   const [ testType,                   setTestType               ] = useState("");
@@ -35,13 +32,16 @@ export const CreateEditTest = ({
   const [ failingMessageSubject,      setFailingMessageSubject  ] = useState("");    
   const [ failingMessageBody,         setFailingMessageBody     ] = useState("");  
 
-  // ------------------------- Bottom Content Hooks -------------------------
+  // --------------------------- Bottom Content Hooks ---------------------------
+  
   // *Filter Container*
   const [filter, setFilter] = useState(false);
   const [filterContent, setFilterContent] = useState("");
 
   // *Questions Table
   const [questionsAmount, setQuestionsAmount] = useState(0);
+
+  // ----------------------------------------------------------------------------
 
   const handleStatus = (value) => {
     setFrom(value);
@@ -52,7 +52,7 @@ export const CreateEditTest = ({
   }, [])
 
   return (
-    <div className="create_edit_question">
+    <div className="create_edit_test">
       <h1 className="page__header"> {test === undefined ? "Create" : "Edit"} Test </h1>
       <form className="new_test__form">
         <div id="top_content__container">

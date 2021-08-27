@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../../../shared/Button/Button';
 import { Link } from 'react-router-dom';
-import login_styles from './Login.css'
+import styles from './Login.css'
 
 export default function Login() {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    console.log("submit");
+  }
 
   useEffect(() => {
     document.title = "Login";
   }, [])
 
   return (
-    <div className='login noselect'>
+    <div className="login noselect">
       <h1 className="page__header"> Login </h1>
-      <form className='login__form'>
-        <div className='form-content'>
-          <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button> 
-            <Link to="/"> Submit </Link> 
-          </button>
+      <form className="login__form">
+        <div className="form_content__container">
+          <input type="email"     placeholder="Email"     value={email}     onChange={(e) => setEmail(e.target.value)}    />
+          <input type="password"  placeholder="Password"  value={password}  onChange={(e) => setPassword(e.target.value)} />
+          <button type="submit" onClick={handleSubmit}> Submit </button>
         </div>
       </form>
     </div>
   )
 };
-
-function Submit() {
-  
-}

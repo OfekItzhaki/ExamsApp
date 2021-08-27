@@ -1,11 +1,8 @@
 import React, { useEffect, useState }   from 'react';
 import styles                           from './TestReport.css'
 
-export const TestReport = ({
-    children, 
-    type, 
-    testName
-}) => {
+export const TestReport = ({ testName }) => {
+    
     const [filterContent,       setFilterContent]       = useState("");
     const [respondentChosen,    setRespondentChosen]    = useState(false);
     const [averageGrade,        setAverageGrade]        = useState(0);
@@ -15,7 +12,7 @@ export const TestReport = ({
     }, [])
 
     return (
-        <div className='test_report noselect'>
+        <div className="test_report noselect">
             <div id="headers__container">
                 <h1> Test result for {testName} </h1>
             </div>
@@ -33,7 +30,7 @@ export const TestReport = ({
                 </div> */}
 
                 <button onClick={      Expand_All()         }>  Expand All      </button>
-                <table id='Details__table'>
+                <table id="Details__table">
                     <tbody>
                         <tr>
                             <th>        ID                     </th>
