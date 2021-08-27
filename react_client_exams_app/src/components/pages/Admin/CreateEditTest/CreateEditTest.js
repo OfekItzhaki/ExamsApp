@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import        { Button }              from '../../../shared/Button/Button';
 import        { Link }                from 'react-router-dom';
+import        { useHistory }          from 'react-router-dom';
 import styles                         from './CreateEditTest.css';
 
-
-export const CreateEditTest = ({ children, field, test }) => {
+export const CreateEditTest = ({field, test }) => {
 
   // ----------------------------- Top Content Hooks -----------------------------
 
@@ -17,6 +17,7 @@ export const CreateEditTest = ({ children, field, test }) => {
   const [ messageSuccess,             setMessageSuccess         ] = useState("");
   const [ messageFailure,             setMessageFailure         ] = useState("");
   const [ certificateTemplate,        setCertificateTemplate    ] = useState("");
+
   // *Email Delivery Table*         
   // Status Container          
   const [ status,                     setStatus                 ] = useState("OFF");
@@ -47,9 +48,23 @@ export const CreateEditTest = ({ children, field, test }) => {
     setFrom(value);
   }
 
+  const history = useHistory();
+
+  const Back = () => {
+      history.goBack();
+  }
+
+  const Show = () => {
+    
+  }
+
+  const Save = () => {  
+    
+  }
+
   useEffect(() => {
     document.title = `${test === undefined ? "Create" : "Edit"} Test`;
-  }, [])
+  }, [test])
 
   return (
     <div className="create_edit_test">
@@ -63,7 +78,7 @@ export const CreateEditTest = ({ children, field, test }) => {
             <table id="general_details__table">
               <tbody>
                 <tr>
-                  <td> <label> Field of Study: </label> </td>
+                  <td> <label> Field of Study: {field} </label> </td>
                   <td> <label id="field__label"> {field} </label> </td>
                 </tr>
 
@@ -118,7 +133,7 @@ export const CreateEditTest = ({ children, field, test }) => {
                   <td> <label> Certificate Templates:                                                                                                                                      </label> </td>
                   <td>  <select id="certificate__select">
                           <option value="no"            onChange={(e) => setCertificateTemplate (e.target.value)} defaultValue > No certificate template   </option>
-                          <option value="certificate"   onChange={(e) => setCertificateTemplate (e.target.value)}              > Certificate               </option>
+                          <option value="certificate"   onChange={(e) => setCertificateTemplate (e.target.value)}              > Certificate template      </option>
                         </select> </td>
                 </tr>
               </tbody>
@@ -255,31 +270,11 @@ export const CreateEditTest = ({ children, field, test }) => {
         </div>
 
         <div id="buttons__container">
-            <button onClick={ Back() }> {`<<` } Back  </button>
-            <button onClick={ Show() }>      Show     </button>
-            <button onClick={ Save() }>  Save {`>>` } </button>
+            <button onClick={() => Back() }> {`<<` } Back  </button>
+            <button onClick={() => Show() }>  Show         </button>
+            <button onClick={() => Save() }>  Save {`>>` } </button>
           </div>
       </form>
     </div>
   )
 };
-
-function Add_Answer() {
-    // console.log("add answer");
-}
-
-function removeAnswer() {
-  // console.log("remove answer");
-}
-
-function Back() {
-  // window.location.href = history.back;
-}
-
-function Show() {
-  // window.location.href = history.back;
-}
-
-function Save() {
-  // window.location.href = history.back;
-}

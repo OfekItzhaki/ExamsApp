@@ -1,54 +1,56 @@
+import { filter } from 'minimatch';
 import React, { useEffect, useState }   from 'react';
+import        { useHistory }            from 'react-router-dom';
 import styles                           from './ReportByRespondentName.css';
 
-export const ReportByRespondentName = ({}) => {
+export const ReportByRespondentName = ({ title }) => {
     
     const [ students,            setStudents         ]       = useState(null); 
-    const [ tests,               setTests            ]       = useState(null); 
     const [ studentTests,        setStudentTests     ]       = useState(null); 
 
     const [ filterContent,       setFilterContent    ]       = useState("");
     const [ respondentName,      setRespondentName   ]       = useState("");
     const [ respondentID,        setRespondentID     ]       = useState(0);
-    const [ averageGrade,        setAverageGrade     ]       = useState(0);
 
     const handleRespondentClick = (name, id) => {
         setRespondentName(name);
         setRespondentID(id);
-        console.log(respondentID);
     }
+
+    const calcAverageGrade = () => {
+        const tests = [];
+        if (studentTests !== null && respondentID !== 0) {
+            studentTests.filter((studentTest) => studentTest.studentID === respondentID).map((studentTest) =>
+                tests.push(studentTest)
+            );
+            console.log(tests);
+        }
+    }
+
+    const history = useHistory();
+
+    const Back = () => {
+        // history.goBack();
+    }
+
+    useEffect(() => {
+        calcAverageGrade();
+    }, [studentTests, respondentID])
     
-    // let input = document.getElementById("filter__input");
-    // if (input) {
-    //     input.addEventListener("keyup", (event) => {
-    //         if (event.key === "Enter") {
-    //             if (filterContent === "") {
-    //                 setRespondentChosen(false)
-    //             } else {
-    //                 setRespondentChosen(true)}
-    //             }
-    //     });
-    // }
 
     useEffect(() => {
         document.title = "Report by Name";
+        let isMounted = true;               // note mutable flag
 
         fetch("http://localhost:8000/students")
         .then(res => {
             return res.json();
         })
         .then((data) => {
-        //    console.log(data); 
-           setStudents(data);
-        });
-
-        fetch("http://localhost:8000/tests")
-        .then(res => {
-            return res.json();
-        })
-        .then((data) => {
-        //    console.log(data); 
-           setTests(data);
+            if (isMounted) {                // add conditional check 
+                //    console.log(data);
+                setStudents(data);
+            }
         });
 
         fetch("http://localhost:8000/studentTests")
@@ -56,10 +58,13 @@ export const ReportByRespondentName = ({}) => {
             return res.json();
         })
         .then((data) => {
-           console.log(data); 
-            setStudentTests(data);
+            if (isMounted) {                // add conditional check 
+                //    console.log(data); 
+                setStudentTests(data);
+            }
         });
 
+        return () => { isMounted = false }; // cleanup toggles value, if unmounted
     }, [])
 
     return (
@@ -92,7 +97,7 @@ export const ReportByRespondentName = ({}) => {
                             </tr>
 
                             {students && students.filter((student) => student.fullName.includes(filterContent)).map((student) => (
-                            <tr onClick={() => handleRespondentClick(student.fullName, student.id)} key={student.id}>
+                            <tr key={student.id} onClick={() => handleRespondentClick(student.fullName, student.id)}>
                                 <td> {student.id}               </td>
                                 <td> {student.fullName}         </td>
                                 <td> {student.email}            </td>
@@ -107,7 +112,7 @@ export const ReportByRespondentName = ({}) => {
                     <h2> Activity Report for: {respondentName} </h2>
                     <div id="above_activity_table">
                         <label type="text" id="explanation">    Click a test to show its results           </label>
-                        <label type="text" id="average_grade">  Average grade for a test: {averageGrade}   </label>
+                        <label type="text" id="average_grade">  Average grade for a test: {}               </label>
                     </div>
 
                     <table id="activity_report__table">
@@ -140,13 +145,3 @@ export const ReportByRespondentName = ({}) => {
         </div>
     )
 };
-
-// NEED TO CHECK WHY THESE GUYS AUTOMATICALLY START
-
-function Back() {
-    // window.location.href = history.back;
-}
-
-function Create_A_Test() {
-    // window.location.href = "/new-question";
-}

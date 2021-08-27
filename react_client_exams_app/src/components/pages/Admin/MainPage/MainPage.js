@@ -1,12 +1,44 @@
-import React, { useEffect }         from    'react';
-import { AdminMainPageMenu }        from    '../../../../utils/content';
-import { Link }                     from    'react-router-dom';
-import styles                       from    './MainPage.css';
+import React,   { useEffect, useState       }   from    'react';
+import
+                {
+                  BrowserRouter as Router,
+                  Switch,
+                  Route 
+                }                               from    'react-router-dom';
+import styles                                   from    './MainPage.css';
+import          { AdminMainPageMenu         }   from    '../../../../utils/content';
+import          { Link                      }   from    'react-router-dom';
+import          { CreateEditQuestion        }   from    '../CreateEditQuestion/CreateEditQuestion';
+import          { CreateEditTest            }   from    '../CreateEditTest/CreateEditTest';
+import          { ManageQuestions           }   from    '../ManageQuestions/ManageQuestions';
+import          { ManageTests               }   from    '../ManageTests/ManageTests';
+import          { Reports                   }   from    '../Reports/Reports';
+import          { ReportByRespondentName    }   from    '../ReportByRespondentName/ReportByRespondentName';
 
 export default function MainPage() {
 
+    const [ fields,     setFields       ] = useState(null);
+    const [ field,      setField        ] = useState(null); 
+
     useEffect(() => {
         document.title = 'Admin panel';
+        let isMounted = true;               // note mutable flag
+
+        fetch("http://localhost:8000/fields")
+        .then(res => {
+            return res.json();
+        })
+        .then((data) => {
+            if (isMounted) {                // add conditional check 
+                //    console.log(data); 
+                   setFields(data);
+                   setField(data[0]);
+                   console.log(data[0]);
+
+                   process.env.REACT_APP_CURRENT_FIELD = data[0];
+            }
+        });
+
     }, []);
 
     return (
@@ -20,17 +52,18 @@ export default function MainPage() {
                         <tbody>
                             <tr id="select__tr">
                                 <td id="select__td">
-                                    <label id="label__choose"> Choose a field of study:</label>
-                                    <select id="field">
-                                        <option value="development"> Development    </option>
-                                        <option value="development"> Design         </option>
+                                    <label id="label__choose"> Choose a field of study: </label>
+                                    <select id="fields__select" defaultValue={field} onChange={() => setField(field)}>
+                                        { fields && fields.map((field) => (
+                                            <option key={field.id}> {field.title} </option>
+                                        ))}
                                     </select>
                                 </td>
                             </tr>
 
                             { AdminMainPageMenu.map((child) => (
                             <tr key={child.title}>
-                                <td> <Link className="menu_item" to={child.link}> {child.title} </Link> </td>
+                                <td> <Link className="menu_item" to={child.link} field={field}> {child.title} </Link> </td>
                             </tr>
                             ))}
                         </tbody>

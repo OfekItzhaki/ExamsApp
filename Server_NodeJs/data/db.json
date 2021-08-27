@@ -74,6 +74,28 @@
         }
     ],
 
+    "questionTypes": [
+        {
+            "id": 1,
+            "type": "Single answer"
+        },
+        {
+            "id": 2,
+            "type": "Multiple answers"
+        }
+    ],
+
+    "fields": [
+        {
+            "id": 1,
+            "title": "Development"
+        },
+        {
+            "id": 2,
+            "title": "Design"
+        }
+    ],
+
     "studentTests": [
         {
             "studentID": "1",
@@ -101,6 +123,17 @@
             "MedianGrade": 53
         }
     ],
+
+    "testTypes": [
+        {
+            "id": 1,
+            "type": "predefined"
+        },
+        {
+            "id": 2,
+            "type": "random"
+        }
+    ],
  
     "admins" : [
         {
@@ -118,6 +151,28 @@
             "email": "student@gmail.com",
             "password": "password",
             "lastActivity": "24/01/2019"
+        }
+    ],
+
+    "certificateTemplates": [
+        {
+            "id": 1,
+            "template": "no certificate"
+        },
+        {
+            "id": 2,
+            "template": "certificate"
+        }
+    ],
+
+    "languages": [
+        {
+            "id": 1,
+            "name": "english"
+        },
+        {
+            "id": 2,
+            "name": "hebrew"
         }
     ]
 }

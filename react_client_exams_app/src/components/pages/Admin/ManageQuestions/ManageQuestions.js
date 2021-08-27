@@ -1,5 +1,6 @@
 import React, { useEffect, useState }   from 'react';
-import { QuestionTableRow }             from '../../../Admin/QuestionTableRow/QuestionTableRow';
+import        { QuestionTableRow }      from '../../../Admin/QuestionTableRow/QuestionTableRow';
+import        { useHistory }            from 'react-router-dom';
 import styles                           from './ManageQuestions.css';
 
 export const ManageQuestions = ({ field }) => {
@@ -8,6 +9,17 @@ export const ManageQuestions = ({ field }) => {
 
     const [ filter,             setFilter        ]  = useState(false);
     const [ filterContent,      setFilterContent ]  = useState("");
+
+    const history = useHistory();
+
+    const Back = () => {
+        history.goBack();
+    }
+
+    const New_Question = () => {
+        // Open in the same window
+        window.location.href = "/admin/create-question";
+    }
 
     const handleDelete = (id) => {
         const newQuestions = questions.filter(question => questions.id !== id);
@@ -63,20 +75,10 @@ export const ManageQuestions = ({ field }) => {
             </div>
 
             <div id="buttons__container">
-                <button onClick={       Back()      }>  {`<<` } Back         </button>
-                <button onClick={   New_Question()  }>  New Question {`>>`}  </button>
+                <button onClick={() =>   Back()          }>  {`<<` } Back         </button>
+                <button onClick={() =>   New_Question()  }>  New Question {`>>`}  </button>
             </div>
 
         </div>
     )
 };
-
-// NEED TO CHECK WHY THESE GUYS AUTOMATICALLY START
-
-function Back() {
-    // window.location.href = history.back;
-}
-
-function New_Question() {
-    // window.location.href = "/new-question";
-}

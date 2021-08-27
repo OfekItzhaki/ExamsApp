@@ -11,7 +11,13 @@
   .forgot_password,
   .about,
   .error404,
-  .admin_mainpage {
+  .admin_mainpage,
+  .create_edit_question,
+  .create_edit_test,
+  .manage_questions,
+  .manage_tets,
+  .report_by_name,
+  .reports {
     display: flex;
     flex-direction: column;
     height: 90vh;
