@@ -1,5 +1,5 @@
-import { filter } from 'minimatch';
 import React, { useEffect, useState }   from 'react';
+import        { filter }                from 'minimatch';
 import        { useHistory }            from 'react-router-dom';
 import styles                           from './ReportByRespondentName.css';
 
@@ -33,36 +33,38 @@ export const ReportByRespondentName = ({ title }) => {
         // history.goBack();
     }
 
+    const fetchStudents = () => {
+        fetch("http://localhost:8000/students", {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => setStudents(data))
+        .catch((err) => console.log('error fetching students:' + err))
+      }
+
+      const fetchStudentTests = () => {
+        fetch("http://localhost:8000/studentTests", {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => setStudentTests(data))
+        .catch((err) => console.log('error fetching student tests:' + err))
+      }
+
+
     useEffect(() => {
         calcAverageGrade();
-    }, [studentTests, respondentID])
+    }, [])
     
 
     useEffect(() => {
         document.title = "Report by Name";
-        let isMounted = true;               // note mutable flag
+        let isMounted = true;           // note mutable flag
 
-        fetch("http://localhost:8000/students")
-        .then(res => {
-            return res.json();
-        })
-        .then((data) => {
-            if (isMounted) {                // add conditional check 
-                //    console.log(data);
-                setStudents(data);
-            }
-        });
-
-        fetch("http://localhost:8000/studentTests")
-        .then(res => {
-            return res.json();
-        })
-        .then((data) => {
-            if (isMounted) {                // add conditional check 
-                //    console.log(data); 
-                setStudentTests(data);
-            }
-        });
+        if (isMounted) {                // add conditional check 
+            fetchStudents();
+            fetchStudentTests();
+        }
 
         return () => { isMounted = false }; // cleanup toggles value, if unmounted
     }, [])

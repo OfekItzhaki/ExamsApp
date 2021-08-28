@@ -1,13 +1,8 @@
-.login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: "Inter";
+.login__form {
+    text-align: center;
 }
 
-.form-content {
+.form_content__container {
     display: flex;
     flex-direction: column;
 }
@@ -31,7 +26,7 @@
     font-size:15px;
 }
 
-.submit__button {
+#submit__button {
     min-width: 300px;
     padding: 17px 30px;
     margin-top: 10px;

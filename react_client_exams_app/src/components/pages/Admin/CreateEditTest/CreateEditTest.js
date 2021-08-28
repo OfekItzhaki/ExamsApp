@@ -67,7 +67,7 @@ export const CreateEditTest = ({field, test }) => {
   }, [test])
 
   return (
-    <div className="create_edit_test">
+    <div className="create_edit_test noselect">
       <h1 className="page__header"> {test === undefined ? "Create" : "Edit"} Test </h1>
       <form className="new_test__form">
         <div id="top_content__container">

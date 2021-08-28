@@ -23,8 +23,9 @@ export default function Login() {
         <div className="form_content__container">
           <input type="email"     placeholder="Email"     value={email}     onChange={(e) => setEmail(e.target.value)}    />
           <input type="password"  placeholder="Password"  value={password}  onChange={(e) => setPassword(e.target.value)} />
-          <button type="submit" onClick={handleSubmit}> Submit </button>
+          <Link to="/forgot-password"> Forgot your password? </Link>
         </div>
+        <button id="submit__button" type="submit"   onClick={handleSubmit}> Submit </button>
       </form>
     </div>
   )

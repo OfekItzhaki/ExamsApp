@@ -1,8 +1,8 @@
+import styles                       from './Navbar.css';
+import logo                         from '../../../assets/components/Logo_v1.png';
 import React, {useState, useEffect} from 'react'
-import './Navbar.css';
-import { Link } from 'react-router-dom';
-import logo from '../../../assets/components/Logo_v1.png';
-import { Button } from '../Button/Button';
+import        { Link }              from 'react-router-dom';
+import        { Button }            from '../Button/Button';
 
 export default function Navbar() {
     const [click, setClick] = useState(false);

@@ -1,182 +1,255 @@
 {
-    "questions" : [
+  "questions": [
+    {
+      "id": 0,
+      "tags": [
+        "Programming",
+        "Development"
+      ],
+      "last_update": "10/12/2018",
+      "type": "Single answer",
+      "title": "Which client-side development technology do YOU prefer?",
+      "text": "",
+      "difficulty": 1,
+      "answers": [
         {
-            "id": 1,
-            "tags": [
-                "Programming",
-                "Development"
-            ],
-            "last_update": "10/12/2018",
-            "number_of_tests": "3",
-            "type": "Single answer",
-            "title": "Which client-side development technology do YOU prefer?",
-            "difficulty": 1,
-            "answers": [
-                { "answerA": "Vue", "correct" : false},
-                { "answerB": "React", "correct" : false},
-                { "answerC": "Angular", "correct" : false},
-                { "answerD": "Technologies are awesome and so is studying them! ", "correct" : true}
-            ],
-            "num_of_tests": "5",
-            "answersLayout": "vertical"
+          "id": 0,
+          "answer": "Vue",
+          "correct": false
         },
         {
-            "id": 2,
-            "tags": [
-                "Music",
-                "Song"
-            ],
-            "last_update": "10/12/2018",
-            "number_of_tests": "3",
-            "type": "Multiple answers",
-            "title": "What is love?",
-            "difficulty": 1,
-            "answers": [
-                { "answerA": "Baby don't hurt me", "correct" : true},
-                { "answerB": "Don't hurt me", "correct" : true},
-                { "answerC": "No more", "correct" : true},
-                { "answerD": "All of the above", "correct" : true}
-            ],
-            "num_of_tests": "4",
-            "answersLayout": "vertical"
+          "id": 1,
+          "answer": "React",
+          "correct": false
         },
         {
-            "id": 3,
-            "tags": [
-                "Unclear"
-            ],
-            "last_update": "10/12/2018",
-            "number_of_tests": "2",
-            "type": "Single answer",
-            "title": "?",
-            "difficulty": 2,
-            "answers": [
-                { "answerA": "?", "correct" : false},
-                { "answerB": "?", "correct" : true},
-                { "answerC": "?", "correct" : false}
-            ],
-            "num_of_tests": "2",
-            "answersLayout": "vertical"
+          "id": 2,
+          "answer": "Angular",
+          "correct": false
         },
         {
-            "id": 4,
-            "tags": [
-                "Something"
-            ],
-            "last_update": "10/12/2018",
-            "number_of_tests": "1",
-            "type": "Single answer",
-            "title": "something something something?",
-            "difficulty": 3,
-            "answers": [
-                { "answerA": "something", "correct" : true},
-                { "answerB": "something", "correct" : true},
-                { "answerC": "something", "correct" : false}
-            ],
-            "num_of_tests": "1",
-            "answersLayout": "vertical"
+          "id": 3,
+          "answer": "Technologies are awesome and so is studying them! ",
+          "correct": true
         }
-    ],
-
-    "questionTypes": [
+      ],
+      "num_of_tests": 5,
+      "answersLayout": "vertical"
+    },
+    {
+      "id": 1,
+      "tags": [
+        "Music",
+        "Song"
+      ],
+      "last_update": "10/12/2018",
+      "type": "Multiple answers",
+      "title": "What is love?",
+      "text": "",
+      "difficulty": 1,
+      "answers": [
         {
-            "id": 1,
-            "type": "Single answer"
+          "id": 0,
+          "answer": "Baby don't hurt me",
+          "correct": true
         },
         {
-            "id": 2,
-            "type": "Multiple answers"
-        }
-    ],
-
-    "fields": [
-        {
-            "id": 1,
-            "title": "Development"
+          "id": 1,
+          "answer": "Don't hurt me",
+          "correct": true
         },
         {
-            "id": 2,
-            "title": "Design"
-        }
-    ],
-
-    "studentTests": [
-        {
-            "studentID": "1",
-            "studentName": "some some",
-            "testID": "6",
-            "testName": "5 - javascript basics",
-            "instance": 29,
-            "grade": 75,
-            "lastActivity": "10/12/2018"
-        }
-    ],
-
-    "tests": [
-        {
-            "id": 6,
-            "date": "20/08/2021 22:16",
-            "name": "5 - javascript basics",
-            "type": "predefined",
-            "numberOfQuestions": 15,
-            "passingGrade": 70,
-            "submissions": 19,
-            "passed": 2,
-            "passingPercentage": "11%",
-            "AverageGrade": 54,
-            "MedianGrade": 53
-        }
-    ],
-
-    "testTypes": [
-        {
-            "id": 1,
-            "type": "predefined"
+          "id": 2,
+          "answer": "No more",
+          "correct": true
         },
         {
-            "id": 2,
-            "type": "random"
+          "id": 3,
+          "answer": "All of the above",
+          "correct": true
         }
-    ],
- 
-    "admins" : [
+      ],
+      "num_of_tests": 4,
+      "answersLayout": "vertical"
+    },
+    {
+      "id": 2,
+      "tags": [
+        "Unclear"
+      ],
+      "last_update": "10/12/2018",
+      "type": "Single answer",
+      "title": "?",
+      "difficulty": 2,
+      "text": "",
+      "answers": [
         {
-            "id": 1,
-            "fullName": "admin admin",
-            "email": "admin@gmail.com",
-            "password": "admin"
-        }
-    ],
-    
-    "students": [
-        {
-            "id": 1,
-            "fullName": "some some",
-            "email": "student@gmail.com",
-            "password": "password",
-            "lastActivity": "24/01/2019"
-        }
-    ],
-
-    "certificateTemplates": [
-        {
-            "id": 1,
-            "template": "no certificate"
+          "id": 0,
+          "answer": "?",
+          "correct": false
         },
         {
-            "id": 2,
-            "template": "certificate"
-        }
-    ],
-
-    "languages": [
-        {
-            "id": 1,
-            "name": "english"
+          "id": 1,
+          "answer": "?",
+          "correct": true
         },
         {
-            "id": 2,
-            "name": "hebrew"
+          "id": 2,
+          "answer": "?",
+          "correct": false
         }
-    ]
+      ],
+      "num_of_tests": 1,
+      "answersLayout": "vertical"
+    },
+    {
+      "id": 3,
+      "tags": [
+        "Something"
+      ],
+      "last_update": "10/12/2018",
+      "type": "Single answer",
+      "title": "Something something something?",
+      "difficulty": 3,
+      "text": "",
+      "answers": [
+        {
+          "id": 0,
+          "answer": "something",
+          "correct": true
+        },
+        {
+          "id": 1,
+          "answer": "something",
+          "correct": true
+        },
+        {
+          "id": 2,
+          "answer": "something",
+          "correct": false
+        }
+      ],
+      "num_of_tests": 1,
+      "answersLayout": "vertical"
+    }
+  ],
+  "questionTypes": [
+    {
+      "id": 0,
+      "type": "Single answer"
+    },
+    {
+      "id": 1,
+      "type": "Multiple answers"
+    }
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "Programming"
+    },
+    {
+      "id": 1,
+      "name": "Development"
+    },
+    {
+      "id": 2,
+      "name": "Music"
+    },
+    {
+      "id": 3,
+      "name": "Song"
+    },
+    {
+      "id": 4,
+      "name": "Unclear"
+    },
+    {
+      "id": 5,
+      "name": "Something"
+    }
+  ],
+  "fields": [
+    {
+      "id": 0,
+      "title": "Development"
+    },
+    {
+      "id": 1,
+      "title": "Design"
+    }
+  ],
+  "studentTests": [
+    {
+      "studentID": 0,
+      "studentName": "some some",
+      "testID": 6,
+      "testName": "5 - javascript basics",
+      "instance": 29,
+      "grade": 75,
+      "lastActivity": "10/12/2018"
+    }
+  ],
+  "tests": [
+    {
+      "id": 6,
+      "date": "20/08/2021 22:16",
+      "name": "5 - javascript basics",
+      "type": "predefined",
+      "numberOfQuestions": 15,
+      "passingGrade": 70,
+      "submissions": 19,
+      "passed": 2,
+      "passingPercentage": "11%",
+      "AverageGrade": 54,
+      "MedianGrade": 53
+    }
+  ],
+  "testTypes": [
+    {
+      "id": 0,
+      "type": "predefined"
+    },
+    {
+      "id": 1,
+      "type": "random"
+    }
+  ],
+  "admins": [
+    {
+      "id": 0,
+      "fullName": "admin admin",
+      "email": "admin@gmail.com",
+      "password": "admin"
+    }
+  ],
+  "students": [
+    {
+      "id": 0,
+      "fullName": "some some",
+      "email": "student@gmail.com",
+      "password": "password",
+      "lastActivity": "24/01/2019"
+    }
+  ],
+  "certificateTemplates": [
+    {
+      "id": 0,
+      "template": "no certificate"
+    },
+    {
+      "id": 1,
+      "template": "certificate"
+    }
+  ],
+  "languages": [
+    {
+      "id": 0,
+      "name": "english"
+    },
+    {
+      "id": 1,
+      "name": "hebrew"
+    }
+  ]
 }

@@ -41,7 +41,7 @@ export const ManageTests = (props) => {
             <div id="table__container">
                 <table id="tests__table">
                     <tbody>
-                        <tr>
+                        <tr className="header_row">
                             <th> ID </th>
                             <th> Question Text and Tags </th>
                             <th> Last Update </th>

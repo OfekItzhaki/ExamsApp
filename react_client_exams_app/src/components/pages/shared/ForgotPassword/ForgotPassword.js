@@ -21,12 +21,12 @@ export default function ForgotPassword() {
     <div className="forgot_password noselect">
       <h1 className="page__header"> Forgot Password </h1>
       <form className="forgot_password__form">
-        <div className="form_content_container">
+        <div className="form_content__container">
           <input type="password"  placeholder="Previous password" value={previousPassword}   onChange={(e) => setPreviousPassword(e.target.value)}  />
           <input type="email"     placeholder="New password"      value={newPassword}        onChange={(e) => setNewPassword(e.target.value)}       />
           <input type="password"  placeholder="Verify Password"   value={verifyNewPassword}  onChange={(e) => setVerifyNewPassword(e.target.value)} />
-          <button type="submit" onClick={handleSubmit}> Submit </button>
         </div>
+        <button id="submit__button" type="submit" onClick={handleSubmit}> Submit </button>
       </form>
     </div>
   )

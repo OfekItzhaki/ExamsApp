@@ -12,7 +12,6 @@ import styles         from './App.css';
 import Home                       from './components/pages/shared/Home/Home';
 import About                      from './components/pages/shared/About/About';
 import Login                      from "./components/pages/shared/Login/Login";
-import SignUp                     from "./components/pages/shared/SignUp/SignUp";
 import ForgotPassword             from "./components/pages/shared/ForgotPassword/ForgotPassword";
 import Error404                   from "./components/pages/shared/Error404/Error404";
 import Footer                     from "./components/shared/Footer/Footer";
@@ -26,7 +25,8 @@ import { ManageTests            } from "./components/pages/Admin/ManageTests/Man
 import { Reports                } from "./components/pages/Admin/Reports/Reports";
 import { ReportByRespondentName } from "./components/pages/Admin/ReportByRespondentName/ReportByRespondentName";
 
-
+// --------------------------------------------- Student pages ---------------------------------------------
+import SignUp                     from "./components/pages/Student/SignUp/SignUp";
 
 
 export default function App() {

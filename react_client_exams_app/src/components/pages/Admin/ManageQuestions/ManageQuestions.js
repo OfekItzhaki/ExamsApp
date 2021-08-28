@@ -1,5 +1,5 @@
 import React, { useEffect, useState }   from 'react';
-import        { QuestionTableRow }      from '../../../Admin/QuestionTableRow/QuestionTableRow';
+import        { QuestionTable }      from '../../../Admin/QuestionTable/QuestionTable';
 import        { useHistory }            from 'react-router-dom';
 import styles                           from './ManageQuestions.css';
 
@@ -26,22 +26,41 @@ export const ManageQuestions = ({ field }) => {
         setQuestions(newQuestions);
     }
 
+    const fetchQuestions = () => {
+        fetch("http://localhost:8000/questions", {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => setQuestions(data))
+        .catch((err) => console.log('error fetching student tests:' + err))
+      }
+
     useEffect(() => {
         document.title = "Manage Questions";
-        fetch("http://localhost:8000/questions")
-        .then(res => {
-            return res.json();
-        })
-        .then((data) => {
-        //    console.log(data); 
-           setQuestions(data);
-        });
+
+        let isMounted = true;           // note mutable flag
+
+        if (isMounted) {                // add conditional check 
+            fetchQuestions();
+        }
+
+        return () => { isMounted = false }; // cleanup toggles value, if unmounted
     }, [])
+
+    useEffect(() => {
+        let isMounted = true;           // note mutable flag
+
+        if (isMounted) {                // add conditional check 
+            setFilter(filterContent === "" ? false : true)
+        }
+
+        return () => { isMounted = false }; // cleanup toggles value, if unmounted
+    }, [filterContent])
 
     return (
         <div className="manage_questions noselect">
             <div id="headers__container">
-                <h1> Available Questions for </h1>
+                <h1 className="page__header"> Available Questions for </h1>
                 <h1 id="field"> {field} </h1>
             </div>
             <div id="filter__container">
@@ -49,28 +68,14 @@ export const ManageQuestions = ({ field }) => {
                     <label> Filter by tags or content: </label>
                     <input id="filter__input" type="text"
                         value={filterContent}
-                        onChange={(e) => { setFilterContent(e.target.value); filterContent === "" ? setFilter(false) : setFilter(true)} }
+                        onChange={(e) => { setFilterContent(e.target.value) } }
                         placeholder="Enter a list of keywords separated by commas"/>
                     <label id="filter__state"> Filter is {filter === false ? "OFF" : "ON"} </label>
                 </div>
                 <label id="amount__filtered"> Filtered {`AMOUNT`} of total {`AMOUNT`} </label>
             </div>
             <div id="table__container">
-                <table id="questions__table">
-                    <tbody>
-                        <tr>
-                            <th> ID </th>
-                            <th> Question Text and Tags </th>
-                            <th> Last Update </th>
-                            <th> Question Type </th>
-                            <th> # of Tests </th>
-                            <th>  </th>
-                        </tr>
-
-                        {questions && <QuestionTableRow questions={questions} handleDelete={handleDelete} /> }
-                    </tbody>
-                </table>
-                
+                {questions && <QuestionTable questions={questions} handleDelete={handleDelete} /> }
                 <label type="text" id="showing_questions"> showing 1-{`AMOUNT`} of filtered Questions </label>
             </div>
 
