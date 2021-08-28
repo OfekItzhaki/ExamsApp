@@ -18,23 +18,25 @@ import styles                         from './CreateEditQuestion.css';
   const [ questionID,         setQuestionID       ]  = useState(question ? question.id + 1 : 0);
 
   // *Answers Table*
-  const [ possibleAnswers,    setPossibleAnswers  ]  = useState([
-    { "id": 0, "answer": "", "correct": false},
-    { "id": 1, "answer": "", "correct": false},
-    { "id": 2, "answer": "", "correct": false}
-  ]);
+  const [ possibleAnswers,    setPossibleAnswers  ]  = useState(
+    question ? question.answers : [
+      { "id": 0, "answer": "", "correct": false},
+      { "id": 1, "answer": "", "correct": false},
+      { "id": 2, "answer": "", "correct": false}
+    ]
+  );
   const [ answerID,           setAnswerID         ]  = useState(possibleAnswers ? possibleAnswers[possibleAnswers.length - 1].id + 1: 0);
-  const [ answersLayout,      setAnswersLayout    ]  = useState("");
+  const [ answersLayout,      setAnswersLayout    ]  = useState("vertical");
 
   // *Tags Table*
-  const [ tags,               setTags             ]  = useState("");
+  const [ tags,               setTags             ]  = useState(question ? question.tags : "");
 
   // -----------------------------------------------------------------
 
   const selectedTags = tags => console.log(tags);
 
   const initialState = () => {
-    console.log("initial state");
+    console.log("returning to initial state");
     setType(questionTypes ? questionTypes[0] : "");
     setQuestionHeader("");
     setQuestionText("");
@@ -45,9 +47,11 @@ import styles                         from './CreateEditQuestion.css';
       { "id": 1, "answer": "", "correct": false},
       { "id": 2, "answer": "", "correct": false}
     ]);
-
     setPossibleAnswers(newPossibleAnswers);
-    setAnswerID(newPossibleAnswers ? newPossibleAnswers[newPossibleAnswers.length - 1].id + 1: 0)
+
+    setAnswerID(newPossibleAnswers ? newPossibleAnswers[newPossibleAnswers.length - 1].id + 1: 0);
+    setTags("");
+    setAnswersLayout("horizontal");
   }
   
   const addAnswer = () => {  
@@ -58,7 +62,7 @@ import styles                         from './CreateEditQuestion.css';
   }
 
   const removeAnswer = (id) => {  
-    console.log("got to remove answer func")
+    console.log("remove answer")
     console.log("id " + id)
     let newPossibleAnswers = possibleAnswers;
     newPossibleAnswers.filter((answer) => answer.id !== id);
@@ -74,17 +78,39 @@ import styles                         from './CreateEditQuestion.css';
     
   }
 
+  const handlePossibleAnswersChange = () => {
+    // console.log("possible answers changed")
+    let correctAnswer_Counter = 0;
+    (possibleAnswers && possibleAnswers.map((answer) => {
+      let radio = document.getElementById(`radio_${answer.id}`);
+      radio.checked = answer.correct;
+      if (answer.correct === true) {
+        correctAnswer_Counter++;
+      }
+    }));
+
+    if (correctAnswer_Counter === 0) {
+      setType("");
+      // console.log("0 correct answers")
+    } else if (correctAnswer_Counter === 1) {
+      setType(questionTypes[0].type);
+      // console.log("1 correct answers")
+    } else {
+      setType(questionTypes[1].type)
+      // console.log("2+ correct answers")
+    }
+  }
+
   const handleAnswerClick = (id) => {
     console.log("handle answer click");
     let newPossibleAnswers = possibleAnswers;
     newPossibleAnswers.filter((answer) => answer.id === id).map((answer) => {
-      console.log(answer.correct);
+      console.log(`answer_${id} state - ${answer.correct}`);
       answer.correct = !answer.correct;
       return answer;
     });
     setPossibleAnswers(newPossibleAnswers);
-
-    console.log(type);
+    handlePossibleAnswersChange();
   }
 
   const handleLayoutChange = (e) => {
@@ -111,7 +137,6 @@ import styles                         from './CreateEditQuestion.css';
     let newPossibleAnswers = possibleAnswers;
     newPossibleAnswers.filter((answer) => answer.id === id).map((answer) => {
       answer.answer = a;
-      console.log(a);
       return answer;
     });
     setPossibleAnswers(newPossibleAnswers);
@@ -157,7 +182,7 @@ import styles                         from './CreateEditQuestion.css';
     .then((data) => { 
       setQuestions(data); 
       setQuestionID(questionID ? questionID : data[data.length - 1].id + 1); 
-      console.log(questionID); 
+      console.log(`Current questionID: ${data[data.length - 1].id + 1}`); 
     })
     .catch((err) => console.log('error fetching questions:' + err))
   }
@@ -174,10 +199,17 @@ import styles                         from './CreateEditQuestion.css';
     .catch((err) => console.log('error fetching question types:' + err))
   }
 
+  // Meant to set the type according to the amount of the correct answers
+  useEffect(() => {
+    handlePossibleAnswersChange();
+  }, [possibleAnswers])
+
+  // Meant for setting the title of the document on the first render
   useEffect(() => {
     document.title = `${action === undefined ? "Create" : "Edit"} Question`;
   }, [action])
 
+  // Meant for fetching the neccessary information on first render
   useEffect(() => {
     let isMounted = true;           // note mutable flag
 
@@ -186,13 +218,8 @@ import styles                         from './CreateEditQuestion.css';
       fetchQuestionTypes();
     }
 
-    possibleAnswers.map((answer) => (
-      document.getElementById(`radio_${answer.id}`).checked = answer.correct
-      // ,console.log(document.getElementById(`radio_${answer.id}`).checked)
-    ))
-
     return () => { isMounted = false }; // cleanup toggles value, if unmounted
-  }, [question, possibleAnswers])
+  }, [])
 
   return (
     <div className="create_edit_question noselect">
@@ -200,8 +227,6 @@ import styles                         from './CreateEditQuestion.css';
       <form className="new_question__form" onSubmit={handleSubmit}>
 
         <div className="content__section">
-
-          {/* Might not work, JUST FOR NOW !!! */}
           <table id="question__table">
             <tbody>
               <tr>
@@ -211,7 +236,8 @@ import styles                         from './CreateEditQuestion.css';
 
               <tr>
                   <td> <label> Question type: </label> </td>
-                  <td> <select id="question_type__select" defaultValue={type} onChange={(e) => handleTypeChange(e.target.value)}>
+                  {/* onChange={(e) => handleTypeChange(e.target.value)} */}
+                  <td> <select id="question_type__select" value={type} disabled>
                             {questionTypes && questionTypes.map((questionType) => (
                               <option key={questionType.id} value={questionType.type}> {questionType.type} </option>
                             ))}
@@ -240,7 +266,7 @@ import styles                         from './CreateEditQuestion.css';
                 <td> { answer.id === 0 && <label> Possible answers: </label> } </td>
                 <td> <button  onClick={() => removeAnswer(answer.id)} > X </button> </td>
                 <td> <input   id={`answer_${answer.id}` } name="answer" type="text" onChange={(e) => handleAnswerChanged(answer.id, e.target.value)} placeholder={`Answer #${answer.id}`} required/> </td>
-                <td> <input   id={`radio_${answer.id}`  } name={questionTypes ? (type === questionTypes[0] ? type : "") : "default"} type="radio" checked={answer.correct} onChange={(e) => handleAnswerClick(answer.id)} /> <label htmlFor={`answer_${answer.id}`}   >  Incorrect  </label> </td>
+                <td> <input   id={`radio_${answer.id}`  } name={questionTypes ? (type === questionTypes[0] ? type : "") : "default"} type="radio" onClick={(e) => handleAnswerClick(answer.id)} /> <label htmlFor={`answer_${answer.id}`}   >  Incorrect  </label> </td>
               </tr>
               ))}
             </tbody>
