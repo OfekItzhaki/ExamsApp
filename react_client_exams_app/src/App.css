@@ -4,14 +4,16 @@
     padding: 0;
     font-family: 'PT Sans', sans-serif;
   }
+
+  /* Global pages css */
   
   .home,
   .login,
   .sign_up,
   .forgot_password,
   .about,
-  .error404,
   .admin_mainpage,
+  .error404,
   .create_edit_question,
   .create_edit_test,
   .manage_questions,
@@ -26,7 +28,18 @@
     justify-content: center;
     min-height: 100vh;
     font-family: "Inter";
-    /* font-size: 100px; */
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .create_edit_question,
+  .create_edit_test,
+  .manage_questions,
+  .manage_tests,
+  .report_by_name,
+  .reports,
+  .test_report {
+    background-color: #e35354;
   }
   
   .login {
@@ -84,6 +97,19 @@
                                     supported by Chrome, Edge, Opera and Firefox */
   }
 
+  /* Global css */
+
+  .section__headers, tr.header_row {
+    background-color: orange;
+  }
+
+  button.like_link_button, label.like_link_label {
+    font-size: 12px;
+    color: #068;
+  }
+
+  /* Global media css */
+
   @media screen and (max-width: 1920px) {
     .page__header{
         margin-bottom: 20px;
@@ -110,8 +136,9 @@
     }
   }
 
+  /* Global scrollbar css */
+
   body {
-    
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none;    /* for Firefox */
     overflow-y: scroll;
@@ -119,7 +146,6 @@
 
   ::-webkit-scrollbar {
     width: 20px;
-    /* display: none;            for Chrome, Safari, and Opera */
   }
 
   ::-webkit-scrollbar-thumb {
@@ -148,17 +174,6 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
-  }
-
-    /* Global css */
-
-  .section__headers, tr.header_row {
-    background-color: orange;
-  }
-
-  button.like_link_button, label.like_link_label {
-    font-size: 12px;
-    color: #068;
   }
 
   /* Global buttons css */

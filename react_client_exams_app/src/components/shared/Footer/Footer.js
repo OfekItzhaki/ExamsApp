@@ -17,7 +17,7 @@ export default function Footer({ logo, rights }) {
     }
 
     return (
-        <div className='footer-container'>
+        <div className='footer noselect'>
             <section className="footer-subscription">
                 <p className="footer-subscription-heading">
                     Join us to get notifications on any relevant new tests coming up

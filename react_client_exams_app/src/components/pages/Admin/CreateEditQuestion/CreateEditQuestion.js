@@ -101,6 +101,10 @@ import styles                         from './CreateEditQuestion.css';
     }
   }
 
+  const handleTagsChange = () => {
+    
+  }
+
   const handleAnswerClick = (id) => {
     console.log("handle answer click");
     let newPossibleAnswers = possibleAnswers;
@@ -275,7 +279,7 @@ import styles                         from './CreateEditQuestion.css';
             <tbody>
               <tr>
                 <td> <label> Tags: </label> </td>
-                <td> <TagsInput selectedTags={selectedTags}/> </td>
+                <td> <TagsInput selectedTags={tags} handleTagsChange={handleTagsChange}/> </td>
               </tr>
             </tbody>
           </table>

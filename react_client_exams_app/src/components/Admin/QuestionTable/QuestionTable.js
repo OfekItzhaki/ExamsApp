@@ -1,7 +1,9 @@
 import styles                   from './QuestionTable.css';
+import { useState }             from 'react';
 import { Link }                 from 'react-router-dom';
 
 export const QuestionTable = ({ questions, tags, handleDelete }) => {
+
     return (
         <table id="questions__table">
             <tbody>
@@ -15,24 +17,26 @@ export const QuestionTable = ({ questions, tags, handleDelete }) => {
                 </tr>
                 
 
-                {questions.map((question) => (
-                <tr className="space_under border_bottom" key={question.id}>
-                    <td className="question_id">            {question.id}                           </td>
-                    <td className="question_title_tags">    {question.title} <br/> {question.tags.map((tag) => { 
-                        return (
-                        <>
-                            <button className="like_link_button"> {tag} </button> 
-                            <label className="like_link_label"> {tag !== question.tags[question.tags.length - 1] ? " | " : ""} </label>
-                        </>)
+                {questions.map((question, i) => (
+                <tr className="space_under border_bottom" key={question}>
+                    <td className="question_id"           key={question.id}>        {question.id}                                                   </td>
+                    <td className="question_title_tags"   key={question.title}>     {question.title} 
+                    <br/>
+                        {question.tags.map((tag) => { 
+                            return (
+                            <>
+                                <button className="like_link_button" key={tag}>     {tag}                                                           </button> 
+                                <label className="like_link_label">                 {tag !== question.tags[question.tags.length - 1] ? " | " : ""}  </label>
+                            </>)
                         })} </td>
-                    <td className="question_update">        {question.lastUpdate}                   </td>
-                    <td className="question_type">          {question.type}                         </td>
-                    <td className="question_tests">         {question.numOfTests}                   </td>
+                    <td className="question_update" key={question.lastUpdate}>      {question.lastUpdate}       </td>
+                    <td className="question_type"   key={question.type}>            {question.type}             </td>
+                    <td className="question_tests"  key={question.numOfTests}>      {question.numOfTests}       </td>
                     <td className="buttons">
-                        <button className="regular__button"> Show       </button>
-                        <button className="regular__button"> Edit       </button>
-                        <button className="regular__button"> Duplicate  </button>
-                        <button className="regular__button"  onClick={() => handleDelete(question.id)}> Delete </button>
+                        <button className="regular__button"> Show                                               </button>
+                        <button className="regular__button"> Edit                                               </button>
+                        <button className="regular__button"> Duplicate                                          </button>
+                        <button className="regular__button"  onClick={() => handleDelete(question.id)}> Delete  </button>
                     </td>
                 </tr> ))}
             

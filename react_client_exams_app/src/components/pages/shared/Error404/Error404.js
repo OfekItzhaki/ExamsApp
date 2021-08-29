@@ -6,6 +6,7 @@ export default function Error404() {
 
   useEffect(() => {
       document.title = "Page not found!";
+      document.body.style.backgroundColor = "#353535";
   }, []);
 
   return (

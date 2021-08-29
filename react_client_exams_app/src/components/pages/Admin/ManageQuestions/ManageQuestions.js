@@ -29,6 +29,10 @@ export const ManageQuestions = ({ field }) => {
         history.push("/admin/create-question");
     }
 
+    const next = () => {
+        
+    }
+
     const handleDelete = (id) => {
         const newQuestions = questions.filter(question => questions.id !== id);
         setQuestions(newQuestions);
@@ -105,20 +109,27 @@ export const ManageQuestions = ({ field }) => {
                 <h1 className="page__header"> Available Questions for {field ? field : ""} </h1>
             </div>
             <div id="filter__container">
+                <label> Filter by: </label>
+                <select onChange={ (e) => handleFilterByChange(e.target.value) }>
+                    <option value="tags">       tags       </option>
+                    <option value="content">    content    </option>
+                </select>
+
                 <div id="filter_by__container">
-                    <label> Filter by: </label>
-                    <select onChange={ (e) => handleFilterByChange(e.target.value) }>
-                        <option value="tags"> tags </option>
-                        <option value="content"> content </option>
-                    </select>
                     <input id="filter__input" type="text" onChange={ (e) => handleFilterContentChange(e.target.value) } placeholder="Enter a list of keywords separated by commas"/>
-                    <label id="filter__state"> Filter is {filter === false ? "OFF" : "ON"} </label>
+                    <label id="filter__state">      Filter is   {filter === false ? "OFF" : "ON"}                                                           </label>
+                    <label id="amount__filtered">   Filtered    {filteredQuestions && filteredQuestions.length} of total {questions && questions.length}    </label>
                 </div>
-                <label id="amount__filtered"> Filtered {filteredQuestions && filteredQuestions.length} of total {questions && questions.length} </label>
             </div>
-            <div id="table__container">
-                {questions && <QuestionTable questions={filteredQuestions} tags={tags} handleDelete={handleDelete} /> }
-                <label type="text" id="showing_questions"> showing 1-{`AMOUNT`} of filtered Questions </label>
+            <div id="questions__container">
+                <div id="table__container">
+                    {questions && <QuestionTable questions={filteredQuestions} tags={tags} handleDelete={handleDelete} /> }
+                </div>
+                <div id="under_table__container">
+                    <label type="text" id="showing_questions"> showing 1-{`AMOUNT`} of filtered Questions </label>
+                    <button className="regular__button" onClick={() =>   next()          }> Next {`>>`} </button>
+                    <button className="regular__button" onClick={() =>   next()          }> Show All {questions && questions.length} questions </button>
+                </div>
             </div>
 
             <div id="buttons__container">

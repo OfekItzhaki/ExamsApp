@@ -1,4 +1,5 @@
-.footer-container {
+.footer {
+    background-color: #f55;
     background-color: #242424;
     padding: 4rem 0 2rem 0;
     display: flex;

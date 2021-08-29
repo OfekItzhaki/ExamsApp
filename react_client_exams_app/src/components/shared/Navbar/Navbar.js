@@ -28,7 +28,7 @@ export default function Navbar() {
 
     return (
         <>
-        <nav className="navbar">
+        <nav className="navbar noselect">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                     <img className="logo-img" src={logo} alt="logo"></img>

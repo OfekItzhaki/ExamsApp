@@ -64,8 +64,35 @@ export const CreateEditTest = ({ field, test }) => {
     
   }
 
-  const handleSubmit = () => {  
-    
+  const handleSubmit = (event) => {  
+    event.preventDefault();
+  }
+
+  const saveTest = () => {
+    fetch('http://localhost:8000/tests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        // id: questionID,
+        // tags: tags,
+        // last_update: Date.now,
+        // type: type,
+        // title: questionHeader,
+        // text: questionText,
+        // difficulty: (question && question.difficulty ? question.difficulty : "low"),
+        // answers: possibleAnswers,
+        // num_of_tests: (question && question.num_of_tests ? question.num_of_tests : 0),
+        // answersLayout: answersLayout
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => { 
+        console.log(data); 
+        // initialState(); 
+      })
+      .catch((err) => console.log(`error ${err}`))
   }
 
   const fetchLanguages = () => {
@@ -127,10 +154,13 @@ export const CreateEditTest = ({ field, test }) => {
       <form className="new_test__form" onSubmit={handleSubmit}>
         <div id="top_content__container">
           
-          <h2 className="section__headers"> General Test Details </h2>
+          {/* <h2 className="section__headers"> General Test Details </h2> */}
           <div className="content__section">
             <table id="general_details__table">
               <tbody>
+                <tr className="space_under header_row border_bottom">
+                  <th colspan="2"> General Test Details </th>
+                </tr>
                 <tr>
                   <td> <label> Field of Study: </label> </td>
                   <td> <label id="field__label"> {field ? field : "undefined"} </label> </td>
@@ -197,9 +227,12 @@ export const CreateEditTest = ({ field, test }) => {
           </div>
 
           <div className="content__section">
-            <h2 className="section__headers"> Email Delivery Upon Test Completion </h2>
+            {/* <h2 className="section__headers"> Email Delivery Upon Test Completion </h2> */}
             <table id="email_delivery__table">
               <tbody>
+                <tr className="space_under header_row border_bottom">
+                  <th colspan="2"> Email Delivery Upon Test Completion </th>
+                </tr>
                 <tr>
                   <td> <label> Current Status:                                                                                                                                             </label> </td>
                   <td> <div id="sending_emails__container">      
@@ -229,6 +262,9 @@ export const CreateEditTest = ({ field, test }) => {
          
             <table id="passing_test__table">   
               <tbody>
+                <tr className="space_under sub_header_row border_bottom">
+                  <th colspan="2"> Passing the test </th>
+                </tr>
                 <tr>       
                   <td> <label> Message subject:                                                                                                                                            </label> </td>
                   <td> <input id="message_subject__input" type="text" value={passingMessageSubject} onChange={(e) => setPassingMessageSubject(e.target.value)}  disabled={from ? false : true}   /> </td>
@@ -252,6 +288,9 @@ export const CreateEditTest = ({ field, test }) => {
 
           <table id="failing_test__table">
             <tbody>
+              <tr className="space_under sub_header_row border_bottom">
+                  <th colspan="2"> Failing the test </th>
+                </tr>
               <tr>
                 <td> <label> Message subject:                                                                                                                                            </label> </td>
                 <td> <input id="message_subject__input" type="text" value={failingMessageSubject} onChange={(e) => setFailingMessageSubject(e.target.value)}  disabled={from ? false : true}   /> </td>
