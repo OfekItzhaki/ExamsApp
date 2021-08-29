@@ -57,9 +57,9 @@ export const TestReport = ({ testName }) => {
                 </table>
 
                 <div id="buttons__container">
-                    <button onClick={   Back()              }>  {`<<` } Back    </button>
-                    <button onClick={   Export_To_Excel()   }>  Export To Excel </button>
-                    <button onClick={   Print_Report()      }>  Print Report    </button>
+                    <button className="regular__button" onClick={   Back()              }>  {`<<` } Back    </button>
+                    <button className="regular__button" onClick={   Export_To_Excel()   }>  Export To Excel </button>
+                    <button className="regular__button" onClick={   Print_Report()      }>  Print Report    </button>
                 </div>
             </div>
         </div>

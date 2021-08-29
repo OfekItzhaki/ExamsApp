@@ -10,9 +10,10 @@ export const ReportByRespondentName = ({ title }) => {
 
     const [ filterContent,       setFilterContent    ]       = useState("");
     const [ respondentName,      setRespondentName   ]       = useState("");
-    const [ respondentID,        setRespondentID     ]       = useState(0);
+    const [ respondentID,        setRespondentID     ]       = useState(null);
 
     const handleRespondentClick = (name, id) => {
+        console.log("handle respondent click")
         setRespondentName(name);
         setRespondentID(id);
     }
@@ -30,7 +31,7 @@ export const ReportByRespondentName = ({ title }) => {
     const history = useHistory();
 
     const Back = () => {
-        // history.goBack();
+        history.goBack();
     }
 
     const fetchStudents = () => {
@@ -78,20 +79,16 @@ export const ReportByRespondentName = ({ title }) => {
             <div id="content__container">
                 <div id="respondent__container">
                     <h2> Find a respondent </h2>
-                    <p>
-                        To find a respondent, start typing a name below.
-                        Then select a respondent from the list that will appear.
-                        <br></br>
-                        *Tip: To show all respondents, press the enter.*
-                    </p>
+                    <p> To find a respondent, start typing a name below, </p>
+                    <p> then select a respondent from the list that will appear. </p>
                     <div id="filter_name__container">    
                         <label> Respondent's name: </label>
-                        <input id="filter__input" type='text' value={filterContent} onChange={(e) => setFilterContent(e.target.value) } />
+                        <input id="filter__input" type='text' value={filterContent} placeholder="Enter a name" onChange={(e) => setFilterContent(e.target.value) } />
                     </div>
 
                     <table id="respondents__table">
                         <tbody>
-                            <tr>
+                            <tr className="header_row border_bottom">
                                 <th> ID             </th>
                                 <th> Respondent     </th>
                                 <th> Email          </th>
@@ -110,7 +107,7 @@ export const ReportByRespondentName = ({ title }) => {
                     </table>
                 </div>
 
-                <div id="activity_report__container" className={respondentID === 0 ? "hidden" : "visible"}>
+                <div id="activity_report__container" className={respondentID === null ? "hidden" : "visible"}>
                     <h2> Activity Report for: {respondentName} </h2>
                     <div id="above_activity_table">
                         <label type="text" id="explanation">    Click a test to show its results           </label>
@@ -119,7 +116,7 @@ export const ReportByRespondentName = ({ title }) => {
 
                     <table id="activity_report__table">
                         <tbody>
-                            <tr>
+                            <tr className="header_row border_bottom">
                                 <th> Instance       </th>
                                 <th> Test ID        </th>
                                 <th> Test Name      </th>
@@ -127,7 +124,7 @@ export const ReportByRespondentName = ({ title }) => {
                                 <th> Last Activity  </th>
                             </tr>
 
-                            {studentTests && studentTests.filter((studentTest) => studentTest.studentID !== respondentID).map((studentTest) => (
+                            {studentTests && studentTests.filter((studentTest) => studentTest.studentID === respondentID).map((studentTest) => (
                             <tr key={studentTest.id}>
                                 <td> {studentTest.instance}             </td>
                                 <td> {studentTest.testID}               </td>
@@ -141,7 +138,7 @@ export const ReportByRespondentName = ({ title }) => {
                 </div>
 
                 <div id="buttons__container">
-                        <button onClick={ Back() }> {`<<` } Back </button>
+                        <button className="regular__button" onClick={() => Back() }> {`<<` } Back </button>
                 </div>
             </div>
         </div>

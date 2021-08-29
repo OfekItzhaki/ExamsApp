@@ -1,7 +1,7 @@
 import styles                   from './QuestionTable.css';
 import { Link }                 from 'react-router-dom';
 
-export const QuestionTable = ({ questions, handleDelete }) => {
+export const QuestionTable = ({ questions, tags, handleDelete }) => {
     return (
         <table id="questions__table">
             <tbody>
@@ -18,15 +18,21 @@ export const QuestionTable = ({ questions, handleDelete }) => {
                 {questions.map((question) => (
                 <tr className="space_under border_bottom" key={question.id}>
                     <td className="question_id">            {question.id}                           </td>
-                    <td className="question_title_tags">    {question.title} <br/> {question.tags.map((tag) => <Link> {tag}, </Link>) } </td>
-                    <td className="question_update">        {question.last_update}                  </td>
+                    <td className="question_title_tags">    {question.title} <br/> {question.tags.map((tag) => { 
+                        return (
+                        <>
+                            <button className="like_link_button"> {tag} </button> 
+                            <label className="like_link_label"> {tag !== question.tags[question.tags.length - 1] ? " | " : ""} </label>
+                        </>)
+                        })} </td>
+                    <td className="question_update">        {question.lastUpdate}                   </td>
                     <td className="question_type">          {question.type}                         </td>
-                    <td className="question_tests">         {question.num_of_tests}                 </td>
+                    <td className="question_tests">         {question.numOfTests}                   </td>
                     <td className="buttons">
-                        <button> Show       </button>
-                        <button> Edit       </button>
-                        <button> Duplicate  </button>
-                        <button  onClick={() => handleDelete(question.id)}> Delete </button>
+                        <button className="regular__button"> Show       </button>
+                        <button className="regular__button"> Edit       </button>
+                        <button className="regular__button"> Duplicate  </button>
+                        <button className="regular__button"  onClick={() => handleDelete(question.id)}> Delete </button>
                     </td>
                 </tr> ))}
             

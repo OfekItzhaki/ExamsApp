@@ -1,7 +1,8 @@
-.manage_questions {
-    
+#filter__container {
+    display: flex;
+    flex-flow: row;
 }
 
-#filter__container {
-    
+#filter__container > div{
+    padding-right: 10px;
 }

@@ -4,7 +4,7 @@ import        { Button }    from '../Button/Button';
 import        { Link }      from 'react-router-dom';
 import styles               from './Footer.css';
 
-export default function Footer() {
+export default function Footer({ logo, rights }) {
 
     const handelIconClick = (externalLink) => {
         if (typeof externalLink === 'string') {
@@ -49,11 +49,11 @@ export default function Footer() {
                 <div className='footer-link-wrapper'>
                     <div className='footer-link-items'>
                         <h2> Social Media </h2>
-                        <Link to="https://www.instagram.com/ofek.itzhaki/"                      > Instagram     </Link>
-                        <Link to="https://www.facebook.com/ofek.itzhaki/"                       > Facebook      </Link>
-                        <Link to="https://github.com/OfekItzhaki/"                              > Github        </Link>
-                        <Link to="https://www.linkedin.com/in/ofekitzhaki/"                     > Linkedin      </Link>
-                        <Link to="https://www.codegrepper.com/app/profile.php?id=43241/"        > Grepper       </Link>
+                        <Link to="" onClick={() => handelIconClick("https://www.instagram.com/ofek.itzhaki/")}                target='_blank' aria-label='Instagram'        > Instagram     </Link>
+                        <Link to="" onClick={() => handelIconClick("https://www.facebook.com/ofek.itzhaki/")}                 target='_blank' aria-label='Facebook'         > Facebook      </Link>
+                        <Link to="" onClick={() => handelIconClick("https://github.com/OfekItzhaki/")}                        target='_blank' aria-label='Github'           > Github        </Link>
+                        <Link to="" onClick={() => handelIconClick("https://www.linkedin.com/in/ofekitzhaki/")}               target='_blank' aria-label='Linkedin'         > Linkedin      </Link>
+                        <Link to="" onClick={() => handelIconClick("https://www.codegrepper.com/app/profile.php?id=43241/")}  target='_blank' aria-label='Grepper'          > Grepper       </Link>
                     </div>
                 </div>
             </div>
@@ -61,10 +61,10 @@ export default function Footer() {
                 <div className="social-media-wrap">
                     <div className="footer-logo">
                         <Link to="/" className="social-logo">
-                            OIES <i className="fab fa-typo3"></i>
+                            {logo} {logo && <i className="fab fa-typo3"></i>}
                         </Link>
                     </div>
-                    <small className="website-rights"> OI Test System © 2021 </small>
+                    <small className="website-rights"> {rights} </small>
                     <div className="social-icons">
                         <Link to="" onClick={() => handelIconClick("https://www.facebook.com/ofek.itzhaki/")}   target='_blank' aria-label='Facebook'   className="social-icon-link facebook"   >
                             <i className="fab fa-facebook-f"></i>

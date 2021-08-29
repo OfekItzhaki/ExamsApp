@@ -1,0 +1,11 @@
+
+
+#bottom_content__container {
+    display: flex;
+    flex-flow: column;
+}
+
+#explanation {
+    display: flex;
+    flex-flow: column;
+}

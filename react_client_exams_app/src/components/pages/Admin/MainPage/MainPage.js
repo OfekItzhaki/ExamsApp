@@ -1,19 +1,7 @@
 import React,   { useEffect, useState       }   from    'react';
-import
-                {
-                  BrowserRouter as Router,
-                  Switch,
-                  Route 
-                }                               from    'react-router-dom';
-import styles                                   from    './MainPage.css';
 import          { AdminMainPageMenu         }   from    '../../../../utils/content';
 import          { Link                      }   from    'react-router-dom';
-import          { CreateEditQuestion        }   from    '../CreateEditQuestion/CreateEditQuestion';
-import          { CreateEditTest            }   from    '../CreateEditTest/CreateEditTest';
-import          { ManageQuestions           }   from    '../ManageQuestions/ManageQuestions';
-import          { ManageTests               }   from    '../ManageTests/ManageTests';
-import          { Reports                   }   from    '../Reports/Reports';
-import          { ReportByRespondentName    }   from    '../ReportByRespondentName/ReportByRespondentName';
+import styles                                   from    './MainPage.css';
 
 export default function MainPage() {
 

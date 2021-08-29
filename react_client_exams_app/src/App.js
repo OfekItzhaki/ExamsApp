@@ -4,7 +4,8 @@ import
 {
   BrowserRouter as Router,
   Switch,
-  Route 
+  Route,
+  Redirect 
 }                     from 'react-router-dom';
 import styles         from './App.css';
 
@@ -47,7 +48,7 @@ export default function App() {
             <Route path='/error404'                   component={ Error404        }   />
 
             {/* Admin */}
-            <Route path='/admin/main-page'            component={MainPage}                />
+            <Route path='/admin/main-page'            component={MainPage}            />
             <Route path='/admin/create-question'      render={ (props) => (<CreateEditQuestion      {...props} isAuthed={true} isAdmin={true} />) }   />
             <Route path='/admin/edit-question'        render={ (props) => (<CreateEditQuestion      {...props} isAuthed={true} isAdmin={true} />) }   />
             <Route path='/admin/create-test'          render={ (props) => (<CreateEditTest          {...props} isAuthed={true} isAdmin={true} />) }   />
@@ -66,9 +67,11 @@ export default function App() {
             <Route path='/admin/report-by-name'       component={ReportByRespondentName}  /> */}
             {/* <Route path='/admin/test-report'      component={TestReport}              />       ROUTE FOR THE TEST REPORT ITSELF */}
             
+            <Redirect to="/error404"/>
+
           </Switch>
         </Router>
-        <Footer/>
+        <Footer logo="OIES" rights="OI Exam System © 2021"/>
       </>
   )
 };

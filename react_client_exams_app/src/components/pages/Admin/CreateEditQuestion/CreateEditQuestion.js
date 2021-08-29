@@ -4,12 +4,14 @@ import        { useHistory }          from 'react-router-dom';
 import        { TagsInput }           from '../../../Admin/TagsInput/TagsInput';
 import styles                         from './CreateEditQuestion.css';
 
-  export const CreateEditQuestion = ({ action, field, question }) => {
+  export const CreateEditQuestion = ({ field, question }) => {
 
-  // ------------------------- Content Hooks -------------------------
+  // ------------------------ Fetch Info Hooks -----------------------
 
   const [questionTypes,       setQuestionTypes    ]  = useState(null);
   const [questions,           setQuestions        ]  = useState(null);
+
+  // ------------------------- Content Hooks -------------------------
 
   // *Question Table*
   const [ type,               setType             ]  = useState(question ? question.type : "");
@@ -42,31 +44,29 @@ import styles                         from './CreateEditQuestion.css';
     setQuestionText("");
     setQuestionID(questionID + 1);
 
-    let newPossibleAnswers = ([
+    setPossibleAnswers([
       { "id": 0, "answer": "", "correct": false},
       { "id": 1, "answer": "", "correct": false},
       { "id": 2, "answer": "", "correct": false}
     ]);
-    setPossibleAnswers(newPossibleAnswers);
 
-    setAnswerID(newPossibleAnswers ? newPossibleAnswers[newPossibleAnswers.length - 1].id + 1: 0);
+    setAnswerID(possibleAnswers ? possibleAnswers[possibleAnswers.length - 1].id + 1: 0);
     setTags("");
     setAnswersLayout("horizontal");
   }
   
-  const addAnswer = () => {  
+  const addAnswer = (event) => {  
+    event.preventDefault();
     let newPossibleAnswers = possibleAnswers;
     newPossibleAnswers.push({ "id": answerID, "answer": "", correct: false });
     setPossibleAnswers(newPossibleAnswers);
     setAnswerID(answerID + 1);
   }
 
-  const removeAnswer = (id) => {  
-    console.log("remove answer")
-    console.log("id " + id)
-    let newPossibleAnswers = possibleAnswers;
-    newPossibleAnswers.filter((answer) => answer.id !== id);
-    setPossibleAnswers(newPossibleAnswers);
+  const removeAnswer = (event, id) => { 
+    event.preventDefault(); 
+    console.log("remove answer id " + id)
+    setPossibleAnswers(possibleAnswers.filter((answer) => answer.id !== id));
   }
   
   const history = useHistory();
@@ -105,8 +105,9 @@ import styles                         from './CreateEditQuestion.css';
     console.log("handle answer click");
     let newPossibleAnswers = possibleAnswers;
     newPossibleAnswers.filter((answer) => answer.id === id).map((answer) => {
-      console.log(`answer_${id} state - ${answer.correct}`);
       answer.correct = !answer.correct;
+      console.log(`answer_${id} state - ${answer.correct}`);
+      // document.getElementById(`label_${id}`).text = {answer.correct === ""}
       return answer;
     });
     setPossibleAnswers(newPossibleAnswers);
@@ -117,19 +118,6 @@ import styles                         from './CreateEditQuestion.css';
     if (e.target.checked === true) {
       setAnswersLayout(e.target.id);
     }
-  }
-
-  const handleTypeChange = (value) => {
-    console.log("handle type changed");
-    setType(value);
-    console.log(value);
-
-    let newAnswers = possibleAnswers;
-    newAnswers.map((answer) => {
-      answer.correct = false;
-      return answer;
-    });
-    setPossibleAnswers(newAnswers);
   }
 
   const handleAnswerChanged = (id, a) => {
@@ -206,10 +194,10 @@ import styles                         from './CreateEditQuestion.css';
 
   // Meant for setting the title of the document on the first render
   useEffect(() => {
-    document.title = `${action === undefined ? "Create" : "Edit"} Question`;
-  }, [action])
+    document.title = `${question === undefined ? "Create" : "Edit"} Question`;
+  }, [question])
 
-  // Meant for fetching the neccessary information on first render
+    // Meant for fetching the necessary information on first render
   useEffect(() => {
     let isMounted = true;           // note mutable flag
 
@@ -223,7 +211,7 @@ import styles                         from './CreateEditQuestion.css';
 
   return (
     <div className="create_edit_question noselect">
-      <h1 className="page__header"> { action === undefined ? "Create" : "Edit" } Question </h1>
+      <h1 className="page__header"> { question === undefined ? "Create" : "Edit" } Question </h1>
       <form className="new_question__form" onSubmit={handleSubmit}>
 
         <div className="content__section">
@@ -238,9 +226,9 @@ import styles                         from './CreateEditQuestion.css';
                   <td> <label> Question type: </label> </td>
                   {/* onChange={(e) => handleTypeChange(e.target.value)} */}
                   <td> <select id="question_type__select" value={type} disabled>
-                            {questionTypes && questionTypes.map((questionType) => (
-                              <option key={questionType.id} value={questionType.type}> {questionType.type} </option>
-                            ))}
+                          {questionTypes && questionTypes.map((questionType) => (
+                            <option key={questionType.id} value={questionType.type}> {questionType.type} </option>
+                          ))}
                         </select> </td>
               </tr>
 
@@ -264,9 +252,11 @@ import styles                         from './CreateEditQuestion.css';
               {possibleAnswers && possibleAnswers.map((answer) => (
               <tr key={answer.id}>
                 <td> { answer.id === 0 && <label> Possible answers: </label> } </td>
-                <td> <button  onClick={() => removeAnswer(answer.id)} > X </button> </td>
-                <td> <input   id={`answer_${answer.id}` } name="answer" type="text" onChange={(e) => handleAnswerChanged(answer.id, e.target.value)} placeholder={`Answer #${answer.id}`} required/> </td>
-                <td> <input   id={`radio_${answer.id}`  } name={questionTypes ? (type === questionTypes[0] ? type : "") : "default"} type="radio" onClick={(e) => handleAnswerClick(answer.id)} /> <label htmlFor={`answer_${answer.id}`}   >  Incorrect  </label> </td>
+                <td className="answer__td"> 
+                  <button type="" onClick={(e) => removeAnswer(e, answer.id)} > X </button>
+                  <input   id={`answer_${answer.id}` } name="answer" type="text" onChange={(e) => handleAnswerChanged(answer.id, e.target.value)} placeholder={`Answer #${answer.id}`} required/> 
+                  <input   id={`radio_${answer.id}`  } name={questionTypes ? (type === questionTypes[0] ? type : "") : "default"} type="radio" onClick={(e) => handleAnswerClick(answer.id)} /> <label id={`label_${answer.id}`} htmlFor={`answer_${answer.id}`}   >  {answer.correct === true ? "Correct" : "Incorrect"}  </label>
+                </td>
               </tr>
               ))}
             </tbody>
@@ -276,7 +266,7 @@ import styles                         from './CreateEditQuestion.css';
             <label name="layout__label"> Answers layout: </label>
             <input id="vertical"    type="radio"  name="answer_layout"  defaultChecked onChange={(e) => handleLayoutChange(e)} />    <label htmlFor="vertical"   >  Vertical   </label>
             <input id="horizontal"  type="radio"  name="answer_layout"                 onChange={(e) => handleLayoutChange(e)} />    <label htmlFor="horizontal" >  Horizontal </label>
-            <button onClick={() => addAnswer()}> Add an Answer </button>
+            <button onClick={(e) => addAnswer(e)}> Add an Answer </button>
           </div>
         </div>
 
@@ -285,7 +275,6 @@ import styles                         from './CreateEditQuestion.css';
             <tbody>
               <tr>
                 <td> <label> Tags: </label> </td>
-                {/* <input id="tags__input" type="text" placeholder="Enter tags"/> */}
                 <td> <TagsInput selectedTags={selectedTags}/> </td>
               </tr>
             </tbody>
@@ -293,9 +282,9 @@ import styles                         from './CreateEditQuestion.css';
         </div>
 
         <div id="buttons__container">
-          <button onClick={() => back() }> {`<<` } Back  </button>
-          <button onClick={() => show() }>  Show         </button>
-          <button type="submit"          >  Save {`>>` } </button>
+          <button className="regular__button" onClick={() => back() }> {`<<` } Back  </button>
+          <button className="regular__button" onClick={() => show() }>  Show         </button>
+          <button className="regular__button" type="submit"          >  Save {`>>` } </button>
         </div>
       </form>
     </div>

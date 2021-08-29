@@ -6,7 +6,7 @@
         "Programming",
         "Development"
       ],
-      "last_update": "10/12/2018",
+      "lastUpdate": "10/12/2018",
       "type": "Single answer",
       "title": "Which client-side development technology do YOU prefer?",
       "text": "",
@@ -33,7 +33,7 @@
           "correct": true
         }
       ],
-      "num_of_tests": 5,
+      "numOfTests": 5,
       "answersLayout": "vertical"
     },
     {
@@ -42,7 +42,7 @@
         "Music",
         "Song"
       ],
-      "last_update": "10/12/2018",
+      "lastUpdate": "10/12/2018",
       "type": "Multiple answers",
       "title": "What is love?",
       "text": "",
@@ -69,7 +69,7 @@
           "correct": true
         }
       ],
-      "num_of_tests": 4,
+      "numOfTests": 4,
       "answersLayout": "vertical"
     },
     {
@@ -77,7 +77,7 @@
       "tags": [
         "Unclear"
       ],
-      "last_update": "10/12/2018",
+      "lastUpdate": "10/12/2018",
       "type": "Single answer",
       "title": "?",
       "difficulty": 2,
@@ -99,7 +99,7 @@
           "correct": false
         }
       ],
-      "num_of_tests": 1,
+      "numOfTests": 1,
       "answersLayout": "vertical"
     },
     {
@@ -107,7 +107,7 @@
       "tags": [
         "Something"
       ],
-      "last_update": "10/12/2018",
+      "lastUpdate": "10/12/2018",
       "type": "Single answer",
       "title": "Something something something?",
       "difficulty": 3,
@@ -129,7 +129,7 @@
           "correct": false
         }
       ],
-      "num_of_tests": 1,
+      "numOfTests": 1,
       "answersLayout": "vertical"
     }
   ],
@@ -192,27 +192,37 @@
   ],
   "tests": [
     {
-      "id": 6,
-      "date": "20/08/2021 22:16",
-      "name": "5 - javascript basics",
-      "type": "predefined",
+      "testID": 6,
+      "lastUpdate": "20/08/2021 22:16",
+      "testName": "5 - javascript basics",
+      "testType": "predefined",
       "numberOfQuestions": 15,
       "passingGrade": 70,
       "submissions": 19,
       "passed": 2,
       "passingPercentage": "11%",
       "AverageGrade": 54,
-      "MedianGrade": 53
+      "MedianGrade": 53,
+      "language": "English",
+      "reviewTest": false,
+      "header": "message header",
+      "messageBody": "message body",
+      "passingSubject": "passing subject",
+      "passingBody": "passing body",
+      "failingSubject": "failing subject",
+      "FailingBody": "failing body",
+      "link": "",
+      "version": 1
     }
   ],
   "testTypes": [
     {
       "id": 0,
-      "type": "predefined"
+      "type": "Predefined - Same questions for all respondents"
     },
     {
       "id": 1,
-      "type": "random"
+      "type": "Random  - Questions order is random"
     }
   ],
   "admins": [
@@ -235,21 +245,21 @@
   "certificateTemplates": [
     {
       "id": 0,
-      "template": "no certificate"
+      "template": "No certificate template"
     },
     {
       "id": 1,
-      "template": "certificate"
+      "template": "Certificate template"
     }
   ],
   "languages": [
     {
       "id": 0,
-      "name": "english"
+      "name": "English"
     },
     {
       "id": 1,
-      "name": "hebrew"
+      "name": "Hebrew"
     }
   ]
 }
