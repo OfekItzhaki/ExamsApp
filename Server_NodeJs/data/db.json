@@ -131,6 +131,36 @@
       ],
       "numOfTests": 1,
       "answersLayout": "vertical"
+    },
+    {
+      "id": 999,
+      "tags": [
+        "Something"
+      ],
+      "lastUpdate": "10/12/2018",
+      "type": "Single answer",
+      "title": "שאלה בעברית",
+      "difficulty": 3,
+      "text": "",
+      "answers": [
+        {
+          "id": 0,
+          "answer": "תשובה כלשהי",
+          "correct": true
+        },
+        {
+          "id": 1,
+          "answer": "תשובה בעברית",
+          "correct": false
+        },
+        {
+          "id": 2,
+          "answer": "נכון",
+          "correct": true
+        }
+      ],
+      "numOfTests": 1,
+      "answersLayout": "vertical"
     }
   ],
   "questionTypes": [
@@ -181,30 +211,27 @@
   ],
   "studentTests": [
     {
+      "instance": 29,
+      "testID": 5,
+      "testName": "javascript basics",
       "studentID": 0,
       "studentName": "some some",
-      "testID": 6,
-      "testName": "5 - javascript basics",
-      "instance": 29,
       "grade": 75,
+      "questionsAnswered": "15",
       "lastActivity": "10/12/2018"
     }
   ],
   "tests": [
     {
-      "testID": 6,
-      "lastUpdate": "20/08/2021 22:16",
-      "testName": "5 - javascript basics",
+      "testID": 5,
+      "testCode": "Randomly generate code",
+      "testName": "javascript basics",
       "testType": "predefined",
-      "numberOfQuestions": 15,
-      "passingGrade": 70,
-      "submissions": 19,
-      "passed": 2,
-      "passingPercentage": "11%",
-      "AverageGrade": 54,
-      "MedianGrade": 53,
       "language": "English",
-      "reviewTest": false,
+      "questions": [
+        { "id": 0 }
+      ],
+      "passingGrade": 55,
       "header": "message header",
       "messageBody": "message body",
       "passingSubject": "passing subject",
@@ -212,7 +239,76 @@
       "failingSubject": "failing subject",
       "FailingBody": "failing body",
       "link": "",
-      "version": 1
+      "version": 1,
+      "reviewTest": true,
+      "lastUpdate": "06/12/2018 14:03"
+    },
+    {
+      "testID": 6,
+      "testCode": "Randomly generate code",
+      "testName": "Java for beginners",
+      "testType": "predefined",
+      "language": "English",
+      "questions": [
+        { "id": 0 },
+        { "id": 1 }
+      ],
+      "passingGrade": 75,
+      "header": "message header",
+      "messageBody": "message body",
+      "passingSubject": "passing subject",
+      "passingBody": "passing body",
+      "failingSubject": "failing subject",
+      "FailingBody": "failing body",
+      "link": "",
+      "version": 1,
+      "reviewTest": false,
+      "lastUpdate": "10/12/2018 22:16"
+    },
+    {
+      "testID": 7,
+      "testCode": "Randomly generate code",
+      "testName": "מבחן הערכה - DOM and Javascript",
+      "testType": "predefined",
+      "language": "Hebrew",
+      "questions": [
+        { "id": 0 },
+        { "id": 1 },
+        { "id": 2 },
+        { "id": 3 }
+      ],
+      "passingGrade": 70,
+      "header": "message header",
+      "messageBody": "message body",
+      "passingSubject": "passing subject",
+      "passingBody": "passing body",
+      "failingSubject": "failing subject",
+      "FailingBody": "failing body",
+      "link": "",
+      "version": 1,
+      "reviewTest": false,
+      "lastUpdate": "21/01/2019 09:45"
+    },
+    {
+      "testID": 999,
+      "testCode": "Randomly generate code",
+      "testName": "EXAMPLE TEST - DO NOT ADD/CHANGE DATA",
+      "testType": "predefined",
+      "language": "English",
+      "questions": [
+        { "id": 999 }
+      ],
+      "passingGrade": 70,
+      "header": "message header",
+      "messageBody": "message body",
+      "passingSubject": "passing subject",
+      "passingBody": "passing body",
+      "failingSubject": "failing subject",
+      "FailingBody": "failing body",
+      "link": "",
+      "version": 1,
+      "reviewTest": false,
+      "lastUpdate": "21/01/2019 09:45"
     }
   ],
   "testTypes": [
@@ -222,7 +318,19 @@
     },
     {
       "id": 1,
-      "type": "Random  - Questions order is random"
+      "type": "Random  - Random Questions"
+    }
+  ],
+  "testSubmissions": [
+    {
+      "submissionID": 0,
+      "testID": 5,
+      "studentSub": [
+        {
+          "studentID": 0,
+          "grade": 70
+        }
+      ]
     }
   ],
   "admins": [

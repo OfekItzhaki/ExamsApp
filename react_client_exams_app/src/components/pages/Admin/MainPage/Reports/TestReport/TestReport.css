@@ -1,0 +1,10 @@
+
+
+#summary_tables__container {
+    display: flex;
+    flex-flow: row;
+}
+
+#grades__container {
+    text-align: center;
+}

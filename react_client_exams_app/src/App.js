@@ -19,12 +19,13 @@ import Footer                     from "./components/shared/Footer/Footer";
 
 // ---------------------------------------------- Admin pages ----------------------------------------------
 import MainPage                   from "./components/pages/Admin/MainPage/MainPage";
-import { CreateEditQuestion     } from "./components/pages/Admin/CreateEditQuestion/CreateEditQuestion";
-import { CreateEditTest         } from "./components/pages/Admin/CreateEditTest/CreateEditTest";
-import { ManageQuestions        } from "./components/pages/Admin/ManageQuestions/ManageQuestions";
-import { ManageTests            } from "./components/pages/Admin/ManageTests/ManageTests";
-import { Reports                } from "./components/pages/Admin/Reports/Reports";
-import { ReportByRespondentName } from "./components/pages/Admin/ReportByRespondentName/ReportByRespondentName";
+import { CreateEditQuestion     } from "./components/pages/Admin/MainPage/ManageQuestions/CreateEditQuestion/CreateEditQuestion";
+import { CreateEditTest         } from "./components/pages/Admin/MainPage/ManageTests/CreateEditTest/CreateEditTest";
+import { ManageQuestions        } from "./components/pages/Admin/MainPage/ManageQuestions/ManageQuestions";
+import { ManageTests            } from "./components/pages/Admin/MainPage/ManageTests/ManageTests";
+import { Reports                } from "./components/pages/Admin/MainPage/Reports/Reports";
+import { ReportByRespondentName } from "./components/pages/Admin/MainPage/ReportByRespondentName/ReportByRespondentName";
+import { TestReport }             from "./components/pages/Admin/MainPage/Reports/TestReport/TestReport";
 
 // --------------------------------------------- Student pages ---------------------------------------------
 import SignUp                     from "./components/pages/Student/SignUp/SignUp";
@@ -41,11 +42,11 @@ export default function App() {
             {/* Shared */}
             <Route path='/' exact                     component={ Home            }   />
             <Route path='/home'                       component={ Home            }   />
-            <Route path='/login'                      component={ Login           }   />
-            <Route path='/sign-up'                    component={ SignUp          }   />
-            <Route path='/forgot-password'            component={ ForgotPassword  }   />
             <Route path='/about'                      component={ About           }   />
             <Route path='/error404'                   component={ Error404        }   />
+            <Route path='/login'                      render={ (props) => (<Login               {...props} isAuthed={false} />) }   />
+            <Route path='/sign-up'                    render={ (props) => (<SignUp              {...props} isAuthed={false} />) }   />
+            <Route path='/forgot-password'            render={ (props) => (<ForgotPassword      {...props} isAuthed={false} />) }   />
 
             {/* Admin */}
             <Route path='/admin/main-page'            component={MainPage}            />
@@ -57,6 +58,7 @@ export default function App() {
             <Route path='/admin/manage-tests'         render={ (props) => (<ManageTests             {...props} isAuthed={true} isAdmin={true} />) }   />
             <Route path='/admin/reports'              render={ (props) => (<Reports                 {...props} isAuthed={true} isAdmin={true} />) }   />
             <Route path='/admin/report-by-name'       render={ (props) => (<ReportByRespondentName  {...props} isAuthed={true} isAdmin={true} />) }   />
+            <Route path='/admin/test-report'          render={ (props) => (<TestReport              {...props} isAuthed={true} isAdmin={true} />) }   />
             {/* <Route path='/admin/create-question'  component={CreateEditQuestion}      />
             <Route path='/admin/edit-question'        component={CreateEditQuestion}      />
             <Route path='/admin/create-test'          component={CreateEditTest}          />

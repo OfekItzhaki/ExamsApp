@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
     margin: 0;
-    padding: 0;
+    /* padding: 0; */
     font-family: 'PT Sans', sans-serif;
   }
 
@@ -32,6 +32,7 @@
     padding-bottom: 20px;
   }
 
+  .admin_mainpage,
   .create_edit_question,
   .create_edit_test,
   .manage_questions,
@@ -39,7 +40,11 @@
   .report_by_name,
   .reports,
   .test_report {
-    background-color: #e35354;
+    background-color: slategray;
+  }
+
+  .create_edit_test {
+    padding-top: 130px;
   }
   
   .login {
@@ -78,14 +83,6 @@
     justify-content: center;
   }
 
-  .admin_mainpage {
-    background-image: url('./assets/images/img-1.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: #fff;
-  }
-
 
   .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -101,6 +98,7 @@
 
   .section__headers, tr.header_row {
     background-color: orange;
+    text-align: center;
   }
 
   button.like_link_button, label.like_link_label {
@@ -108,12 +106,21 @@
     color: #068;
   }
 
+  .asterisk_input::after {
+    content:" *"; 
+    color: #e32;
+    position: absolute; 
+    margin: -7px 0px 0px -20px; 
+    font-size: xx-large; 
+    padding: 0 5px 0 0; 
+  }
+
   /* Global media css */
 
   @media screen and (max-width: 1920px) {
     .page__header{
         margin-bottom: 20px;
-        font-size: 110px;
+        font-size: 90px;
         margin-top: -150px;
     }
   }

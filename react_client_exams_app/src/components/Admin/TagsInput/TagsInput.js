@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styles                         from '../TagsInput/TagsInput.scss';
+import React, { useState }  from 'react';
+import styles               from '../TagsInput/TagsInput.scss';
 
 export const TagsInput = props => {
 
@@ -18,23 +18,17 @@ export const TagsInput = props => {
     };
     
     return (
-        <div className="tags-input">
-            {tags.map((tag, index) => (
-                <li key={index}>
-                    <span>{tag}</span>
-                    <i
-                        className="material-icons"
-                        onClick={() => removeTags(index)} 
-                    >
-                        close
-                    </i>
-                </li>
-            ))}
-            <input
-                type="text"
-                onKeyUp={event => addTags(event)}
-                placeholder="Press enter to add tags"
-            />
+        <div id="tags-input">
+            <input type="text" onKeyUp={event => addTags(event)} placeholder="Press enter to add tags" />
+            
+            <div id="tags">
+                {tags.map((tag, index) => (
+                    <li className="tag" key={index}>
+                        <span className="tag-title"> {tag} </span>
+                        <i className="tag-close-icon" onClick={() => removeTags(index)} > x </i>
+                    </li>
+                ))}
+            </div>
         </div>
     );
 };

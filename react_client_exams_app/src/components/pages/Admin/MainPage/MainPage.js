@@ -1,33 +1,59 @@
-import React,   { useEffect, useState       }   from    'react';
-import          { AdminMainPageMenu         }   from    '../../../../utils/content';
-import          { Link                      }   from    'react-router-dom';
-import styles                                   from    './MainPage.css';
+import React,   { useEffect, useState  }   from    'react';
+import          { AdminMainPageMenu    }   from    '../../../../utils/AdminMenuPanel';
+import          { Link                 }   from    'react-router-dom';
+import          { useHistory           }   from    'react-router-dom';
+import styles                              from    './MainPage.css';
 
 export default function MainPage() {
 
     const [ fields,     setFields       ] = useState(null);
     const [ field,      setField        ] = useState(null); 
 
+    const history = useHistory();
+
+    const handleFieldChange = (f) => {
+        setField(f);
+        console.log(f);
+    }
+    
+    const handleItemClick = (link, field) => {
+        history.push({
+            pathname: `${link}`,
+            // search: '?update=true',  // query string
+            state: {  // location state
+                // update: true, 
+              field: field
+            },
+        }); 
+    }
+
+    const fetchFields = () => {
+        fetch("http://localhost:8000/fields", {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => { 
+            setFields(data);
+            setField(data[0].title);
+
+            process.env.REACT_APP_CURRENT_FIELD = data[0];
+        })
+        .catch((err) => console.log('error fetching tests:' + err))
+    }
+
     useEffect(() => {
         document.title = 'Admin panel';
-        let isMounted = true;               // note mutable flag
-
-        fetch("http://localhost:8000/fields")
-        .then(res => {
-            return res.json();
-        })
-        .then((data) => {
-            if (isMounted) {                // add conditional check 
-                //    console.log(data); 
-                   setFields(data);
-                   setField(data[0]);
-                   console.log(data[0]);
-
-                   process.env.REACT_APP_CURRENT_FIELD = data[0];
-            }
-        });
-
     }, []);
+    
+    useEffect(() => {
+        let isMounted = true;           // note mutable flag
+    
+        if (isMounted) {                // add conditional check
+            fetchFields();
+        }
+    
+        return () => { isMounted = false }; // cleanup toggles value, if unmounted
+    }, [])
 
     return (
         <div className="admin_mainpage noselect">
@@ -41,18 +67,18 @@ export default function MainPage() {
                             <tr id="select__tr">
                                 <td id="select__td">
                                     <label id="label__choose"> Choose a field of study: </label>
-                                    <select id="fields__select" defaultValue={field} onChange={() => setField(field)}>
+                                    <select id="fields__select" onChange={(e) => handleFieldChange(e.target.value)}>
                                         { fields && fields.map((field) => (
-                                            <option key={field.id}> {field.title} </option>
+                                            <option key={field.id} value={field.title}> {field.title} </option>
                                         ))}
                                     </select>
                                 </td>
                             </tr>
 
                             { AdminMainPageMenu.map((child) => (
-                            <tr key={child.title}>
-                                <td> <Link className="menu_item" to={child.link} field={field}> {child.title} </Link> </td>
-                            </tr>
+                                <tr key={child.title}>
+                                    <td> <button className="menu_item like_link_button" onClick={() => handleItemClick(child.link, field)}> {child.title} </button> </td>
+                                </tr>
                             ))}
                         </tbody>
                     </table>
