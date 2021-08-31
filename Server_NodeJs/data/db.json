@@ -1,18 +1,15 @@
 {
-  "questions": [
-    {
+  "questions": [{
       "id": 0,
       "tags": [
         "Programming",
         "Development"
       ],
-      "lastUpdate": "10/12/2018",
       "type": "Single answer",
       "title": "Which client-side development technology do YOU prefer?",
       "text": "",
       "difficulty": 1,
-      "answers": [
-        {
+      "answers": [{
           "id": 0,
           "answer": "Vue",
           "correct": false
@@ -33,8 +30,8 @@
           "correct": true
         }
       ],
-      "numOfTests": 5,
-      "answersLayout": "vertical"
+      "answersLayout": "vertical",
+      "lastUpdate": "10/12/2018"
     },
     {
       "id": 1,
@@ -42,26 +39,24 @@
         "Music",
         "Song"
       ],
-      "lastUpdate": "10/12/2018",
       "type": "Multiple answers",
       "title": "What is love?",
       "text": "",
       "difficulty": 1,
-      "answers": [
-        {
+      "answers": [{
           "id": 0,
           "answer": "Baby don't hurt me",
-          "correct": true
+          "correct": false
         },
         {
           "id": 1,
           "answer": "Don't hurt me",
-          "correct": true
+          "correct": false
         },
         {
           "id": 2,
           "answer": "No more",
-          "correct": true
+          "correct": false
         },
         {
           "id": 3,
@@ -69,21 +64,19 @@
           "correct": true
         }
       ],
-      "numOfTests": 4,
-      "answersLayout": "vertical"
+      "answersLayout": "vertical",
+      "lastUpdate": "10/12/2018"
     },
     {
       "id": 2,
       "tags": [
         "Unclear"
       ],
-      "lastUpdate": "10/12/2018",
       "type": "Single answer",
       "title": "?",
       "difficulty": 2,
       "text": "",
-      "answers": [
-        {
+      "answers": [{
           "id": 0,
           "answer": "?",
           "correct": false
@@ -99,21 +92,19 @@
           "correct": false
         }
       ],
-      "numOfTests": 1,
-      "answersLayout": "vertical"
+      "answersLayout": "vertical",
+      "lastUpdate": "10/12/2018"
     },
     {
       "id": 3,
       "tags": [
         "Something"
       ],
-      "lastUpdate": "10/12/2018",
       "type": "Single answer",
       "title": "Something something something?",
       "difficulty": 3,
       "text": "",
-      "answers": [
-        {
+      "answers": [{
           "id": 0,
           "answer": "something",
           "correct": true
@@ -129,21 +120,19 @@
           "correct": false
         }
       ],
-      "numOfTests": 1,
-      "answersLayout": "vertical"
+      "answersLayout": "vertical",
+      "lastUpdate": "10/12/2018"
     },
     {
       "id": 999,
       "tags": [
         "Something"
       ],
-      "lastUpdate": "10/12/2018",
       "type": "Single answer",
       "title": "שאלה בעברית",
       "difficulty": 3,
       "text": "",
-      "answers": [
-        {
+      "answers": [{
           "id": 0,
           "answer": "תשובה כלשהי",
           "correct": true
@@ -159,12 +148,11 @@
           "correct": true
         }
       ],
-      "numOfTests": 1,
-      "answersLayout": "vertical"
+      "answersLayout": "vertical",
+      "lastUpdate": "10/12/2018"
     }
   ],
-  "questionTypes": [
-    {
+  "questionTypes": [{
       "id": 0,
       "type": "Single answer"
     },
@@ -173,8 +161,7 @@
       "type": "Multiple answers"
     }
   ],
-  "tags": [
-    {
+  "tags": [{
       "id": 0,
       "name": "Programming"
     },
@@ -199,8 +186,7 @@
       "name": "Something"
     }
   ],
-  "fields": [
-    {
+  "fields": [{
       "id": 0,
       "title": "Development"
     },
@@ -209,35 +195,50 @@
       "title": "Design"
     }
   ],
-  "studentTests": [
+  "studentTests": [{
+    "stID": 35,
+    "testID": 6,
+    "studentID": 0,
+    "studentName": "some some",
+    "grade": 60,
+    "questions": [{
+      "questionID": 0,
+      "answer": ""
+    }],
+    "submitted": "10/12/2018 10:45"
+  },
+  {
+    "stID": 33,
+    "testID": 6,
+    "studentID": 1,
+    "studentName": "another student",
+    "grade": 53,
+    "questions": [{
+      "questionID": 0,
+      "answer": ""
+    },
     {
-      "instance": 29,
-      "testID": 5,
-      "testName": "javascript basics",
-      "studentID": 0,
-      "studentName": "some some",
-      "grade": 75,
-      "questionsAnswered": "15",
-      "lastActivity": "10/12/2018"
-    }
-  ],
-  "tests": [
-    {
+      "questionID": 1,
+      "answer": ""
+  }],
+    "submitted": "10/12/2018 11:03"
+  }],
+  "tests": [{
       "testID": 5,
       "testCode": "Randomly generate code",
       "testName": "javascript basics",
-      "testType": "predefined",
+      "testType": "Predefined - Same questions for all respondents",
       "language": "English",
-      "questions": [
-        { "id": 0 }
-      ],
+      "questions": [{
+        "id": 0
+      }],
       "passingGrade": 55,
       "header": "message header",
       "messageBody": "message body",
       "passingSubject": "passing subject",
       "passingBody": "passing body",
       "failingSubject": "failing subject",
-      "FailingBody": "failing body",
+      "failingBody": "failing body",
       "link": "",
       "version": 1,
       "reviewTest": true,
@@ -247,11 +248,14 @@
       "testID": 6,
       "testCode": "Randomly generate code",
       "testName": "Java for beginners",
-      "testType": "predefined",
+      "testType": "Predefined - Same questions for all respondents",
       "language": "English",
-      "questions": [
-        { "id": 0 },
-        { "id": 1 }
+      "questions": [{
+          "id": 0
+        },
+        {
+          "id": 1
+        }
       ],
       "passingGrade": 75,
       "header": "message header",
@@ -269,13 +273,20 @@
       "testID": 7,
       "testCode": "Randomly generate code",
       "testName": "מבחן הערכה - DOM and Javascript",
-      "testType": "predefined",
+      "testType": "Predefined - Same questions for all respondents",
       "language": "Hebrew",
-      "questions": [
-        { "id": 0 },
-        { "id": 1 },
-        { "id": 2 },
-        { "id": 3 }
+      "questions": [{
+          "id": 0
+        },
+        {
+          "id": 1
+        },
+        {
+          "id": 2
+        },
+        {
+          "id": 3
+        }
       ],
       "passingGrade": 70,
       "header": "message header",
@@ -293,11 +304,11 @@
       "testID": 999,
       "testCode": "Randomly generate code",
       "testName": "EXAMPLE TEST - DO NOT ADD/CHANGE DATA",
-      "testType": "predefined",
+      "testType": "Random - Random Questions",
       "language": "English",
-      "questions": [
-        { "id": 999 }
-      ],
+      "questions": [{
+        "id": 999
+      }],
       "passingGrade": 70,
       "header": "message header",
       "messageBody": "message body",
@@ -311,8 +322,7 @@
       "lastUpdate": "21/01/2019 09:45"
     }
   ],
-  "testTypes": [
-    {
+  "testTypes": [{
       "id": 0,
       "type": "Predefined - Same questions for all respondents"
     },
@@ -321,37 +331,28 @@
       "type": "Random  - Random Questions"
     }
   ],
-  "testSubmissions": [
-    {
-      "submissionID": 0,
-      "testID": 5,
-      "studentSub": [
-        {
-          "studentID": 0,
-          "grade": 70
-        }
-      ]
-    }
-  ],
-  "admins": [
-    {
-      "id": 0,
-      "fullName": "admin admin",
-      "email": "admin@gmail.com",
-      "password": "admin"
-    }
-  ],
-  "students": [
-    {
+  "admins": [{
+    "id": 0,
+    "fullName": "admin admin",
+    "email": "admin@gmail.com",
+    "password": "admin"
+  }],
+  "students": [{
       "id": 0,
       "fullName": "some some",
       "email": "student@gmail.com",
       "password": "password",
       "lastActivity": "24/01/2019"
+    },
+    {
+      "id": 1,
+      "fullName": "another student",
+      "email": "another@gmail.com",
+      "password": "password",
+      "lastActivity": "24/01/2019"
     }
   ],
-  "certificateTemplates": [
-    {
+  "certificateTemplates": [{
       "id": 0,
       "template": "No certificate template"
     },
@@ -360,8 +361,7 @@
       "template": "Certificate template"
     }
   ],
-  "languages": [
-    {
+  "languages": [{
       "id": 0,
       "name": "English"
     },
