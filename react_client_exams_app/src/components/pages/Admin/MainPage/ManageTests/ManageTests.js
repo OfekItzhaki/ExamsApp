@@ -3,11 +3,13 @@ import        { TestTable }             from '../../../../Admin/TestTable/TestTa
 import        { useHistory }            from 'react-router-dom';
 import styles                           from './ManageTests.css'
 
-export const ManageTests = ({ field }) => {
+export default function ManageTests() {
 
     // ---------------------------- Fetch Info Hooks ---------------------------
 
     const [ tests,          setTests            ] = useState(null);
+
+    const [ field,          setField            ] = useState(null);
 
     // ----------------------------- Content Hooks -----------------------------
 

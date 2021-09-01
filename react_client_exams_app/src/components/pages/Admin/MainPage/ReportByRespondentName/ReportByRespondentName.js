@@ -3,7 +3,7 @@ import        { filter }                from 'minimatch';
 import        { useHistory }            from 'react-router-dom';
 import styles                           from './ReportByRespondentName.css';
 
-export const ReportByRespondentName = ({ title }) => {
+export default function ReportByRespondentName() {
     
     // ------------------------ Fetch Info Hooks -----------------------
     

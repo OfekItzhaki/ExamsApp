@@ -1,40 +1,48 @@
 import React, { useEffect, useState }   from 'react';
-import        { QuestionTable }      from '../../../../Admin/QuestionTable/QuestionTable';
-import        { useHistory }            from 'react-router-dom';
+import        { QuestionTable       }   from '../../../../Admin/QuestionTable/QuestionTable';
+import        { useHistory          }   from 'react-router-dom';
+import        { Filter              }   from '../../../../Admin/Filter/Filter';
 import styles                           from './ManageQuestions.css';
 
-export const ManageQuestions = ({ field }) => {
+export default function ManageQuestions() {
 
     // ---------------------------- Fetch Info Hooks ---------------------------
 
-    const [ questions,          setQuestions     ]  = useState(null);
-    const [ tags,               setTags          ]  = useState(null);
+    const [ questions,          setQuestions            ]  = useState(null);
+    const [ tags,               setTags                 ]  = useState(null);
+
+    const [ field,              setField                ]  = useState(null);
+    const [ tests,              setTests                ]  = useState(null);
 
     // ----------------------------- Content Hooks -----------------------------    
 
-    const [ filter,             setFilter        ]  = useState(false);
-    const [ filterByTags,       setFilterByTags  ]  = useState(true);
+    const [ filterStatus,       setFilter               ]  = useState(false);
+    const [ filterByTags,       setFilterByTags         ]  = useState(true);
 
-    const [ filteredQuestions,  setFilteredQuestions  ] = useState([]);
+    const [ filteredQuestions,  setFilteredQuestions    ]  = useState([]);
 
     // ----------------------------------------------------------------------------
 
     const history = useHistory();
 
-    const back = () => {
+    const handleBack = () => {
         history.goBack();
     }
 
-    const newQuestion = () => {
+    const handleNewQuestion = () => {
         history.push("/admin/create-question");
     }
 
-    const next = () => {
+    const handleNext = () => {
         
     }
 
+    const handleShowAll = () => {
+
+    }
+
     const handleDelete = (id) => {
-        const newQuestions = questions.filter(question => questions.id !== id);
+        const newQuestions = questions.filter(question => question.id !== id);
         setQuestions(newQuestions);
     }
 
@@ -58,10 +66,11 @@ export const ManageQuestions = ({ field }) => {
                     if (tag.toLowerCase().includes(value)) contains = true;
                 });
             } else {
-                if (question.title.includes(value)) contains = true;
+                if (question.title.toLowerCase().includes(value)) contains = true;
             }
 
             if (contains === true) return question;
+            else return null;
 
         }));
     }
@@ -74,7 +83,7 @@ export const ManageQuestions = ({ field }) => {
         .then((data) => { 
           setTags(data); 
         })
-        .catch((err) => console.log('error fetching tags:' + err))
+        .catch((err) => console.log('error fetching tags:' + err));
       }
 
     const fetchQuestions = () => {
@@ -86,7 +95,7 @@ export const ManageQuestions = ({ field }) => {
             setQuestions(data)
             setFilteredQuestions(data);
         })
-        .catch((err) => console.log('error fetching questions:' + err))
+        .catch((err) => console.log('error fetching questions:' + err));
       }
 
     // Meant for fetching the necessary information on first render
@@ -108,33 +117,15 @@ export const ManageQuestions = ({ field }) => {
             <div id="headers__container">
                 <h1 className="page__header"> Available Questions for {field ? field : ""} </h1>
             </div>
-            <div id="filter__container">
-                <label> Filter by: </label>
-                <select onChange={ (e) => handleFilterByChange(e.target.value) }>
-                    <option value="tags">       tags       </option>
-                    <option value="content">    content    </option>
-                </select>
 
-                <div id="filter_by__container">
-                    <input id="filter__input" type="text" onChange={ (e) => handleFilterContentChange(e.target.value) } placeholder="Enter a list of keywords separated by commas"/>
-                    <label id="filter__state">      Filter is   {filter === false ? "OFF" : "ON"}                                                           </label>
-                    <label id="amount__filtered">   Filtered    {filteredQuestions && filteredQuestions.length} of total {questions && questions.length}    </label>
-                </div>
-            </div>
-            <div id="questions__container">
-                <div id="table__container">
-                    {questions && <QuestionTable questions={filteredQuestions} tags={tags} handleDelete={handleDelete} /> }
-                </div>
-                <div id="under_table__container">
-                    <label type="text" id="showing_questions"> showing 1-{`AMOUNT`} of filtered Questions </label>
-                    <button className="regular__button" onClick={() =>   next()          }> Next {`>>`} </button>
-                    <button className="regular__button" onClick={() =>   next()          }> Show All {questions && questions.length} questions </button>
-                </div>
-            </div>
+            { questions && filteredQuestions && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
+                handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
+
+            { filteredQuestions && <QuestionTable questions={filteredQuestions} filteredQuestions={filteredQuestions} tests={tests} handleNext={handleNext} handleShowAll={handleShowAll} handleDelete={handleDelete} /> }
 
             <div id="buttons__container">
-                <button className="regular__button" onClick={() =>   back()          }>  {`<<` } Back         </button>
-                <button className="regular__button" onClick={() =>   newQuestion()   }>  New Question {`>>`}  </button>
+                <button className="regular__button" onClick={() =>   handleBack()          }>  {`<<` } Back         </button>
+                <button className="regular__button" onClick={() =>   handleNewQuestion()   }>  New Question {`>>`}  </button>
             </div>
 
         </div>

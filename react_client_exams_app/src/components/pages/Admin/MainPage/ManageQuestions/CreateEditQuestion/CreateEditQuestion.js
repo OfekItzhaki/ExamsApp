@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import        { useHistory }          from 'react-router-dom';
-import        { TagsInput }           from '../../../../../Admin/TagsInput/TagsInput';
-import styles                         from './CreateEditQuestion.css';
+import React, { useState, useEffect     }  from 'react';
+import        { useHistory, useLocation }  from 'react-router-dom';
+import        { TagsInput               }  from '../../../../../Admin/TagsInput/TagsInput';
+import styles                              from './CreateEditQuestion.css';
 
-  export const CreateEditQuestion = ({ field, question }) => {
+  export default function CreateEditQuestion() {
 
   // ------------------------ Fetch Info Hooks -----------------------
 
-  const [questionTypes,       setQuestionTypes    ]  = useState(null);
-  const [questions,           setQuestions        ]  = useState(null);
+  const [ questionTypes,        setQuestionTypes    ]  = useState(null);
+  const [ questions,            setQuestions        ]  = useState(null);
+
+  const [ question,             setQuestion         ]  = useState(null);
+  const [ field,                setField            ]  = useState(null);
 
   // ------------------------- Content Hooks -------------------------
 
   // *Question Table*
-  const [ type,               setType             ]  = useState(question ? question.type : "");
-  const [ questionHeader,     setQuestionHeader   ]  = useState(question ? question.title : "");
-  const [ questionText,       setQuestionText     ]  = useState(question ? question.text : "");
-  const [ questionID,         setQuestionID       ]  = useState(question ? question.id + 1 : 0);
+  // Need to change it to "location.state.question"
+  const [ type,                 setType             ]  = useState(question ? question.type : "");
+  const [ questionHeader,       setQuestionHeader   ]  = useState(question ? question.title : "");
+  const [ questionText,         setQuestionText     ]  = useState(question ? question.text : "");
+  const [ questionID,           setQuestionID       ]  = useState(question ? question.id + 1 : 0);
 
   // *Answers Table*
-  const [ possibleAnswers,    setPossibleAnswers  ]  = useState(
+  const [ possibleAnswers,      setPossibleAnswers  ]  = useState(
     question ? question.answers : [
       { "id": 0, "answer": "", "correct": false},
       { "id": 1, "answer": "", "correct": false},
       { "id": 2, "answer": "", "correct": false}
     ]
   );
-  const [ answerID,           setAnswerID         ]  = useState(possibleAnswers ? possibleAnswers[possibleAnswers.length - 1].id + 1 : 0);
-  const [ answersLayout,      setAnswersLayout    ]  = useState("vertical");
+  const [ answerID,             setAnswerID         ]  = useState(possibleAnswers ? possibleAnswers[possibleAnswers.length - 1].id + 1 : 0);
+  const [ answersLayout,        setAnswersLayout    ]  = useState("vertical");
 
-  // *Tags Table*
-  const [ tags,               setTags             ]  = useState(question ? question.tags : "");
+  // *Tags Table* 
+  const [ tags,                 setTags             ]  = useState(question ? question.tags : "");
 
   // -----------------------------------------------------------------
 

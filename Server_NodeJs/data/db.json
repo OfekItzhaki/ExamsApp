@@ -230,7 +230,7 @@
       "testType": "Predefined - Same questions for all respondents",
       "language": "English",
       "questions": [{
-        "id": 0
+        "questionID": 0
       }],
       "passingGrade": 55,
       "header": "message header",
@@ -251,13 +251,13 @@
       "testType": "Predefined - Same questions for all respondents",
       "language": "English",
       "questions": [{
-          "id": 0
+          "questionID": 0
         },
         {
-          "id": 1
+          "questionID": 1
         }
       ],
-      "passingGrade": 75,
+      "passingGrade": 50,
       "header": "message header",
       "messageBody": "message body",
       "passingSubject": "passing subject",
@@ -276,19 +276,19 @@
       "testType": "Predefined - Same questions for all respondents",
       "language": "Hebrew",
       "questions": [{
-          "id": 0
+          "questionID": 0
         },
         {
-          "id": 1
+          "questionID": 1
         },
         {
-          "id": 2
+          "questionID": 2
         },
         {
-          "id": 3
+          "questionID": 3
         }
       ],
-      "passingGrade": 70,
+      "passingGrade": 60,
       "header": "message header",
       "messageBody": "message body",
       "passingSubject": "passing subject",
@@ -307,9 +307,9 @@
       "testType": "Random - Random Questions",
       "language": "English",
       "questions": [{
-        "id": 999
+        "questionID": 999
       }],
-      "passingGrade": 70,
+      "passingGrade": 55,
       "header": "message header",
       "messageBody": "message body",
       "passingSubject": "passing subject",
@@ -332,13 +332,13 @@
     }
   ],
   "admins": [{
-    "id": 0,
+    "adminID": 0,
     "fullName": "admin admin",
     "email": "admin@gmail.com",
     "password": "admin"
   }],
   "students": [{
-      "id": 0,
+      "studentID": 0,
       "fullName": "some some",
       "email": "student@gmail.com",
       "password": "password",

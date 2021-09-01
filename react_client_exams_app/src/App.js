@@ -19,13 +19,13 @@ import Footer                     from "./components/shared/Footer/Footer";
 
 // ---------------------------------------------- Admin pages ----------------------------------------------
 import MainPage                   from "./components/pages/Admin/MainPage/MainPage";
-import { CreateEditQuestion     } from "./components/pages/Admin/MainPage/ManageQuestions/CreateEditQuestion/CreateEditQuestion";
-import { CreateEditTest         } from "./components/pages/Admin/MainPage/ManageTests/CreateEditTest/CreateEditTest";
-import { ManageQuestions        } from "./components/pages/Admin/MainPage/ManageQuestions/ManageQuestions";
-import { ManageTests            } from "./components/pages/Admin/MainPage/ManageTests/ManageTests";
-import { Reports                } from "./components/pages/Admin/MainPage/Reports/Reports";
-import { ReportByRespondentName } from "./components/pages/Admin/MainPage/ReportByRespondentName/ReportByRespondentName";
-import { TestReport }             from "./components/pages/Admin/MainPage/Reports/TestReport/TestReport";
+import CreateEditQuestion         from "./components/pages/Admin/MainPage/ManageQuestions/CreateEditQuestion/CreateEditQuestion";
+import CreateEditTest             from "./components/pages/Admin/MainPage/ManageTests/CreateEditTest/CreateEditTest";
+import ManageQuestions            from "./components/pages/Admin/MainPage/ManageQuestions/ManageQuestions";
+import ManageTests                from "./components/pages/Admin/MainPage/ManageTests/ManageTests";
+import Reports                    from "./components/pages/Admin/MainPage/Reports/Reports";
+import ReportByRespondentName     from "./components/pages/Admin/MainPage/ReportByRespondentName/ReportByRespondentName";
+import TestReport                 from "./components/pages/Admin/MainPage/Reports/TestReport/TestReport";
 
 // --------------------------------------------- Student pages ---------------------------------------------
 import SignUp                     from "./components/pages/Student/SignUp/SignUp";

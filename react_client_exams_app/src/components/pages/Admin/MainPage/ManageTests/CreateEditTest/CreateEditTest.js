@@ -1,10 +1,10 @@
-import React, { useState, useEffect }           from 'react';
-import        { Button }                        from '../../../../../shared/Button/Button';
-import        { HashLink as Link }              from 'react-router-hash-link';
-import        { useHistory, useLocation }       from 'react-router-dom';
-import styles                                   from './CreateEditTest.css';
+import React, { useState, useEffect }           from  'react';
+import        { Button }                        from  '../../../../../shared/Button/Button';
+import        { HashLink as Link }              from  'react-router-hash-link';
+import        { useHistory, useLocation }       from  'react-router-dom';
+import styles                                   from  './CreateEditTest.css';
 
-export const CreateEditTest = () => {
+export default function CreateEditTest() {
 
   // -------------------------------------------- Fetch Info Hooks --------------------------------------------
 

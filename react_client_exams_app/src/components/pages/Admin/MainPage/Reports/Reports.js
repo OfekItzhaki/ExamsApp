@@ -2,7 +2,7 @@ import React, { useEffect, useState     }   from 'react';
 import        { useHistory, useLocation }   from 'react-router-dom';
 import styles                               from './Reports.css';
 
-export const Reports = () => {
+export default function Reports() {
 
     // ------------------------ Fetch Info Hooks -----------------------
 

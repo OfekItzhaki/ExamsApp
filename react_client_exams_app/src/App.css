@@ -191,6 +191,17 @@
     padding: 5px;
   }
 
+  button.like_tag_button {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    cursor: pointer;
+  }
+
   button.like_link_button {
     background: none!important;
     border: none;

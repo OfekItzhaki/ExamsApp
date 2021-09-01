@@ -1,14 +1,17 @@
-import React,   { useEffect, useState }          from 'react';
-import          { SummaryTable }                 from '../../../../../Admin/SummaryTable/SummaryTable';
-import          { useHistory, useLocation }      from 'react-router-dom';
-import styles                                    from './TestReport.css'
-import { GradesTable } from '../../../../../Admin/GradesTable/GradesTable';
+import React,   { useEffect, useState       }           from 'react';
+import          { SummaryTable              }           from '../../../../../Admin/SummaryTable/SummaryTable';
+import          { useHistory, useLocation   }           from 'react-router-dom';
+import          { GradesTable               }           from '../../../../../Admin/GradesTable/GradesTable';
+import          { QuestionStatisticsTable   }           from '../../../../../Admin/QuestionStatisticsTable/QuestionStatisticsTable';
+import          { Filter                    }           from '../../../../../Admin/Filter/Filter';
+import styles                                           from './TestReport.css'
 
-export const TestReport = () => {
+export default function TestReport() {
 
     // ----------------------------- Fetch Info Hooks ----------------------------
 
     const [ studentTests,       setStudentTests           ] = useState(null);
+    const [ questions,          setQuestions     ]  = useState(null);
 
     const [ test,               setTest                   ] = useState(null);
     const [ field,              setField                  ] = useState("");
@@ -30,7 +33,12 @@ export const TestReport = () => {
 
     // ---------------------------- Statistics Hooks -----------------------------
 
-    const [ filterContent,      setFilterContent          ] = useState("");
+    // const [ filterContent,      setFilterContent          ] = useState("");
+
+    const [ filterStatus,             setFilter        ]  = useState(false);
+    const [ filterByTags,       setFilterByTags  ]  = useState(true);
+
+    const [ filteredQuestions,  setFilteredQuestions  ] = useState([]);
 
     // ---------------------------------------------------------------------------
 
@@ -119,6 +127,8 @@ export const TestReport = () => {
         data.map((studentTest) => {
             submissions++;
 
+            // console.log("passing grade: " + location.state.test.passingGrade);
+            // console.log("student grade: " + studentTest.grade);
             if (studentTest.grade >= location.state.test.passingGrade) passed++;
             return studentTest;
         });
@@ -134,7 +144,8 @@ export const TestReport = () => {
         let gradesArray = [];
         data.map((studentTest) => {
             gradesArray.push(studentTest.grade);
-            totalGrades += studentTest.grade
+            totalGrades += studentTest.grade;
+            return "";
         });
 
         // Calc passing percentage -> passed divide by total submissions (multiply by 100 to get the percentage)
@@ -148,8 +159,42 @@ export const TestReport = () => {
         setMedianGrade(findClosest(gradesArray, average));
 
     }
+    
+    const countTestQuestions = () => {
+        let counter = 0;
+        test && test.questions.map(() => counter++);
+        return counter;
+    }
 
-    // This function gets the student ID from the child component and sets it as the chosen respondent.
+    const handleFilterByChange = (value) => {
+        if (value === "tags") setFilterByTags(true);
+        else if (value === "content") setFilterByTags(false);
+    }
+
+    const handleFilterContentChange = (value) => {
+        
+        if (value === "") setFilter(false);
+        else setFilter(true);
+
+        let newQuestionList = questions;
+        setFilteredQuestions(newQuestionList.filter((question) => { 
+            
+            let contains = false;
+
+            if (filterByTags === true) {
+                question.tags.map((tag) => {
+                    if (tag.toLowerCase().includes(value)) contains = true;
+                });
+            } else {
+                if (question.title.toLowerCase().includes(value)) contains = true;
+            }
+
+            if (contains === true) return question;
+
+        }));
+    }
+
+    // This function gets the student ID from the child component and sets it as the chosen respondent
     const handleRespondentClick = (id) => {
         if (respondentChosen.studentID !== id) {
             console.log(id);
@@ -163,11 +208,17 @@ export const TestReport = () => {
         scanThroughStudentTests(data);
     }
 
-    const countTestQuestions = () => {
-        let counter = 0;
-        test && test.questions.map(() => counter++);
-        return counter;
-    }
+    const fetchQuestions = () => {
+        fetch("http://localhost:8000/questions", {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setQuestions(data)
+            setFilteredQuestions(data);
+        })
+        .catch((err) => console.log('error fetching questions:' + err))
+      }
 
     const fetchStudentTests = () => {
         fetch("http://localhost:8000/studentTests", {
@@ -189,6 +240,7 @@ export const TestReport = () => {
 
         if (isMounted) {                // add conditional check
             fetchStudentTests();
+            fetchQuestions();
         }
 
         setField(location.state.field);
@@ -215,6 +267,22 @@ export const TestReport = () => {
                     <div id="grades_table__container">
                         <label> Click a name from the list to see the respondent's test </label>
                         { studentTests && location.state.test && <GradesTable test={location.state.test} studentTests={studentTests} handleRespondentClick={handleRespondentClick}/> }
+                    </div>
+                </div>
+
+                <div id="question_statistics__container">
+                    <h1> Question Statistics </h1>
+                    <label> Click a question to show statistics regarding it's answers, then click the answers to see which answer each respondent selected. </label>
+                    <label> You can use the following buttons to do the same with all the questions in the list. </label>
+                    <div id="filter__container">
+                        <div id="filter_by__container">
+                            { questions && filteredQuestions && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
+                                handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
+                        </div>
+                        <label> Filtered {`AMOUNT`} of total {`AMOUNT`} </label>
+                    </div>
+                    <div id="question_statistics_table__container">
+                        { studentTests && <QuestionStatisticsTable/>}
                     </div>
 
                     <div id="buttons__container">
