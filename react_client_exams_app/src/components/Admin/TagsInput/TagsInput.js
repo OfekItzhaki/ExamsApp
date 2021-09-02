@@ -7,14 +7,17 @@ export const TagsInput = props => {
 
     const addTags = event => {
         if (event.key === "Enter" && event.target.value !== "") {
-            setTags([...tags, event.target.value]);
-            props.selectedTags([...tags, event.target.value]);
+            let newTags = [...tags, event.target.value];
+            setTags(newTags);
+            props.tags(newTags);
             event.target.value = "";
         }
     };
 
     const removeTags = index => {
-        setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
+        let newTags = [...tags.filter(tag => tags.indexOf(tag) !== index)];
+        setTags(newTags);
+        props.tags(newTags);
     };
     
     return (

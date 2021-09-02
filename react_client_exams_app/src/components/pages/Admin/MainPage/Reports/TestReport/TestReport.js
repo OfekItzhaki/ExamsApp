@@ -11,7 +11,7 @@ export default function TestReport() {
     // ----------------------------- Fetch Info Hooks ----------------------------
 
     const [ studentTests,       setStudentTests           ] = useState(null);
-    const [ questions,          setQuestions     ]  = useState(null);
+    const [ questions,          setQuestions              ] = useState(null);
 
     const [ test,               setTest                   ] = useState(null);
     const [ field,              setField                  ] = useState("");
@@ -35,10 +35,10 @@ export default function TestReport() {
 
     // const [ filterContent,      setFilterContent          ] = useState("");
 
-    const [ filterStatus,             setFilter        ]  = useState(false);
-    const [ filterByTags,       setFilterByTags  ]  = useState(true);
+    const [ filterStatus,       setFilter                 ] = useState(false);
+    const [ filterByTags,       setFilterByTags           ] = useState(true);
 
-    const [ filteredQuestions,  setFilteredQuestions  ] = useState([]);
+    const [ filteredQuestions,  setFilteredQuestions      ] = useState([]);
 
     // ---------------------------------------------------------------------------
 
@@ -243,8 +243,11 @@ export default function TestReport() {
             fetchQuestions();
         }
 
-        setField(location.state.field);
-        setDateRange(location.state.dateRange);
+        if (location.state) {
+            if (location.state.field) setField(location.state.field);
+            if (location.state.test) setTest(location.state.test)
+            if (location.state.dateRange) setDateRange(location.state.dateRange);
+        }
 
     }, [])
 
@@ -279,10 +282,9 @@ export default function TestReport() {
                             { questions && filteredQuestions && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
                                 handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
                         </div>
-                        <label> Filtered {`AMOUNT`} of total {`AMOUNT`} </label>
                     </div>
                     <div id="question_statistics_table__container">
-                        { studentTests && <QuestionStatisticsTable/>}
+                        { studentTests && <QuestionStatisticsTable studentTests={studentTests} test={test}/>}
                     </div>
 
                     <div id="buttons__container">

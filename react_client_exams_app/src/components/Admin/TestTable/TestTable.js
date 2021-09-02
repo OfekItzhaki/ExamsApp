@@ -1,5 +1,4 @@
 import styles                   from './TestTable.css';
-import { Link }                 from 'react-router-dom';
 
 export const TestTable = ({ tests, handleDelete }) => {
     return (
@@ -20,7 +19,7 @@ export const TestTable = ({ tests, handleDelete }) => {
                 {tests.map((test) => (
                 <tr className="space_under border_bottom" key={test.testID}>
                     <td className="test_id">            {test.testID}                                       </td>
-                    <td className="test_link">          <button className="regular__button"> Copy </button>   </td>
+                    <td className="test_link">          <button className="regular__button"> Copy </button> </td>
                     <td className="test_name">          {test.testName}                                     </td>
                     <td className="test_amount">        {test.testType}                                     </td>
                     <td className="test_update">        {test.lastUpdate}                                   </td>

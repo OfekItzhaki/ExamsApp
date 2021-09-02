@@ -1,8 +1,9 @@
-import React, { useEffect, useState }   from 'react';
-import        { QuestionTable       }   from '../../../../Admin/QuestionTable/QuestionTable';
-import        { useHistory          }   from 'react-router-dom';
-import        { Filter              }   from '../../../../Admin/Filter/Filter';
-import styles                           from './ManageQuestions.css';
+import React, { useEffect, useState         }   from 'react';
+import        { QuestionTable               }   from '../../../../Admin/QuestionTable/QuestionTable';
+import        { useHistory, useLocation     }   from 'react-router-dom';
+import        { Filter                      }   from '../../../../Admin/Filter/Filter';
+import        { fetchTests                  }   from '../../../../../services/tests';
+import styles                                   from './ManageQuestions.css';
 
 export default function ManageQuestions() {
 
@@ -16,28 +17,25 @@ export default function ManageQuestions() {
 
     // ----------------------------- Content Hooks -----------------------------    
 
-    const [ filterStatus,       setFilter               ]  = useState(false);
+    const [ filterStatus,       setFilterStatus         ]  = useState(false);
     const [ filterByTags,       setFilterByTags         ]  = useState(true);
 
     const [ filteredQuestions,  setFilteredQuestions    ]  = useState([]);
 
     // ----------------------------------------------------------------------------
 
+    const location = useLocation();
     const history = useHistory();
 
-    const handleBack = () => {
-        history.goBack();
-    }
-
-    const handleNewQuestion = () => {
-        history.push("/admin/create-question");
-    }
-
-    const handleNext = () => {
+    const handleDuplicate = () => {
         
     }
 
-    const handleShowAll = () => {
+    const handleEdit = () => {
+
+    }
+
+    const handleShow = () => {
 
     }
 
@@ -45,16 +43,36 @@ export default function ManageQuestions() {
         const newQuestions = questions.filter(question => question.id !== id);
         setQuestions(newQuestions);
     }
-
+    
+    const handleShowAll = () => {
+        
+    }
+    
     const handleFilterByChange = (value) => {
         if (value === "tags") setFilterByTags(true);
         else setFilterByTags(false);
     }
+    
+    const handleBack = () => {
+        history.goBack();
+    }
+
+    const handleNewQuestion = () => {
+        history.push({
+            pathname: "/admin/create-question",
+            // search: '?update=true',  // query string
+            state: {  // location state
+                // update: true, 
+              field: field,
+              question: null
+            },
+        }); 
+    }
 
     const handleFilterContentChange = (value) => {
         
-        if (value === "") setFilter(false);
-        else setFilter(true);
+        if (value === "") setFilterStatus(false);
+        else setFilterStatus(true);
 
         let newQuestionList = questions;
         setFilteredQuestions(newQuestionList.filter((question) => { 
@@ -73,6 +91,17 @@ export default function ManageQuestions() {
             else return null;
 
         }));
+    }
+
+    const fetchTests = () => {
+        fetch("http://localhost:8000/tests", {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => { 
+          setTests(data); 
+        })
+        .catch((err) => console.log('error fetching tests:' + err))
     }
 
     const fetchTags = () => {
@@ -107,7 +136,12 @@ export default function ManageQuestions() {
         if (isMounted) {                // add conditional check 
             fetchQuestions();
             fetchTags();
+            fetchTests();
         }
+
+        if (location) {
+            if (location.state.field) setField(location.state.field);
+          }
 
         return () => { isMounted = false }; // cleanup toggles value, if unmounted
     }, [])
@@ -121,7 +155,8 @@ export default function ManageQuestions() {
             { questions && filteredQuestions && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
                 handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
 
-            { filteredQuestions && <QuestionTable questions={filteredQuestions} filteredQuestions={filteredQuestions} tests={tests} handleNext={handleNext} handleShowAll={handleShowAll} handleDelete={handleDelete} /> }
+            { <QuestionTable manageQuestions={true} questions={filteredQuestions} filteredQuestions={filteredQuestions} tests={tests} handleShow={handleShow} 
+                handleEdit={handleEdit} handleDuplicate={handleDuplicate} handleDelete={handleDelete} handleShowAll={handleShowAll} /> }
 
             <div id="buttons__container">
                 <button className="regular__button" onClick={() =>   handleBack()          }>  {`<<` } Back         </button>

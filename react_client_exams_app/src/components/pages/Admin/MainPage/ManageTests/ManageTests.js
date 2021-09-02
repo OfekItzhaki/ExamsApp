@@ -1,7 +1,7 @@
-import React, { useEffect, useState }   from 'react';
-import        { TestTable }             from '../../../../Admin/TestTable/TestTable';
-import        { useHistory }            from 'react-router-dom';
-import styles                           from './ManageTests.css'
+import React, { useEffect, useState     }   from 'react';
+import        { TestTable               }   from '../../../../Admin/TestTable/TestTable';
+import        { useHistory, useLocation }   from 'react-router-dom';
+import styles                               from './ManageTests.css'
 
 export default function ManageTests() {
 
@@ -18,6 +18,7 @@ export default function ManageTests() {
 
     // ----------------------------------------------------------------------------
 
+    const location = useLocation();
     const history = useHistory();
 
     const back = () => {
@@ -30,7 +31,8 @@ export default function ManageTests() {
             // search: '?update=true',  // query string
             state: {  // location state
                 // update: true,
-              field: field
+              field: field,
+              test: null
             },
         }); 
     }
@@ -61,6 +63,10 @@ export default function ManageTests() {
 
         if (isMounted) {                // add conditional check
             fetchTests();
+        }
+
+        if (location.state) {
+            if (location.state.field) setField(location.state.field);
         }
 
         return () => { isMounted = false }; // cleanup toggles value, if unmounted

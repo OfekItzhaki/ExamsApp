@@ -1,8 +1,9 @@
-import React, { useState, useEffect }           from  'react';
-import        { Button }                        from  '../../../../../shared/Button/Button';
-import        { HashLink as Link }              from  'react-router-hash-link';
-import        { useHistory, useLocation }       from  'react-router-dom';
-import styles                                   from  './CreateEditTest.css';
+import React, { useState, useEffect     }   from  'react';
+import        { HashLink as Link        }   from  'react-router-hash-link';
+import        { useHistory, useLocation }   from  'react-router-dom';
+import        { Filter                  }   from '../../../../../Admin/Filter/Filter';
+import        { QuestionTable           }   from '../../../../../Admin/QuestionTable/QuestionTable';
+import styles                               from  './CreateEditTest.css';
 
 export default function CreateEditTest() {
 
@@ -11,75 +12,152 @@ export default function CreateEditTest() {
   const [ field,                      setField                  ] = useState(null);
   const [ test,                       setTest                   ] = useState(null);
 
+  const [ tests,                      setTests                  ] = useState(null);
   const [ testTypes,                  setTestTypes              ] = useState(null);
   const [ certificateTemplates,       setCertificateTemplates   ] = useState(null);
   const [ languages,                  setLanguages              ] = useState(null);
+  const [ questions,                  setQuestions              ] = useState(null);
+  const [ filteredQuestions,          setFilteredQuestions      ] = useState(null);
 
   // -------------------------------------------- Top Content Hooks -------------------------------------------
 
   // *General Details Table*
-  const [ language,                   setLanguage               ] = useState(test ? test.language : "");
-  const [ testType,                   setTestType               ] = useState(test ? test.testType : "");
-  const [ testName,                   setTestName               ] = useState(test ? test.testName : "");
-  const [ passingGrade,               setPassingGrade           ] = useState(test ? test.passingGrade : "");
-  const [ header,                     setHeader                 ] = useState(test ? test.header : "");
-  const [ messageSuccess,             setMessageSuccess         ] = useState(test ? test.messageSuccess : "");
-  const [ messageFailure,             setMessageFailure         ] = useState(test ? test.messageFailure : "");
-  const [ certificateTemplate,        setCertificateTemplate    ] = useState(test ? test.certificateTemplate : "");
+  const [ testID,                     setTestID                 ] = useState(0);
+  const [ language,                   setLanguage               ] = useState("");
+  const [ testType,                   setTestType               ] = useState("");
+  const [ testName,                   setTestName               ] = useState("");
+  const [ passingGrade,               setPassingGrade           ] = useState("");
+  const [ header,                     setHeader                 ] = useState("");
+  const [ messageSuccess,             setMessageSuccess         ] = useState("");
+  const [ messageFailure,             setMessageFailure         ] = useState("");
+  const [ certificateTemplate,        setCertificateTemplate    ] = useState("");
 
   // *Email Delivery Table*         
   // Status Container          
   const [ status,                     setStatus                 ] = useState("OFF");
-  const [ from,                       setFrom                   ] = useState(test ? test.from : "");
-  const [ cc,                         setCC                     ] = useState(test ? test.cc : "");
-  const [ bcc,                        setBCC                    ] = useState(test ? test.bcc : "");    
+  const [ from,                       setFrom                   ] = useState("");
+  const [ cc,                         setCC                     ] = useState("");
+  const [ bcc,                        setBCC                    ] = useState("");    
 
   // Passing the Test Container
-  const [ passingMessageSubject,      setPassingMessageSubject  ] = useState(test ? test.passingSubject : "");
-  const [ passingMessageBody,         setPassingMessageBody     ] = useState(test ? test.passingBody : "");    
+  const [ passingMessageSubject,      setPassingMessageSubject  ] = useState("");
+  const [ passingMessageBody,         setPassingMessageBody     ] = useState("");    
 
   // Failing the Test Container
-  const [ failingMessageSubject,      setFailingMessageSubject  ] = useState(test ? test.failingSubject : "");   
-  const [ failingMessageBody,         setFailingMessageBody     ] = useState(test ? test.failingBody : "");    
+  const [ failingMessageSubject,      setFailingMessageSubject  ] = useState("");   
+  const [ failingMessageBody,         setFailingMessageBody     ] = useState("");    
 
   // -------------------------------------------- Bottom Content Hooks ----------------------------------------
 
   // *Filter Container*
-  const [ filter,                     setFilter                 ] = useState(false);
-  const [ filterContent,              setFilterContent          ] = useState("");
+  const [ filterStatus,               setFilterStatus           ]  = useState(false);
+  const [ filterByTags,               setFilterByTags           ]  = useState(true);
 
   // *Questions Table
-  const [ questionsAmount,            setQuestionsAmount        ] = useState(test ? test.questionAmount : 0);    
+  const [ questionsAmount,            setQuestionsAmount        ] = useState(0); 
+  const [ selectedQuestions,          setSelectedQuestions      ] = useState([]);
 
   // ----------------------------------------------------------------------------------------------------------
 
+  const baseLink = "http://localhost:3000"
   const location = useLocation();
   const history = useHistory();
   
-  const back = () => {
+  const handleBack = () => {
     history.goBack();
   }
   
-  const show = () => {
+  const handleShow = () => {
     
   }
   
+  const handleShowSelected = () => {
+    
+  }
+
+  const handleShowAll = () => {
+    
+  }
+
+  const initialStates = () => {
+
+  }
+
+  const handleFilterByChange = (value) => {
+    if (value === "tags") setFilterByTags(true);
+    else setFilterByTags(false);
+}
+
+  const handleFilterContentChange = (value) => {
+        
+    if (value === "") setFilterStatus(false);
+    else setFilterStatus(true);
+
+    let newQuestionList = questions;
+    setFilteredQuestions(newQuestionList.filter((question) => { 
+        
+        let contains = false;
+
+        if (filterByTags === true) {
+            question.tags.map((tag) => {
+                if (tag.toLowerCase().includes(value)) contains = true;
+            });
+        } else {
+            if (question.title.toLowerCase().includes(value)) contains = true;
+        }
+
+        if (contains === true) return question;
+        else return null;
+
+    }));
+}
+
   const handleStatus = (value) => {
     if (value === "") setStatus("OFF");
     else setStatus("ON");
   }
 
-  const handleSubmit = (event) => {  
-    event.preventDefault();
+  const handleFromChange = (value) => {
+    handleStatus(value);
+    setFrom(value);
   }
 
-  const saveTest = () => {
+  const generateRandomID = (length) => {
+
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  const generateRandomLink = () => {
+    let randomLink = `${baseLink}/student/${generateRandomID()}`
+
+    tests.map((test) => {
+      if (test.link === randomLink) randomLink = `${baseLink}/student/${generateRandomID()}`
+      return null;
+    })
+
+    return randomLink;
+  }
+
+  const handleSubmit = (event) => {  
+    event.preventDefault();
+    let link = generateRandomLink();
+    saveTest(link);
+  }
+
+  const saveTest = (link) => {
     fetch('http://localhost:8000/tests', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      link: link
         // id: questionID,
         // tags: tags,
         // last_update: Date.now,
@@ -100,6 +178,20 @@ export default function CreateEditTest() {
       .catch((err) => console.log(`error ${err}`))
   }
 
+  const caseEditTest = () => {
+
+    let editTest = location.state.test;
+    setTest(editTest);
+    setTestID(editTest.testID);
+    setTestType(editTest.testType);
+    setTestName(editTest.testName);
+    setPassingGrade(editTest.passingGrade);
+    setHeader(editTest.header);
+    setMessageSuccess(editTest.messageSuccess);
+    setMessageFailure(editTest.messageFailure);
+    setCertificateTemplate(editTest.certificateTemplate);
+  }
+
   const fetchLanguages = () => {
     fetch("http://localhost:8000/languages", {
       method: 'GET',
@@ -107,7 +199,7 @@ export default function CreateEditTest() {
     .then((res) => res.json())
     .then((data) => { 
       setLanguages(data); 
-      setLanguage(language ? language : data[0].type); 
+      setLanguage(language !== "" ? language : data[0].languageType); 
     })
     .catch((err) => console.log('error fetching languages:' + err))
   }
@@ -119,7 +211,7 @@ export default function CreateEditTest() {
     .then((res) => res.json())
     .then((data) => { 
       setTestTypes(data); 
-      setTestType(testType ? testType : data[0].type); 
+      setTestType(testType !== "" ? testType : data[0].typeName); 
     })
     .catch((err) => console.log('error fetching test types:' + err))
   }
@@ -131,14 +223,53 @@ export default function CreateEditTest() {
     .then((res) => res.json())
     .then((data) => { 
       setCertificateTemplates(data); 
-      setCertificateTemplate(certificateTemplate ? certificateTemplate : data[0].template); 
+      setCertificateTemplate(certificateTemplate !== "" ? certificateTemplate : data[0].templateName); 
     })
     .catch((err) => console.log('error fetching certificate templates:' + err))
   }
 
+  const fetchQuestions = () => {
+    fetch("http://localhost:8000/questions", {
+      method: 'GET',
+    })
+    .then((res) => res.json())
+    .then((data) => { 
+      setQuestions(data);
+      setFilteredQuestions(data); 
+    })
+    .catch((err) => console.log('error fetching questions:' + err))
+  }
+
+  const fetchTests = () => {
+    fetch("http://localhost:8000/tests", {
+      method: 'GET',
+    })
+    .then((res) => res.json())
+    .then((data) => { 
+      setTests(data); 
+      if (!test) setTestID(data[data.length - 1].testID + 1); 
+    })
+    .catch((err) => console.log('error fetching test types:' + err))
+  }
+
   useEffect(() => {
-    document.title = `${test === undefined ? "Create" : "Edit"} Test`;
-  }, [test])
+    document.title = `${test === null ? "Create" : "Edit"} Question`;
+
+    if (location.state) {
+
+      if (location.state.field) {
+        console.log(location.state.field);
+        setField(location.state.field);
+      }
+
+      if (location.state.test) {
+        console.log(location.state.test);
+        caseEditTest();
+      } else {
+
+      }
+    }
+  }, [location.state])
 
     // Meant for fetching the necessary information on first render
   useEffect(() => {
@@ -148,19 +279,16 @@ export default function CreateEditTest() {
       fetchLanguages();
       fetchTestTypes();
       fetchCertificateTemplates();
+      fetchTests();
+      fetchQuestions();
     }
-
-    console.log(location ? location.state.field : "")  // for location state
-
-    setField(location ? location.state.field : "");
-    setTest(location ? location.state.test : "")
 
     return () => { isMounted = false }; // cleanup toggles value, if unmounted
   }, [])
 
   return (
     <div className="create_edit_test noselect">
-      <h1 className="page__header"> {test === undefined ? "Create" : "Edit"} Test </h1> {/* className="page__header" */}
+      <h1 className="page__header"> {test === null ? "Create" : "Edit"} Test </h1> {/* className="page__header" */}
       <form className="new_test__form" onSubmit={handleSubmit}>
         <div id="top_content__container">
           
@@ -168,18 +296,18 @@ export default function CreateEditTest() {
             <table id="general_details__table">
               <tbody>
                 <tr className="space_under header_row border_bottom">
-                  <th colspan="2"> General Test Details </th>
+                  <th colSpan="2"> General Test Details </th>
                 </tr>
                 <tr>
                   <td> <label> Field of Study: </label> </td>
-                  <td> <label id="field__label"> {field ? field : "undefined"} </label> </td>
+                  <td> <label id="field__label"> {field === null ? "undefined" : field} </label> </td>
                 </tr>
 
                 <tr>
                   <td> <label> Language: </label> </td>
                   <td>  <select id="language__select" onChange={(e) => setLanguage (e.target.value)}>
                           {languages && languages.map((language) => (
-                            <option key={language.id} value={language.name}> {language.name} </option>
+                            <option key={language.languageID} value={language.languageName}> {language.languageName} </option>
                           ))} 
                         </select> </td>
                 </tr>
@@ -188,46 +316,46 @@ export default function CreateEditTest() {
                   <td> <label> Test Type: </label> </td>
                   <td> <select id="test_type__select" onChange={(e) => setTestType (e.target.value)}>
                           {testTypes && testTypes.map((testType) => (
-                            <option key={testType.id} value={testType.type}> {testType.type} </option>
+                            <option key={testType.typeID} value={testType.typeName}> {testType.typeName} </option>
                           ))}
                         </select> </td>
                 </tr>
                 
                 <tr>
-                  <td> <label> Test Name:                                                                                                                                                  </label> </td>
-                  <td> <input id="test_name__input"       type="text"     placeholder="test something"      value={testName}        onChange={(e) => setTestName     (e.target.value)}   required/> </td>
+                  <td> <label> Test Name:                                                                                                                                                          </label> </td>
+                  <td> <input id="test_name__input"       type="text"     placeholder="Insert test name"            value={testName}        onChange={(e) => setTestName(e.target.value)}        required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Passing Grade:                                                                                                                                              </label> </td>
-                  <td> <input id="passing_grade__input"   type="text"     placeholder="Grade"               value={passingGrade}    onChange={(e) => setPassingGrade (e.target.value)}   required/> </td>
+                  <td> <label> Passing Grade:                                                                                                                                                    </label> </td>
+                  <td> <input id="passing_grade__input"   type="text"     placeholder="Insert passing grade"        value={passingGrade}    onChange={(e) => setPassingGrade(e.target.value)}    required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Show correct answers after submission:                                                                                                                      </label> </td>
-                  <td> <input id="show_answers__checkbox" type="checkbox" defaultChecked                                                                                                 required/> </td>
+                  <td> <label> Show correct answers after submission:                                                                                                                              </label> </td>
+                  <td> <input id="show_answers__checkbox" type="checkbox" defaultChecked                                                                                                         required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Message header:                                                                                                                                             </label> </td>
-                  <td> <input id="message_header__input"  type="text"     placeholder="Type something"      value={header}   onChange={(e) => setHeader  (e.target.value)} required/> </td>
+                  <td> <label> Message header:                                                                                                                                                     </label> </td>
+                  <td> <input id="message_header__input"  type="text"     placeholder="Insert header"               value={header}          onChange={(e) => setHeader(e.target.value)}          required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Message to show on success:                                                                                                                                 </label> </td>
-                  <td> <input id="message_success__input" type="text"     placeholder="Type something"      value={messageSuccess}  onChange={(e) => setMessageSuccess (e.target.value)} required/> </td>
+                  <td> <label> Message to show on success:                                                                                                                                         </label> </td>
+                  <td> <input id="message_success__input" type="text"     placeholder="Insert success message"      value={messageSuccess}  onChange={(e) => setMessageSuccess(e.target.value)}  required/> </td>
                 </tr>   
 
                 <tr>    
-                  <td> <label> Message to show on failure:                                                                                                                                 </label> </td>
-                  <td> <input id="message_failure__input" type="text"     placeholder="Type something"      value={messageFailure}  onChange={(e) => setMessageFailure (e.target.value)} required/> </td>
+                  <td> <label> Message to show on failure:                                                                                                                                         </label> </td>
+                  <td> <input id="message_failure__input" type="text"     placeholder="Insert failure message"      value={messageFailure}  onChange={(e) => setMessageFailure(e.target.value)}  required/> </td>
                 </tr>
 
                 <tr>
                   <td> <label> Certificate Templates: </label> </td>
                   <td> <select id="certificate__select" onChange={(e) => setCertificateTemplate (e.target.value)}>
                           {certificateTemplates && certificateTemplates.map((certificate) => (
-                            <option key={certificate.id} value={certificate.template}> {certificate.template} </option>
+                            <option key={certificate.templateID} value={certificate.templateName}> {certificate.templateName} </option>
                           ))}
                         </select> </td>
                 </tr>
@@ -239,7 +367,7 @@ export default function CreateEditTest() {
             <table id="email_delivery__table">
               <tbody>
                 <tr className="space_under header_row border_bottom">
-                  <th colspan="2"> Email Delivery Upon Test Completion </th>
+                  <th colSpan="2"> Email Delivery Upon Test Completion </th>
                 </tr>
                 <tr>
                   <td> <label> Current Status: "{status === "OFF" ? `OFF` : "ON"}"                                                                                                         </label> </td>
@@ -252,7 +380,7 @@ export default function CreateEditTest() {
 
                 <tr>
                   <td> <label> From: </label> </td>
-                  <td> <input id="from__input"  type="text" value={from}  onChange={(e) => handleStatus(e.target.value)}                                                                         /> </td>
+                  <td> <input id="from__input"  type="text" value={from}  onChange={(e) => handleFromChange(e.target.value)}                                                                     /> </td>
                 </tr>      
           
                 <tr>       
@@ -271,7 +399,7 @@ export default function CreateEditTest() {
             <table id="passing_test__table">   
               <tbody>
                 <tr className="space_under sub_header_row border_bottom">
-                  <th colspan="2"> Passing the test </th>
+                  <th colSpan="2"> Passing the test </th>
                 </tr>
                 <tr>       
                   <td> <label> Message subject:                                                                                                                                            </label> </td>
@@ -323,64 +451,36 @@ export default function CreateEditTest() {
           <div id="questions__container">
             <h2 className="section__headers"> Questions </h2>
             <div id="explanation">
-              <label style={{fontWeight: 'bold'}}> Note: This test is set to be a {`'${testType}'`} test, which means:</label>
+              <label style={{fontWeight: 'bold'}}> Note: This test is set to be a "{`${testType}`}" test, which means:</label>
               
-              {/* INSTEAD OF THIS: */}
-              <label className="sub__label"> All the questions that you select here will be included in the test. </label>
-              <label className="sub__label"> All respondents will receive the SAME set of questions presented in a different order. </label>
+              <ul>
+                <li> All the questions that you select here will be included in the test. </li>
+                <li> All respondents will receive {`${testType.includes("random") ? "a DIFFERENT" : "the SAME"}`} set of questions, presented in a different order. </li>
+              </ul>
 
-              {/* NEED TO CHANGE THE 'LINK' TO SOMETHING ELSE - SOMETHING THAT WILL REFER THE USER BACK TO THE TEST DETAILS  */}
-              <label className="sub__label"> *TIP: if you want each respondent to receive a different set of questions, change the test type to 'Random' in the <Link to={"/admin/" + test === undefined ? "create" : "edit" + "-test#test_type__select"} >Test Details</Link> section.* </label>
-
-              {/* FOR EVERY LABEL OR SOMETHING FROM THE DB THAT CONTAINS THE TEST TYPES, I WILL NEED TO DO THIS */}
-              {/* <label className="sub__label"> {TestType.child.text} </label> */}
+              <label className="sub__label"> *TIP: if you want each respondent to receive {`${testType.includes("random") ? "the SAME" : "a DIFFERENT"}`} set of questions, change the test type to "{`${testType.includes("random") ? "Predefined" : "Random"}`}" in the 
+                  <Link to={`/admin/${test === null ? "create" : "edit"}-test#test_type__select`} > Test Details</Link> section.* </label>
             </div>
 
             <div id="question_table__container">
               <label style={{fontWeight: 'bold', color: 'orange'}}> Select the questions that you want to include in the test </label>
               <label> You can use the tag filter to narrow down the list to a specific subject - Don't worry, filtering won't affect your previous selections. </label>
 
-              <div id="filter__container">
-                <label style={{fontWeight: 'bold'}}> Filter by tags or content </label>
-                <input id="tag_content__input" type="text"
-                            onChange={(e) => { setFilterContent(e.target.value); filterContent === "" ? setFilter(false) : setFilter(true)} }
-                            placeholder='Enter a list of keywords separated by commas'/>
-                    <label id="filter_state"> Filter is {filter === false ? "OFF" : "ON"}  </label>
-              </div>
+              { questions && filteredQuestions && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
+                handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
 
-              <table id="questions__table">
-                <tbody>
-                  <tr>
-                    <th> Currently showing {questionsAmount} questions ({questionsAmount} selected) </th>
-                  </tr>
-                  <tr>
-                    {/* CHANGE THIS SO EVERY QUESTION THAT MATCHES THE FILTER WILL BE PLACED IN A NEW TABLE ROW, AND THAT THE SHOW BUTTON CAN SHOW THE QUESTIONS CONTENT
-                    PLS PAY ATTENTION THAT THIS KIND OF OPEN MENU CAN BE CREATED AND RE-USED FOR THE 'TEST REPORT' PAGE AS WELL */}
+              { <QuestionTable createEditTest={true} questions={filteredQuestions} filteredQuestions={filteredQuestions} selectedQuestions={selectedQuestions} tests={tests} 
+                setSelectedQuestions={setSelectedQuestions} handleShowAll={handleShowAll} handleShowSelected={handleShowSelected}/> }
 
-                    <td>
-                      <label> What is the DOM? </label>
-                      <label> *IN SMALL TEXT* Javascript | Advanced</label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div id="table_buttons__container">
-                <label> Showing 1-{`AMOUNT OF QUESTIONS`} of {`AMOUNT OF QUESTIONS`} filtered questions</label>
-                <button> Next 2 {`>>`} </button>
-                <button> Show only Selected </button>
-                <button> Show All {`AMOUNT OF QUESTIONS`} questions </button>
-              </div>
+                <label> The test will include {selectedQuestions.length} questions in total </label>
             </div>
-
-            <label> The test will include {`AMOUNT OF QUESTIONS`} in total </label>
           </div>
         </div>
 
         <div id="buttons__container">
-            <button className="regular__button" onClick={() => back() }> {`<<` } Back  </button>
-            <button className="regular__button" onClick={() => show() }>  Show         </button>
-            <button className="regular__button" type="submit"          >  Save {`>>` } </button>
+            <button className="regular__button" onClick={() => handleBack() }> {`<<` } Back  </button>
+            <button className="regular__button" onClick={() => handleShow() }>  Show         </button>
+            <button className="regular__button" type="submit"                >  Save {`>>` } </button>
           </div>
       </form>
     </div>

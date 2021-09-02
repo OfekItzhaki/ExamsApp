@@ -1,7 +1,7 @@
-import React, { useState, useEffect     }  from 'react';
-import        { useHistory, useLocation }  from 'react-router-dom';
-import        { TagsInput               }  from '../../../../../Admin/TagsInput/TagsInput';
-import styles                              from './CreateEditQuestion.css';
+import React, { useState, useEffect       }  from 'react';
+import        { useHistory, useLocation   }  from 'react-router-dom';
+import        { TagsInput                 }  from '../../../../../Admin/TagsInput/TagsInput';
+import styles                                from './CreateEditQuestion.css';
 
   export default function CreateEditQuestion() {
 
@@ -16,21 +16,21 @@ import styles                              from './CreateEditQuestion.css';
   // ------------------------- Content Hooks -------------------------
 
   // *Question Table*
-  // Need to change it to "location.state.question"
-  const [ type,                 setType             ]  = useState(question ? question.type : "");
-  const [ questionHeader,       setQuestionHeader   ]  = useState(question ? question.title : "");
-  const [ questionText,         setQuestionText     ]  = useState(question ? question.text : "");
-  const [ questionID,           setQuestionID       ]  = useState(question ? question.id + 1 : 0);
+  const [ questionID,           setQuestionID       ]  = useState(0);
+  const [ questionType,         setQuestionType     ]  = useState("");
+  const [ questionTitle,        setQuestionTitle    ]  = useState("");
+  const [ questionText,         setQuestionText     ]  = useState("");
+  const [ difficulty,           setDifficulty       ]  = useState("low");
 
   // *Answers Table*
-  const [ possibleAnswers,      setPossibleAnswers  ]  = useState(
+  const [ answers,              setAnswers          ]  = useState(
     question ? question.answers : [
-      { "id": 0, "answer": "", "correct": false},
-      { "id": 1, "answer": "", "correct": false},
-      { "id": 2, "answer": "", "correct": false}
+      { "answerID": 0, "answerTitle": "", "correct": true},
+      { "answerID": 1, "answerTitle": "", "correct": false},
+      { "answerID": 2, "answerTitle": "", "correct": false}
     ]
   );
-  const [ answerID,             setAnswerID         ]  = useState(possibleAnswers ? possibleAnswers[possibleAnswers.length - 1].id + 1 : 0);
+  const [ answerID,             setAnswerID         ]  = useState(answers ? answers[answers.length - 1].answerID + 1 : 0);
   const [ answersLayout,        setAnswersLayout    ]  = useState("vertical");
 
   // *Tags Table* 
@@ -38,41 +38,42 @@ import styles                              from './CreateEditQuestion.css';
 
   // -----------------------------------------------------------------
 
-  const selectedTags = tags => console.log(tags);
-
   const initialState = () => {
     console.log("returning to initial state");
-    setType(questionTypes ? questionTypes[0] : "");
-    setQuestionHeader("");
+    setQuestionType(questionTypes ? questionTypes[0] : "");
+    setQuestionTitle("");
     setQuestionText("");
     setQuestionID(questionID + 1);
 
-    setPossibleAnswers([
-      { "id": 0, "answer": "", "correct": false},
-      { "id": 1, "answer": "", "correct": false},
-      { "id": 2, "answer": "", "correct": false}
+    setAnswers([
+      { "answerID": 0, "answerTitle": "", "correct": true},
+      { "answerID": 1, "answerTitle": "", "correct": false},
+      { "answerID": 2, "answerTitle": "", "correct": false}
     ]);
 
-    setAnswerID(possibleAnswers ? possibleAnswers[possibleAnswers.length - 1].id + 1: 0);
+    setAnswerID(answers ? answers[answers.length - 1].answerID + 1: 0);
     setTags("");
-    setAnswersLayout("horizontal");
+    setAnswersLayout("vertical");
   }
   
   const addAnswer = (event) => {  
+    console.log("add answer");
     event.preventDefault();
-    let newPossibleAnswers = possibleAnswers;
-    newPossibleAnswers.push({ "id": answerID, "answer": "", correct: false });
-    setPossibleAnswers(newPossibleAnswers);
-    setAnswerID(answerID + 1);
+    let newPossibleAnswers = answers;
+    newPossibleAnswers.push({ "answerID": answers[answers.length - 1].answerID + 1, "answerTitle": "", correct: false });
+    setAnswers(newPossibleAnswers);
+    setAnswerID(answers[answers.length - 1].answerID + 1);
   }
 
   const removeAnswer = (event, id) => { 
     event.preventDefault(); 
     console.log("remove answer id " + id)
-    setPossibleAnswers(possibleAnswers.filter((answer) => answer.id !== id));
+    setAnswers(answers.filter((answer) => answer.answerID !== id));
   }
   
+  const location = useLocation();
   const history = useHistory();
+
   const back = () => {
       history.goBack();
   }
@@ -81,43 +82,57 @@ import styles                              from './CreateEditQuestion.css';
     
   }
 
+  const handleTagsChange = newTags => {
+    console.log(newTags);
+    setTags(newTags);
+  }
+
   const handlePossibleAnswersChange = () => {
     // console.log("possible answers changed")
     let correctAnswer_Counter = 0;
-    (possibleAnswers && possibleAnswers.map((answer) => {
-      let radio = document.getElementById(`radio_${answer.id}`);
+    (answers && answers.map((answer) => {
+      let radio = document.getElementById(`radio_${answer.answerID}`);
       radio.checked = answer.correct;
       if (answer.correct === true) {
         correctAnswer_Counter++;
       }
     }));
 
-    if (correctAnswer_Counter === 0) {
-      setType("");
-      // console.log("0 correct answers")
-    } else if (correctAnswer_Counter === 1) {
-      setType(questionTypes[0].type);
-      // console.log("1 correct answers")
-    } else {
-      setType(questionTypes[1].type)
-      // console.log("2+ correct answers")
+    if (questionTypes) {
+      if (correctAnswer_Counter === 0) {
+        // console.log("0 correct answers")
+      } else if (correctAnswer_Counter === 1) {
+        setQuestionType(questionTypes[0].typeName);
+        // console.log("1 correct answers")
+      } else {
+        setQuestionType(questionTypes[1].typeName)
+        // console.log("2+ correct answers")
+      }
     }
-  }
-
-  const handleTagsChange = () => {
-    
   }
 
   const handleAnswerClick = (id) => {
     console.log("handle answer click");
-    let newPossibleAnswers = possibleAnswers;
-    newPossibleAnswers.filter((answer) => answer.id === id).map((answer) => {
-      answer.correct = !answer.correct;
-      // console.log(`answer_${id} state - ${answer.correct}`);
-      document.getElementById(`label_${id}`).text = answer.answer === "Correct" ? "Incorrect" : "Correct";
+    let newAnswers = answers;
+    let amountCorrect = newAnswers.filter((answer) => answer.correct === true)
+    newAnswers.filter((answer) => answer.answerID === id).map((answer) => {
+
+      if (amountCorrect.length <= 1) {
+        if (answer.correct === false) answer.correct = true;
+      }
+
+      else if (amountCorrect.length > 1 && amountCorrect.length < newAnswers.length - 1) {
+        answer.correct = !answer.correct;
+        console.log(`answer_${id} state - ${answer.correct}`);
+      }
+
+      else {
+        if (answer.correct === true) answer.correct = false;
+      }
+
       return answer;
     });
-    setPossibleAnswers(newPossibleAnswers);
+    setAnswers(newAnswers);
     handlePossibleAnswersChange();
   }
 
@@ -129,20 +144,23 @@ import styles                              from './CreateEditQuestion.css';
 
   const handleAnswerChanged = (id, a) => {
     console.log("handle answer changed");
-    let newPossibleAnswers = possibleAnswers;
-    newPossibleAnswers.filter((answer) => answer.id === id).map((answer) => {
-      answer.answer = a;
+    let newPossibleAnswers = answers;
+    newPossibleAnswers.filter((answer) => answer.answerID === id).map((answer) => {
+      answer.answerTitle = a;
       return answer;
     });
-    setPossibleAnswers(newPossibleAnswers);
+    setAnswers(newPossibleAnswers);
   }
 
   const handleSubmit = (event) => {
+    console.log("handle submit");
     event.preventDefault();
     saveQuestion();
   }
 
   const saveQuestion = () => {
+    console.log(questionID);
+
     fetch('http://localhost:8000/questions', {
       method: 'POST',
       headers: {
@@ -152,12 +170,11 @@ import styles                              from './CreateEditQuestion.css';
         id: questionID,
         tags: tags,
         last_update: Date.now,
-        type: type,
-        title: questionHeader,
+        type: questionType,
+        title: questionTitle,
         text: questionText,
-        difficulty: (question && question.difficulty ? question.difficulty : "low"),
-        answers: possibleAnswers,
-        num_of_tests: (question && question.num_of_tests ? question.num_of_tests : 0),
+        difficulty: difficulty,
+        answers: answers,
         answersLayout: answersLayout
       }),
     })
@@ -166,7 +183,22 @@ import styles                              from './CreateEditQuestion.css';
         console.log(data); 
         initialState(); 
       })
-      .catch((err) => console.log(`error ${err}`))
+      .catch((err) => console.log(`error ${err}`));
+  }
+
+  const caseEditQuestion = () => {
+    let editQuestion = location.state.question;
+
+    setQuestionID(editQuestion.questionID);
+    console.log(`Current questionID: ${editQuestion.questionID}`); 
+    
+    setQuestionType(editQuestion.questionType);
+    setQuestionTitle(editQuestion.questionHeader);
+    setQuestionText(editQuestion.questionText);
+    setAnswers(editQuestion.answers);
+    setAnswerID(editQuestion.answers[editQuestion.answers.length - 1].answerID + 1);
+    setAnswersLayout(editQuestion.answersLayout);
+    setTags(editQuestion.tags);
   }
 
   const fetchQuestions = () => {
@@ -176,10 +208,15 @@ import styles                              from './CreateEditQuestion.css';
     .then((res) => res.json())
     .then((data) => { 
       setQuestions(data); 
-      setQuestionID(questionID ? questionID : data[data.length - 1].id + 1); 
-      console.log(`Current questionID: ${data[data.length - 1].id + 1}`); 
+
+      // Edit question
+      if (location.state && location.state.question) caseEditQuestion();
+      else {
+        setQuestionID( data && data[data.length - 1].questionID + 1);
+        console.log(`Current questionID: ${data[data.length - 1].questionID + 1}`); 
+      }
     })
-    .catch((err) => console.log('error fetching questions:' + err))
+    .catch((err) => console.log('error fetching questions:' + err));
   }
 
   const fetchQuestionTypes = () => {
@@ -189,22 +226,28 @@ import styles                              from './CreateEditQuestion.css';
     .then((res) => res.json())
     .then((data) => { 
       setQuestionTypes(data); 
-      setType(type ? type : data[0].type); 
+      setQuestionType(questionType ? questionType : data[0].typeName); 
     })
-    .catch((err) => console.log('error fetching question types:' + err))
+    .catch((err) => console.log('error fetching question types:' + err));
   }
 
   // Meant to set the type according to the amount of the correct answers
   useEffect(() => {
     handlePossibleAnswersChange();
-  }, [possibleAnswers])
+  }, [answers])
 
   // Meant for setting the title of the document on the first render
   useEffect(() => {
-    document.title = `${question === undefined ? "Create" : "Edit"} Question`;
-  }, [question])
+    if (location.state && location.state.question) setQuestion(location.state.question);
+    document.title = `${location.state.question === null ? "Create" : "Edit"} Question`;
 
-    // Meant for fetching the necessary information on first render
+    if (location.state) {
+      if (location.state.field) setField(location.state.field);
+    }
+
+  }, [location])
+
+  // Meant for fetching the necessary information on first render
   useEffect(() => {
     let isMounted = true;           // note mutable flag
 
@@ -213,14 +256,28 @@ import styles                              from './CreateEditQuestion.css';
       fetchQuestionTypes();
     }
 
-    window.addEventListener('keydown',function(e){if(e.keyIdentifier==='U+000A'||e.keyIdentifier==='Enter'||e.keyCode===13){if(e.target.nodeName === 'INPUT' && e.target.type !== 'textarea'){e.preventDefault();return false;}}},true);
+    // Event listener for enter key press inside form's inputs
+    // const listener = event => {
+    //   if (event.code === "Enter" || event.code === "NumpadEnter") {
+    //     console.log("Enter key was pressed. Run your function.");
+    //     handleSubmit(event);
+    //   }
+    // };
+    // document.addEventListener("keydown", listener);
 
-    return () => { isMounted = false }; // cleanup toggles value, if unmounted
+    // Prevent form submission on enter key press inside inputs
+    const listener = e => {if(e.keyIdentifier==='U+000A'||e.keyIdentifier==='Enter'||e.keyCode===13){if(e.target.nodeName === 'INPUT' && e.target.type !== 'textarea'){e.preventDefault();return false;}}};
+    document.addEventListener('keydown', listener, true);
+
+    return () => { 
+      document.removeEventListener("keydown", listener);
+      isMounted = false
+    }; // cleanup toggles value, if unmounted
   }, [])
 
   return (
     <div className="create_edit_question noselect">
-      <h1 className="page__header"> { question === undefined ? "Create" : "Edit" } Question </h1>
+      <h1 className="page__header"> { question === null ? "Create" : "Edit" } Question </h1>
       <form className="new_question__form" onSubmit={handleSubmit}>
 
         <div className="content__section">
@@ -228,21 +285,21 @@ import styles                              from './CreateEditQuestion.css';
             <tbody>
               <tr>
                 <td> <label> Field: </label> </td>
-                <td> <label id="field__label"> { field === undefined ? "undefined" : field } </label> </td>
+                <td> <label id="field__label"> { field === null ? "undefined" : field } </label> </td>
               </tr>
 
               <tr>
                   <td> <label> Question type: </label> </td>
-                  <td> <select id="question_type__select" value={type} disabled>
+                  <td> <select id="question_type__select" value={questionType} disabled>
                           {questionTypes && questionTypes.map((questionType) => (
-                            <option key={questionType.id} value={questionType.type}> {questionType.type} </option>
+                            <option key={questionType.typeID} value={questionType.typeName}> {questionType.typeName} </option>
                           ))}
                         </select> </td>
               </tr>
 
               <tr>
                 <td> <label> Question header: </label> </td>
-                <td> <input className="asterisk_input" value={questionHeader} type="text" placeholder="Enter your question here"  onChange={(e) => setQuestionHeader(e.target.value)} required/> </td>
+                <td> <input className="asterisk_input" value={questionTitle} type="text" placeholder="Enter your question here"  onChange={(e) => setQuestionTitle(e.target.value)} required/> </td>
               </tr>
 
               <tr>
@@ -257,14 +314,14 @@ import styles                              from './CreateEditQuestion.css';
           <table id="answers__table">
             <tbody>
 
-              {possibleAnswers && possibleAnswers.map((answer) => (
-              <tr key={answer.id}>
-                <td> { answer.id === 0 && <label> Possible answers: </label> } </td>
+              {answers && answers.map((answer) => (
+              <tr key={answer.answerID}>
+                <td> { answer.answerID === 0 && <label> Possible answers: </label> } </td>
                 <td className="answer__td"> 
-                  <button type="" onClick={ (e) => removeAnswer(e, answer.id) }> X </button>
-                  <input id={`answer_${answer.id}` } className="asterisk_input" name="answer" type="text" onChange={(e) => handleAnswerChanged(answer.id, e.target.value)} placeholder={`Answer #${answer.id}`} required/> 
-                  <input id={`radio_${answer.id}`  } name={questionTypes ? (type === questionTypes[0] ? type : "") : "default"} type="radio" onClick={(e) => handleAnswerClick(answer.id)} /> 
-                  <label id={`label_${answer.id}`  } htmlFor={`answer_${answer.id}`}   >  {answer.correct === true ? "Correct" : "Incorrect"}  </label>
+                  <button type="" onClick={ (e) => removeAnswer(e, answer.answerID) }> X </button>
+                  <input id={`answer_${answer.answerID}` } className="asterisk_input" name="answer" type="text" onChange={(e) => handleAnswerChanged(answer.answerID, e.target.value)} placeholder={`Answer #${answer.answerID}`} required/> 
+                  <input id={`radio_${answer.answerID}`  } name={questionTypes ? (questionType === questionTypes[0] ? questionType : "") : "default"} type="radio" onClick={(e) => handleAnswerClick(answer.answerID)} /> 
+                  <label id={`label_${answer.answerID}`  } htmlFor={`radio_${answer.answerID}`}   >  {answer.correct === true ? "Correct" : "Incorrect"}  </label>
                 </td>
               </tr>
               ))}
@@ -284,7 +341,7 @@ import styles                              from './CreateEditQuestion.css';
             <tbody>
               <tr>
                 <td> <label> Tags: </label> </td>
-                <td> <TagsInput selectedTags={selectedTags} handleTagsChange={handleTagsChange}/> </td>
+                <td> <TagsInput tags={handleTagsChange}/> </td>
               </tr>
             </tbody>
           </table>

@@ -1,6 +1,5 @@
 import React,   { useEffect, useState  }   from    'react';
 import          { AdminMainPageMenu    }   from    '../../../../utils/AdminMenuPanel';
-import          { Link                 }   from    'react-router-dom';
 import          { useHistory           }   from    'react-router-dom';
 import styles                              from    './MainPage.css';
 
@@ -34,7 +33,7 @@ export default function MainPage() {
         .then((res) => res.json())
         .then((data) => { 
             setFields(data);
-            setField(data[0].title);
+            setField(data[0].fieldTitle);
 
             process.env.REACT_APP_CURRENT_FIELD = data[0];
         })
@@ -69,7 +68,7 @@ export default function MainPage() {
                                     <label id="label__choose"> Choose a field of study: </label>
                                     <select id="fields__select" onChange={(e) => handleFieldChange(e.target.value)}>
                                         { fields && fields.map((field) => (
-                                            <option key={field.id} value={field.title}> {field.title} </option>
+                                            <option key={field.fieldTitle} value={field.fieldTitle}> {field.fieldTitle} </option>
                                         ))}
                                     </select>
                                 </td>

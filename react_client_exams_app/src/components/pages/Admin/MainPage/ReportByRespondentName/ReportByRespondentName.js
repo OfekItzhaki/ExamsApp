@@ -9,6 +9,7 @@ export default function ReportByRespondentName() {
     
     const [ students,            setStudents         ]       = useState(null); 
     const [ studentTests,        setStudentTests     ]       = useState(null); 
+    const [ tests,               setTests            ]       = useState(null); 
 
     // ------------------------- Content Hooks -------------------------
 
@@ -24,15 +25,16 @@ export default function ReportByRespondentName() {
 
 
     // ?????????????????????????????
-    const calcAverageGrade = () => {
-        const tests = [];
-        if (studentTests !== null && respondentID !== 0) {
-            studentTests.filter((studentTest) => studentTest.studentID === respondentID).map((studentTest) =>
-                tests.push(studentTest)
-            );
-            console.log(tests);
-        }
-    }
+    // const calcAverageGrade = () => {
+    //     const tests = [];
+    //     // !== null && respondentID !== 0
+    //     if (studentTests) {
+    //         studentTests.filter((studentTest) => studentTest.studentID === respondentID).map((studentTest) =>
+    //             tests.push(studentTest)
+    //         );
+    //         console.log(tests);
+    //     }
+    // }
 
     const history = useHistory();
 
@@ -47,17 +49,25 @@ export default function ReportByRespondentName() {
         .then((res) => res.json())
         .then((data) => setStudents(data))
         .catch((err) => console.log('error fetching students:' + err))
-      }
+    }
 
-      const fetchStudentTests = () => {
+    const fetchStudentTests = () => {
         fetch("http://localhost:8000/studentTests", {
           method: 'GET',
         })
         .then((res) => res.json())
         .then((data) => setStudentTests(data))
         .catch((err) => console.log('error fetching student tests:' + err))
-      }
-
+    }
+    
+    const fetchTests = () => {
+        fetch("http://localhost:8000/tests", {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then((data) => setTests(data))
+        .catch((err) => console.log('error tests:' + err))
+    }
 
     useEffect(() => {
         document.title = "Report by Name";
@@ -70,9 +80,8 @@ export default function ReportByRespondentName() {
         if (isMounted) {                // add conditional check 
             fetchStudents();
             fetchStudentTests();
+            fetchTests();
         }
-
-        calcAverageGrade();
 
         return () => { isMounted = false }; // cleanup toggles value, if unmounted
     }, [])
@@ -103,8 +112,8 @@ export default function ReportByRespondentName() {
                             </tr>
 
                             {students && students.filter((student) => student.fullName.includes(filterContent)).map((student) => (
-                            <tr key={student.id} onClick={() => handleRespondentClick(student.fullName, student.id)}>
-                                <td> {student.id}               </td>
+                            <tr key={student.studentID} onClick={() => handleRespondentClick(student.fullName, student.studentID)}>
+                                <td> {student.studentID}        </td>
                                 <td> {student.fullName}         </td>
                                 <td> {student.email}            </td>
                                 <td> {student.lastActivity}     </td>
@@ -128,18 +137,44 @@ export default function ReportByRespondentName() {
                                 <th> Test ID        </th>
                                 <th> Test Name      </th>
                                 <th> Grade          </th>
-                                <th> Last Activity  </th>
+                                <th> Time Submitted </th>
                             </tr>
 
+                            {/* { tests && tests.filter((test) => test.testID === studentTest.testID).map((test) => <td> {console.log(test.testName)} </td>) } */}
+
                             {studentTests && studentTests.filter((studentTest) => studentTest.studentID === respondentID).map((studentTest) => (
-                            <tr key={studentTest.id}>
-                                <td> {studentTest.instance}             </td>
+                            <tr key={studentTest.studentID}>
+                                <td> {studentTest.stID}                 </td>
                                 <td> {studentTest.testID}               </td>
                                 <td> {studentTest.testName}             </td>
                                 <td> {studentTest.grade}                </td>
-                                <td> {studentTest.lastActivity}         </td>
+                                <td> {studentTest.submitted}            </td>
                             </tr>
                             ))}
+
+
+                            {/* { tests && tests.map((test) => {
+                                return (
+                                <>
+                                    { studentTests && studentTests.filter((studentTest) => studentTest.studentID === respondentID).map((studentTest) => {
+                                        if (test.testID === studentTest.testID) 
+                                        {
+                                            return (
+                                            <>
+                                                <tr key={studentTest.studentID}>
+                                                    <td> {studentTest.stID}                 </td>
+                                                    <td> {studentTest.testID}               </td>
+
+                                                    { studentTest.testID === test.testID && <td> {test.testName} </td> }
+                                                    <td> {studentTest.testName}             </td>
+                                                    <td> {studentTest.grade}                </td>
+                                                    <td> {studentTest.submitted}            </td>
+                                                </tr>                                    
+                                            </>)
+                                        }
+                                    })}
+                                </>)
+                            }) } */}
                         </tbody>
                     </table>
                 </div>

@@ -17,11 +17,11 @@ export const Filter = ({ filterStatus, totalAmount, filteredAmount, handleFilter
             </div>
 
             <div id="filter_status__container">
-                <label id="filter__status">      Filter is   {filterStatus === false ? "OFF" : "ON"}                                                           </label>
+                <label id="filter__status">         Filter is   {filterStatus === false ? "OFF" : "ON"}                                                           </label>
             </div>
 
             <div id="amount_filtered__container">
-                <label id="amount__filtered">       Filtered    {filteredAmount} of total {totalAmount}    </label>
+                <label id="amount__filtered">       Filtered    {filteredAmount ? filteredAmount : ""} of total {totalAmount ? totalAmount : ""}    </label>
             </div>
         </div>
     )

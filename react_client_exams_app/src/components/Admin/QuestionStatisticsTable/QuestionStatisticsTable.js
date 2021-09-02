@@ -26,23 +26,8 @@ export const QuestionStatisticsTable = ({ test, studentTests, handleRespondentCl
                         </>
                     ))}
 
-                    {/* {studentTests && studentTests.filter((studentTest) => studentTest.testID === test.testID).map((studentTest) => (                             
-                        <tr onClick={() => handleRespondentClick(studentTest.studentID)}>
-                            <td key={studentTest.stID}>                 {  studentTest.stID         } </td>
-                            <td key={studentTest.studentName}>          {  studentTest.studentName  } </td>
-                            <td key={studentTest.submitted}>            {  studentTest.submitted    } </td>
-                            {  <td key={studentTest.questions}>         {  studentTest.questions.filter((question) => question.answer === "").map((answer, questionID) => {
-                                if (answer !== "") numOfQuestions++;
 
-                                if (studentTest.questions[studentTest.questions.length - 1].questionID === questionID) return numOfQuestions;
-                                else return "";
-                            })} </td> }                         
-                            
-                            <td key="hidden" style={{display: "none"}}> {  numOfQuestions = 0  } </td>
-
-                            <td key={studentTest.grade}>                {  studentTest.grade        } </td>
-                        </tr>
-                    ))} */}
+                    
                 </tbody>
             </table>
         </>
