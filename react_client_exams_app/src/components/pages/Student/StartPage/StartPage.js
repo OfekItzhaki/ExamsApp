@@ -1,33 +1,62 @@
 import React, { useEffect,  useState        }   from 'react';
-import        { useHistory, useLocation     }   from ''
+import        { useHistory, useLocation     }   from 'react-router-dom';
+import styles                                   from './StartPage.css';
 
-export default function StartPage() {
+export const StartPage = (props) => {
 
     const [ tests,          setTests            ] = useState(null);
     const [ students,       setStudents         ] = useState(null);
-    const [ studentExists,  setStudentExists    ] = useState(false);
 
     const [ firstName,      setFirstName        ] = useState("");
     const [ lastName,       setLastName         ] = useState("");
     const [ email,          setEmail            ] = useState("");
 
+    const [ linkID,         setLinkID           ] = useState("");
     const [ link,           setLink             ] = useState("");
+    const [ linkExists,     setLinkExists       ] = useState(false);
 
-    const location = useLocation();
+    const [ student,        setStudent          ] = useState(null);
+    const [ test,           setTest             ] = useState(null);
+
     const history = useHistory();
 
     const handleSubmit = (event) => {
         console.log("handle submit");
         event.preventDefault();
 
-        let test = tests.some((test) => test.link === link);
+        tests.some((test) => {
+            if (test.link === link) {
+                // console.log("links are equel")
+                setTest(test);
+                }
+        });
+        findStudent();
+    }
 
-        let student = findStudent();
+    const findStudent = () => {
+        students.map((student) => {
+            let fullName = (`${firstName} ${lastName}`);
 
-        if (studentExists) {
+            if (student.fullName.includes(fullName.toLowerCase())) {
+                console.log("student was found");
+                setStudent(student);
+                return true;
+            } else {
+                console.log("student wasn't found");
+            }
+        })
+    }
+
+    const pushHistory = () => {
+
+        console.log("push history")
+        if (student) {
+            console.log("student is defined")
+
+            console.log(linkID);
 
             history.push({
-                pathname: `/student/${link}`,
+                pathname: `/student/test/${linkID}`,
                 // search: '?update=true',  // query string
                 state: {  // location state
                     // update: true, 
@@ -38,21 +67,8 @@ export default function StartPage() {
                     },
                     test: test
                 },
-            }); 
+            });
         }
-    }
-
-    const findStudent = () => {
-        students.map((student) => {
-            if (student.fullName.includes().toLowerCase(`${firstName} ${lastName}`)) {
-                console.log("student was found");
-                studentExists(true);
-                return student;
-            } else {
-                console.log("student wasn't found");
-                return null;
-            }
-        })
     }
 
     const fetchStudents = () => {
@@ -77,13 +93,45 @@ export default function StartPage() {
         .catch((err) => console.log('error fetching tests:' + err))
     }
 
+    const checkLink = (link) => {
+        let exists = false;
+
+        if (tests !== null) {
+            tests.map((test) => {
+                if (test.link === link) {
+                    exists = true;
+                }
+            })
+            
+            return exists;
+        }
+    }
+
     // Meant for fetching the necessary information on first render
     useEffect(() => {
         document.title = "State Test";
+    }, [])
 
-        if (location.state) {
-            if (location.state.link) setLink(location.state.link);
+    useEffect(() => {
+
+        pushHistory();
+
+    }, [student, test])
+
+    useEffect(() => {
+        if (props) {
+            if (props.location.pathname) {
+
+                if (checkLink(props.location.pathname) === false) { 
+                    history.push("/error404");
+                } else {
+                    setLinkID(props.match.params.randomID)
+                    setLink(props.location.pathname);
+                    setLinkExists(true);
+                }
+            }
         }
+
     }, [])
 
       // Meant for fetching the necessary information on first render
@@ -100,31 +148,33 @@ export default function StartPage() {
 
     return (
         <div className="start_page noselect">
-            <label> Please complete the following form to begin: </label>
-            <form id="start_page__form" onSubmit={handleSubmit}>
-                <div id="start_page_content__container">
-                    <table id="start_page__table">
-                        <tbody>
-                            <tr>
-                                <td> <label> First Name: </label> </td>
-                                <td> <input className="asterisk_input" value={firstName}    type="text" placeholder="Type something"    onChange={(e) => setFirstName(e.target.value)}  required/> </td>
-                            </tr>
+            { linkExists && <div id="start_page_content__container">
+                <label> Please complete the following form to begin: </label>
+                <form id="start_page__form" onSubmit={handleSubmit}>
+                    <div id="start_page_content__container">
+                        <table id="start_page__table">
+                            <tbody>
+                                <tr>
+                                    <td> <label> First Name: </label> </td>
+                                    <td> <input className="asterisk_input" value={firstName}    type="text" placeholder="Type something"    onChange={(e) => setFirstName(e.target.value)}  required/> </td>
+                                </tr>
 
-                            <tr>
-                                <td> <label> Last Name: </label> </td>
-                                <td> <input className="asterisk_input" value={lastName}     type="text" placeholder="Type something"    onChange={(e) => setLastName(e.target.value)}   required/> </td>
-                            </tr>
+                                <tr>
+                                    <td> <label> Last Name: </label> </td>
+                                    <td> <input className="asterisk_input" value={lastName}     type="text" placeholder="Type something"    onChange={(e) => setLastName(e.target.value)}   required/> </td>
+                                </tr>
 
-                            <tr>
-                                <td> <label> Email: </label> </td>
-                                <td> <input className="asterisk_input" value={email}        type="text" placeholder="Type something"    onChange={(e) => setEmail(e.target.value)}      required/> </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                <tr>
+                                    <td> <label> Email: </label> </td>
+                                    <td> <input className="asterisk_input" value={email}        type="text" placeholder="Type something"    onChange={(e) => setEmail(e.target.value)}      required/> </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                    <button id="submit__button" type="submit"> Submit </button>
-                </div>
-            </form>
+                        <button id="submit__button" type="submit"> Submit </button>
+                    </div>
+                </form>
+            </div> }
         </div>
     )
 };

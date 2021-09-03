@@ -23,14 +23,19 @@ export default function CreateEditTest() {
 
   // *General Details Table*
   const [ testID,                     setTestID                 ] = useState(0);
-  const [ language,                   setLanguage               ] = useState("");
+  const [ testCode,                   setTestCode               ] = useState(0);
   const [ testType,                   setTestType               ] = useState("");
   const [ testName,                   setTestName               ] = useState("");
+  const [ language,                   setLanguage               ] = useState("");
   const [ passingGrade,               setPassingGrade           ] = useState("");
   const [ header,                     setHeader                 ] = useState("");
   const [ messageSuccess,             setMessageSuccess         ] = useState("");
   const [ messageFailure,             setMessageFailure         ] = useState("");
-  const [ certificateTemplate,        setCertificateTemplate    ] = useState("");
+  const [ version,                    setVersion                ] = useState(1);
+  const [ certificateTemplateID,      setCertificateTemplateID  ] = useState(0);
+  const [ reviewTest,                 setReviewTest             ] = useState(false);
+  const [ lastUpdate,                 setLastUpdate             ] = useState(Date.now());
+  const [ link,                       setLink                   ] = useState("");
 
   // *Email Delivery Table*         
   // Status Container          
@@ -40,12 +45,12 @@ export default function CreateEditTest() {
   const [ bcc,                        setBCC                    ] = useState("");    
 
   // Passing the Test Container
-  const [ passingMessageSubject,      setPassingMessageSubject  ] = useState("");
-  const [ passingMessageBody,         setPassingMessageBody     ] = useState("");    
+  const [ passingSubject,             setPassingSubject         ] = useState("");
+  const [ passingBody,                setPassingBody            ] = useState("");    
 
   // Failing the Test Container
-  const [ failingMessageSubject,      setFailingMessageSubject  ] = useState("");   
-  const [ failingMessageBody,         setFailingMessageBody     ] = useState("");    
+  const [ failingSubject,             setFailingSubject         ] = useState("");   
+  const [ failingBody,                setFailingBody            ] = useState("");    
 
   // -------------------------------------------- Bottom Content Hooks ----------------------------------------
 
@@ -59,7 +64,6 @@ export default function CreateEditTest() {
 
   // ----------------------------------------------------------------------------------------------------------
 
-  const baseLink = "http://localhost:3000"
   const location = useLocation();
   const history = useHistory();
   
@@ -83,10 +87,14 @@ export default function CreateEditTest() {
 
   }
 
+  const handleSelectedQuestion = (newSelectedQuestions) => {
+    setSelectedQuestions(newSelectedQuestions);
+  }
+
   const handleFilterByChange = (value) => {
     if (value === "tags") setFilterByTags(true);
     else setFilterByTags(false);
-}
+  }
 
   const handleFilterContentChange = (value) => {
         
@@ -134,12 +142,18 @@ export default function CreateEditTest() {
   }
 
   const generateRandomLink = () => {
-    let randomLink = `${baseLink}/student/${generateRandomID()}`
+    let length = 10;
+    let randomID = generateRandomID(length);
+    setTestCode(randomID);
+    let randomLink = `/student/${randomID}`
 
     tests.map((test) => {
-      if (test.link === randomLink) randomLink = `${baseLink}/student/${generateRandomID()}`
-      return null;
-    })
+      if (test.testCode === randomID) {
+            randomID = generateRandomID(length);
+            setTestCode(randomID);
+            randomLink = `/student/${randomID}`
+      }
+    });
 
     return randomLink;
   }
@@ -147,27 +161,37 @@ export default function CreateEditTest() {
   const handleSubmit = (event) => {  
     event.preventDefault();
     let link = generateRandomLink();
-    saveTest(link);
+    setLink(link);
+
+    submitTest(link);
   }
 
-  const saveTest = (link) => {
+  const submitTest = (link) => {
+    console.log(testID);
     fetch('http://localhost:8000/tests', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      link: link
-        // id: questionID,
-        // tags: tags,
-        // last_update: Date.now,
-        // type: type,
-        // title: questionHeader,
-        // text: questionText,
-        // difficulty: (question && question.difficulty ? question.difficulty : "low"),
-        // answers: possibleAnswers,
-        // num_of_tests: (question && question.num_of_tests ? question.num_of_tests : 0),
-        // answersLayout: answersLayout
+      testID: testID,
+      testCode: testCode,
+      testName: testName,
+      testType: testType,
+      language: language,
+      questions: selectedQuestions,
+      passingGrade: passingGrade,
+      header: header,
+      messageSuccess: messageSuccess,
+      messageFailure: messageFailure,
+      passingSubject: passingSubject,
+      passingBody: passingBody,
+      failingSubject: failingSubject,
+      failingBody: failingBody,
+      link: link,
+      version: version,
+      reviewTest: reviewTest,
+      lastUpdate: lastUpdate
       }),
     })
       .then((res) => res.json())
@@ -183,13 +207,24 @@ export default function CreateEditTest() {
     let editTest = location.state.test;
     setTest(editTest);
     setTestID(editTest.testID);
+    setTestCode(editTest.testCode);
     setTestType(editTest.testType);
     setTestName(editTest.testName);
+    setLanguage(editTest.language);
+    setSelectedQuestions(editTest.questions);
     setPassingGrade(editTest.passingGrade);
     setHeader(editTest.header);
     setMessageSuccess(editTest.messageSuccess);
     setMessageFailure(editTest.messageFailure);
-    setCertificateTemplate(editTest.certificateTemplate);
+    setPassingSubject(editTest.passingSubject);
+    setPassingBody(editTest.passingBody);
+    setFailingSubject(editTest.failingSubject);
+    setFailingBody(editTest.failingBody);
+    setLink(editTest.link);
+    setVersion(editTest.version + 1);
+    setCertificateTemplateID(editTest.certificateTemplate);
+    setReviewTest(editTest.reviewTest);
+    setLastUpdate(editTest.lastUpdate);
   }
 
   const fetchLanguages = () => {
@@ -223,7 +258,7 @@ export default function CreateEditTest() {
     .then((res) => res.json())
     .then((data) => { 
       setCertificateTemplates(data); 
-      setCertificateTemplate(certificateTemplate !== "" ? certificateTemplate : data[0].templateName); 
+      setCertificateTemplateID(certificateTemplateID !== "" ? certificateTemplateID : data[0].templateID); 
     })
     .catch((err) => console.log('error fetching certificate templates:' + err))
   }
@@ -247,7 +282,7 @@ export default function CreateEditTest() {
     .then((res) => res.json())
     .then((data) => { 
       setTests(data); 
-      if (!test) setTestID(data[data.length - 1].testID + 1); 
+      if (test === null) setTestID(data[data.length - 1].testID + 1); 
     })
     .catch((err) => console.log('error fetching test types:' + err))
   }
@@ -265,8 +300,6 @@ export default function CreateEditTest() {
       if (location.state.test) {
         console.log(location.state.test);
         caseEditTest();
-      } else {
-
       }
     }
   }, [location.state])
@@ -322,38 +355,38 @@ export default function CreateEditTest() {
                 </tr>
                 
                 <tr>
-                  <td> <label> Test Name:                                                                                                                                                          </label> </td>
-                  <td> <input id="test_name__input"       type="text"     placeholder="Insert test name"            value={testName}        onChange={(e) => setTestName(e.target.value)}        required/> </td>
+                  <td> <label> Test Name:                                                                                                                                                           </label> </td>
+                  <td> <input id="test_name__input"       type="text"       placeholder="Insert test name"            value={testName}        onChange={(e) => setTestName(e.target.value)}         required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Passing Grade:                                                                                                                                                    </label> </td>
-                  <td> <input id="passing_grade__input"   type="text"     placeholder="Insert passing grade"        value={passingGrade}    onChange={(e) => setPassingGrade(e.target.value)}    required/> </td>
+                  <td> <label> Passing Grade:                                                                                                                                                       </label> </td>
+                  <td> <input id="passing_grade__input"   type="text"       placeholder="Insert passing grade"        value={passingGrade}    onChange={(e) => setPassingGrade(e.target.value)}     required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Show correct answers after submission:                                                                                                                              </label> </td>
-                  <td> <input id="show_answers__checkbox" type="checkbox" defaultChecked                                                                                                         required/> </td>
+                  <td> <label> Show correct answers after submission:                                                                                                                               </label> </td>
+                  <td> <input id="show_answers__checkbox" type="checkbox"                                           value={reviewTest}      onChange={(e) => setReviewTest(e.target.value)}       required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Message header:                                                                                                                                                     </label> </td>
-                  <td> <input id="message_header__input"  type="text"     placeholder="Insert header"               value={header}          onChange={(e) => setHeader(e.target.value)}          required/> </td>
+                  <td> <label> Message header:                                                                                                                                                      </label> </td>
+                  <td> <input id="message_header__input"  type="text"       placeholder="Insert header"               value={header}          onChange={(e) => setHeader(e.target.value)}           required/> </td>
                 </tr>
 
                 <tr>
-                  <td> <label> Message to show on success:                                                                                                                                         </label> </td>
-                  <td> <input id="message_success__input" type="text"     placeholder="Insert success message"      value={messageSuccess}  onChange={(e) => setMessageSuccess(e.target.value)}  required/> </td>
+                  <td> <label> Message to show on success:                                                                                                                                          </label> </td>
+                  <td> <input id="message_success__input" type="text"       placeholder="Insert success message"      value={messageSuccess}  onChange={(e) => setMessageSuccess(e.target.value)}   required/> </td>
                 </tr>   
 
                 <tr>    
                   <td> <label> Message to show on failure:                                                                                                                                         </label> </td>
-                  <td> <input id="message_failure__input" type="text"     placeholder="Insert failure message"      value={messageFailure}  onChange={(e) => setMessageFailure(e.target.value)}  required/> </td>
+                  <td> <input id="message_failure__input" type="text"       placeholder="Insert failure message"      value={messageFailure}   onChange={(e) => setMessageFailure(e.target.value)}  required/> </td>
                 </tr>
 
                 <tr>
                   <td> <label> Certificate Templates: </label> </td>
-                  <td> <select id="certificate__select" onChange={(e) => setCertificateTemplate (e.target.value)}>
+                  <td> <select id="certificate__select" onChange={(e) => setCertificateTemplateID(e.target.key)}>
                           {certificateTemplates && certificateTemplates.map((certificate) => (
                             <option key={certificate.templateID} value={certificate.templateName}> {certificate.templateName} </option>
                           ))}
@@ -403,12 +436,12 @@ export default function CreateEditTest() {
                 </tr>
                 <tr>       
                   <td> <label> Message subject:                                                                                                                                            </label> </td>
-                  <td> <input id="message_subject__input" type="text" value={passingMessageSubject} onChange={(e) => setPassingMessageSubject(e.target.value)}  disabled={from ? false : true}   /> </td>
+                  <td> <input id="message_subject__input" type="text" value={passingSubject} onChange={(e) => setPassingSubject(e.target.value)}  disabled={from ? false : true}   /> </td>
                 </tr>      
           
                 <tr>       
                   <td> <label> Message body:                                                                                                                                               </label> </td>
-                  <td> <input id="message_body__input"    type="text" value={passingMessageBody}    onChange={(e) => setPassingMessageBody(e.target.value)} disabled={from ? false : true}       /> </td>
+                  <td> <input id="message_body__input"    type="text" value={passingBody}    onChange={(e) => setPassingBody(e.target.value)} disabled={from ? false : true}       /> </td>
                 </tr>
 
                 <tr>
@@ -428,13 +461,13 @@ export default function CreateEditTest() {
                   <th colspan="2"> Failing the test </th>
                 </tr>
               <tr>
-                <td> <label> Message subject:                                                                                                                                            </label> </td>
-                <td> <input id="message_subject__input" type="text" value={failingMessageSubject} onChange={(e) => setFailingMessageSubject(e.target.value)}  disabled={from ? false : true}   /> </td>
+                <td> <label> Message subject:                                                                                                                                     </label> </td>
+                <td> <input id="message_subject__input" type="text" value={failingSubject} onChange={(e) => setFailingSubject(e.target.value)}  disabled={from ? false : true}   /> </td>
               </tr>
 
               <tr>
-                <td> <label> Message body:                                                                                                                                               </label> </td>
-                <td> <input id="message_body__input"    type="text" value={failingMessageBody}    onChange={(e) => setFailingMessageBody(e.target.value)} disabled={from ? false : true}       /> </td>
+                <td> <label> Message body:                                                                                                                                        </label> </td>
+                <td> <input id="message_body__input"    type="text" value={failingBody}    onChange={(e) => setFailingBody(e.target.value)} disabled={from ? false : true}       /> </td>
               </tr>
 
               <tr>
@@ -470,7 +503,7 @@ export default function CreateEditTest() {
                 handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
 
               { <QuestionTable createEditTest={true} questions={filteredQuestions} filteredQuestions={filteredQuestions} selectedQuestions={selectedQuestions} tests={tests} 
-                setSelectedQuestions={setSelectedQuestions} handleShowAll={handleShowAll} handleShowSelected={handleShowSelected}/> }
+                handleSelectedQuestion={handleSelectedQuestion} handleShowAll={handleShowAll} handleShowSelected={handleShowSelected}/> }
 
                 <label> The test will include {selectedQuestions.length} questions in total </label>
             </div>

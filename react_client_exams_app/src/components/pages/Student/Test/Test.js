@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from ''
+import React, { useEffect, useState         }   from 'react';
+import        { useHistory, useLocation     }   from 'react-router-dom';
 
 export default function Test() {
 
@@ -119,11 +119,7 @@ export default function Test() {
         })
             .then((res) => res.json())
             .then((data) => {
-                studentTests.map((studentTest, i) => {
-                    // if (studentTest.questions[i].questionID === data[i].questionID) {
-                    //     if ()
-                    // } 
-                })
+                setQuestions(data);
             })
             .catch((err) => console.log('error fetching questions:' + err))
     }
@@ -168,8 +164,19 @@ export default function Test() {
         return () => { isMounted = false }; // cleanup toggles value, if unmounted
     }, [])
 
+    useEffect(() => {
+        if (questions) {
+            studentTests.map((studentTest, i) => {
+            // if (studentTest.questions[i].questionID === data[i].questionID) {
+            //     if ()
+            // } 
+            })
+        }
+
+    }, [questions])
+
     return (
-        <div className="start_page noselect">
+        <div className="test noselect">
             <label> Please complete the following form to begin: </label>
             <form id="test__form" onSubmit={handleSubmit}>
                 <div id="test__container">

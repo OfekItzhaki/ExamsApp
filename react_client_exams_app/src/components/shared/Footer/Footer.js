@@ -4,7 +4,7 @@ import        { Button }    from '../Button/Button';
 import        { Link }      from 'react-router-dom';
 import styles               from './Footer.css';
 
-export default function Footer({ logo, rights }) {
+export default function Footer({rights }) {
 
     const handelIconClick = (externalLink) => {
         if (typeof externalLink === 'string') {
@@ -61,10 +61,10 @@ export default function Footer({ logo, rights }) {
                 <div className="social-media-wrap">
                     <div className="footer-logo">
                         <Link to="/" className="social-logo">
-                            {logo} {logo && <i className="fab fa-typo3"></i>}
+                            OIES <i className="fab fa-typo3"></i>
                         </Link>
                     </div>
-                    <small className="website-rights"> {rights} </small>
+                    <small className="website-rights"> OI Exam System © 2021 </small>
                     <div className="social-icons">
                         <Link to="" onClick={() => handelIconClick("https://www.facebook.com/ofek.itzhaki/")}   target='_blank' aria-label='Facebook'   className="social-icon-link facebook"   >
                             <i className="fab fa-facebook-f"></i>

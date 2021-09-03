@@ -1,7 +1,7 @@
 import { useState }                 from 'react';
 import styles                       from './QuestionTable.css';
 
-export const QuestionTable = ({  manageQuestions, createEditTest, questions, filteredQuestions, tests, selectedQuestions, setSelectedQuestions, handleDelete, handleEdit, handleDuplicate, handleShowSelected, handleShowAll}) => {
+export const QuestionTable = ({  manageQuestions, createEditTest, questions, filteredQuestions, tests, selectedQuestions, handleSelectedQuestion, handleDelete, handleEdit, handleDuplicate, handleShowSelected, handleShowAll}) => {
 
     const [ visibility, setVisibility ] = useState(false);
 
@@ -16,6 +16,8 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
 
     const handleQuestionClick = (event, question) => {
         event.preventDefault();
+
+        console.log(question.questionID)
         if (createEditTest) {
             // Case question is selected
             if (document.getElementById(`row_${question.questionID}`).className === "space_under border_bottom") {
@@ -24,16 +26,17 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
                 let newSelectedQuestions = selectedQuestions;
                 console.log(newSelectedQuestions)
                 newSelectedQuestions.push(question);
-                setSelectedQuestions(newSelectedQuestions);
+                handleSelectedQuestion(newSelectedQuestions);
             }
 
             // Case question is unselected
             else if (document.getElementById(`row_${question.questionID}`).className === "space_under border_bottom question_selected") {
                 document.getElementById(`row_${question.questionID}`).className = "space_under border_bottom";
+                console.log("hey I am here")
 
                 let newSelectedQuestions = selectedQuestions;
-                newSelectedQuestions.filter((q) => q.questionID === question.questionID);
-                setSelectedQuestions(newSelectedQuestions);
+                console.log(newSelectedQuestions.filter((q) => q.questionID !== question.questionID));
+                handleSelectedQuestion(newSelectedQuestions);
             }
         }
     }

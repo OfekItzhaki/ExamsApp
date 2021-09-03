@@ -5,22 +5,12 @@
     font-family: 'PT Sans', sans-serif;
   }
 
-  /* Global pages css */
-  
+  /* Shared */
   .home,
   .login,
-  .sign_up,
   .forgot_password,
   .about,
-  .admin_mainpage,
-  .error404,
-  .create_edit_question,
-  .create_edit_test,
-  .manage_questions,
-  .manage_tests,
-  .report_by_name,
-  .reports,
-  .test_report {
+  .error404 {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -32,21 +22,6 @@
     padding-bottom: 20px;
   }
 
-  .admin_mainpage,
-  .create_edit_question,
-  .create_edit_test,
-  .manage_questions,
-  .manage_tests,
-  .report_by_name,
-  .reports,
-  .test_report {
-    background-color: slategray;
-  }
-
-  .create_edit_test {
-    padding-top: 130px;
-  }
-  
   .login {
     background-image: url('./assets/images/img-1.jpg');
     background-position: center;
@@ -83,6 +58,55 @@
     justify-content: center;
   }
 
+  /* Admin */
+  .admin_mainpage,
+  .create_edit_question,
+  .create_edit_test,
+  .manage_questions,
+  .manage_tests,
+  .report_by_name,
+  .reports,
+  .test_report {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: "Inter";
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    background-color: slategray;
+  }
+
+  .create_edit_test {
+    padding-top: 130px;
+  }
+
+  /* Student */
+  .sign_up,
+  .start_page,
+  .test,
+  .after_submit,
+  .review_test
+   {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: "Inter";
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    background-color: burlywood;
+  }
+
+
+
+  /* Global css */
 
   .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -93,8 +117,6 @@
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
   }
-
-  /* Global css */
 
   .section__headers, tr.header_row {
     background-color: orange;
