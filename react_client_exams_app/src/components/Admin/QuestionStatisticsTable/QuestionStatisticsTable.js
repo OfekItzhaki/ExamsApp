@@ -15,12 +15,12 @@ export const QuestionStatisticsTable = ({ test, studentTests, handleRespondentCl
                         <th>        Percentage Answered Correctly           </th>
                     </tr>
 
-                    { studentTests && studentTests.filter((studentTest) => studentTest.testID === test.testID).map((studentTest) => (  
+                    { studentTests && studentTests.filter((studentTest) => studentTest.id === test.id).map((studentTest) => (  
                         <>
-                            {studentTest.questions.filter((question) => question.answer === "").map((answer, questionID) => {
+                            {studentTest.questions.filter((question) => question.answer === "").map((answer, id) => {
                                     if (answer !== "") numOfQuestions++;
 
-                                    if (studentTest.questions[studentTest.questions.length - 1].questionID === questionID) return numOfQuestions;
+                                    if (studentTest.questions[studentTest.questions.length - 1].id === id) return numOfQuestions;
                                     else return "";
                             })};
                         </>

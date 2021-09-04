@@ -16,15 +16,15 @@ export const GradesTable = ({ test, studentTests, handleRespondentClick }) => {
                         <th>        Grade                                   </th>
                     </tr>
 
-                    {studentTests && studentTests.filter((studentTest) => studentTest.testID === test.testID).map((studentTest) => (                             
-                        <tr onClick={() => handleRespondentClick(studentTest.studentID)}>
-                            <td key={studentTest.stID}>                 {  studentTest.stID         } </td>
+                    {studentTests && studentTests.filter((studentTest) => studentTest.id === test.id).map((studentTest) => (                             
+                        <tr onClick={() => handleRespondentClick(studentTest.id)}>
+                            <td key={studentTest.id}>                   {  studentTest.id           } </td>
                             <td key={studentTest.studentName}>          {  studentTest.studentName  } </td>
                             <td key={studentTest.submitted}>            {  studentTest.submitted    } </td>
-                            {  <td key={studentTest.questions}>         {  studentTest.questions.filter((question) => question.answer === "").map((answer, questionID) => {
+                            {  <td key={studentTest.questions}>         {  studentTest.questions.filter((question) => question.answer === "").map((answer, question) => {
                                 if (answer !== "") numOfQuestions++;
 
-                                if (studentTest.questions[studentTest.questions.length - 1].questionID === questionID) return numOfQuestions;
+                                if (studentTest.questions[studentTest.questions.length - 1].id === question.id) return numOfQuestions;
                                 else return "";
                             })} </td> }                         
                             

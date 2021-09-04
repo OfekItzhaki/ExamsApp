@@ -1,6 +1,7 @@
 import React, { useEffect, useState     }   from 'react';
 import        { TestTable               }   from '../../../../Admin/TestTable/TestTable';
 import        { useHistory, useLocation }   from 'react-router-dom';
+import        { Filter                  }   from '../../../../Admin/Filter/Filter';
 import styles                               from './ManageTests.css'
 
 export default function ManageTests() {
@@ -19,6 +20,7 @@ export default function ManageTests() {
     const [ filterStatus,       setFilterStatus    ]  = useState(false);
     const [ filterByTags,       setFilterByTags    ]  = useState(true);
     const [ filteredTests,      setFilteredTests   ]  = useState([]);
+    const [ filterBy,           setFilterby        ]  = useState([{ name: "content" }]);
 
     // ----------------------------------------------------------------------------
 
@@ -101,13 +103,10 @@ export default function ManageTests() {
                 <h1 className="page__header"> Available Tests for {field ? field : ""} </h1>
             </div>
 
-            { tests && filteredTests && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
-                handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
+            { tests && filteredTests && <Filter filterStatus={filterStatus} totalAmount={tests.length} filteredAmount={filteredTests.length} 
+                handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange} filterBy={filterBy}/> }
 
-            <div id="table__container">
-                { tests && <TestTable tests={tests} /> }
-                <label type="text" id="showing_tests"> showing 1-{`AMOUNT`} of available Tests </label>
-            </div>
+            { tests && filteredTests && <TestTable tests={tests} filteredTests={filteredTests}/> }
 
             <div id="buttons__container">
                 <button className="regular__button" onClick={() =>  back()         }>      {`<<` } Back            </button>

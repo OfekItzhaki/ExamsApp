@@ -156,34 +156,6 @@
       ],
       "answersLayout": "vertical",
       "lastUpdate": "10/12/2018"
-    },
-    {
-      "id": 1000,
-      "tags": [
-        "hfdhfdfhfdhdf"
-      ],
-      "type": "Multiple answers",
-      "title": "dgdshgdshgds",
-      "text": "hdfshfdhfdh",
-      "difficulty": "low",
-      "answers": [
-        {
-          "id": 0,
-          "answerTitle": "hfdhfdhf",
-          "correct": true
-        },
-        {
-          "id": 1,
-          "answerTitle": "fhfdhfdhfd",
-          "correct": true
-        },
-        {
-          "id": 2,
-          "answerTitle": "hfdhfdhfdh",
-          "correct": false
-        }
-      ],
-      "answersLayout": "vertical"
     }
   ],
   "questionTypes": [
@@ -243,7 +215,7 @@
       "questions": [
         {
           "id": 0,
-          "questionAnswers": [
+          "answers": [
             {
               "id": 3
             }

@@ -37,7 +37,7 @@ export default function Reports() {
     }
 
     const handleTestChange = (id) => {
-        setChosenTest(tests.find((test) => test.testID.toString() === id));
+        setChosenTest(tests.find((test) => test.id.toString() === id));
     }
 
     const handleSubmit = (event) => {
@@ -117,7 +117,7 @@ export default function Reports() {
                                      {tests && tests.map((test) => {
                                          
                                          return (
-                                             <option key={test.testID} value={test.testID}> {test.testName} </option>
+                                             <option key={test.id} value={test.id}> {test.testName} </option>
                                          )
                                     })}
                                      </select> </td>

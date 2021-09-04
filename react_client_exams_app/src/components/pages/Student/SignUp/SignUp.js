@@ -52,24 +52,30 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     console.log("handle submit");
     event.preventDefault();
+
     userRegister();
   }
 
   const fetchStudents =() => {
     fetch("http://localhost:8000/students", {
       method: 'GET',
-  })
-  .then((res) => res.json())
-  .then((data) => {
-      setStudents(data);
-  })
-  .catch((err) => console.log('error fetching students:' + err))
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        setStudents(data);
+    })
+    .catch((err) => console.log('error fetching students:' + err))
   }
 
   useEffect(() => {
       document.title = "Sign up";
   }, [])
 
+  useEffect(() => {
+    if ((name, email, password) !== "") setAllBeenFilled(true);
+    else setAllBeenFilled(false);
+
+  }, [name, email, password])
   
   useEffect(() => {
     let isMounted = true;           // note mutable flag
@@ -80,12 +86,6 @@ export default function SignUp() {
 
     return () => { isMounted = false }; // cleanup toggles value, if unmounted
 }, [])
-
-  useEffect(() => {
-    if ((name, email, password) !== "") setAllBeenFilled(true);
-    else setAllBeenFilled(false);
-
-  }, [name, email, password])
 
   return (
     <div className="sign_up noselect">

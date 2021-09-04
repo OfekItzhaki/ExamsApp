@@ -14,7 +14,7 @@ export default function AfterSubmit() {
         event.preventDefault();
 
         history.push({
-            pathname: `/student/review-test`,
+            pathname: `/student/`,
             // search: '?update=true',  // query string
             state: {  // location state
                 // update: true, 

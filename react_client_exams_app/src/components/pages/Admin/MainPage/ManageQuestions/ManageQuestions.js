@@ -2,7 +2,6 @@ import React, { useEffect, useState         }   from 'react';
 import        { QuestionTable               }   from '../../../../Admin/QuestionTable/QuestionTable';
 import        { useHistory, useLocation     }   from 'react-router-dom';
 import        { Filter                      }   from '../../../../Admin/Filter/Filter';
-import        { fetchTests                  }   from '../../../../../services/tests';
 import styles                                   from './ManageQuestions.css';
 
 export default function ManageQuestions() {
@@ -19,6 +18,7 @@ export default function ManageQuestions() {
 
     const [ filterStatus,       setFilterStatus         ]  = useState(false);
     const [ filterByTags,       setFilterByTags         ]  = useState(true);
+    const [ filterBy,           setFilterby             ]  = useState([{ name: "tags" }, { name: "content" }]);
 
     const [ filteredQuestions,  setFilteredQuestions    ]  = useState([]);
 
@@ -40,6 +40,8 @@ export default function ManageQuestions() {
     }
 
     const handleDelete = (id) => {
+        // THIS ONLY DELETED LOCALLY !!!!!!!!!!!
+
         const newQuestions = questions.filter(question => question.id !== id);
         setQuestions(newQuestions);
     }
@@ -48,13 +50,13 @@ export default function ManageQuestions() {
         
     }
     
-    const handleFilterByChange = (value) => {
-        if (value === "tags") setFilterByTags(true);
-        else setFilterByTags(false);
-    }
-    
     const handleBack = () => {
         history.goBack();
+    }
+
+    const handleFilterByChange = (value) => {
+        if (value === filterBy[0].name) setFilterByTags(true);
+        else setFilterByTags(false);
     }
 
     const handleNewQuestion = () => {
@@ -71,6 +73,7 @@ export default function ManageQuestions() {
 
     const handleFilterContentChange = (value) => {
         
+        console.log(value)
         if (value === "") setFilterStatus(false);
         else setFilterStatus(true);
 
@@ -81,10 +84,14 @@ export default function ManageQuestions() {
 
             if (filterByTags === true) {
                 question.tags.map((tag) => {
-                    if (tag.toLowerCase().includes(value)) contains = true;
+                    if (tag.toLowerCase().includes(value)) return contains = true;
+                    else return null;
                 });
+
             } else {
-                if (question.title.toLowerCase().includes(value)) contains = true;
+                if (question.title) {
+                    if (question.title.toLowerCase().includes(value)) contains = true;
+                }
             }
 
             if (contains === true) return question;
@@ -152,10 +159,10 @@ export default function ManageQuestions() {
                 <h1 className="page__header"> Available Questions for {field ? field : ""} </h1>
             </div>
 
-            { questions && filteredQuestions && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
+            { questions && filteredQuestions && <Filter filterStatus={filterStatus} filterBy={filterBy} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
                 handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
 
-            { <QuestionTable manageQuestions={true} questions={filteredQuestions} filteredQuestions={filteredQuestions} tests={tests} handleShow={handleShow} 
+            { <QuestionTable manageQuestions={true} questions={questions} filteredQuestions={filteredQuestions} tests={tests} handleShow={handleShow} 
                 handleEdit={handleEdit} handleDuplicate={handleDuplicate} handleDelete={handleDelete} handleShowAll={handleShowAll} /> }
 
             <div id="buttons__container">

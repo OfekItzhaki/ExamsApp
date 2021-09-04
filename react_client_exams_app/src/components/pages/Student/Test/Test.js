@@ -115,13 +115,12 @@ export const Test = (props) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    stID: studentTests[studentTests.length - 1].stID + 1,
                     testID: test.testID,
                     studentID: studentID,
                     studentName: fullName,
                     grade: grade,
                     questions: studentQuestions,
-                    submitted: Date.now()
+                    submitted: dateTime
                 }),
             })
                 .then((res) => res.json())
@@ -143,7 +142,7 @@ export const Test = (props) => {
         let stQ = studentQuestions;
         // let amountCorrect = newAnswers.filter((answer) => answer.correct === true)
         stQ.map((question) => {
-            if (question.questionID === qID) {
+            if (question.id === qID) {
                 stQ.questionAnswers.map((answer) => {
                 //   if ()  
                 })
@@ -219,20 +218,20 @@ export const Test = (props) => {
                         location.state.test.questions.map((testQuestion) => {
                             return (
                                 questions.map((question) => {
-                                    if (question.questionID === testQuestion.questionID) {
+                                    if (question.id === testQuestion.id) {
                                         stQ.push({
-                                            "questionID": question.questionID,
+                                            "questionID": question.id,
                                             "questionAnswers": []
                                         });
 
                                         qInfo.push({
-                                            "questionID": question.questionID,
+                                            "questionID": question.id,
                                             "questionTitle": question.questionTitle,
                                             "questionText": question.questionText,
                                             "questionType": question.questionType,
                                             "questionAnswers": question.questionAnswers.map((answer) => {
                                                 return({
-                                                    "answerID": answer.answerID,
+                                                    "answerID": answer.id,
                                                     "answerTitle": answer.answerTitle
                                                 })
                                             })
@@ -251,7 +250,7 @@ export const Test = (props) => {
             }
 
             if (location.state.student) {
-                setStudentID(location.state.studentID);
+                setStudentID(location.state.id);
                 setFullName(location.state.fullName);
                 setEmail(location.state.email);
             }
@@ -288,9 +287,9 @@ export const Test = (props) => {
     
                                         return (
                                             <div id="answers__container">
-                                                <input id={`radio_${answer.answerID}`} name={questionsInfo[currentIndex].questionType ? (questionsInfo[currentIndex].questionType === questionTypes[1] ? questionsInfo[currentIndex].questionType : "") : ""} 
-                                                    type="radio" onClick={(e) => handleAnswerClick(questionsInfo[currentIndex].questionID, answer.answerID)} /> 
-                                                <label id={`label_${answer.answerID}`  } htmlFor={`radio_${answer.answerID}`}   >  {answer.answerTitle}  </label>
+                                                <input id={`radio_${answer.id}`} name={questionsInfo[currentIndex].questionType ? (questionsInfo[currentIndex].questionType === questionTypes[1] ? questionsInfo[currentIndex].questionType : "") : ""} 
+                                                    type="radio" onClick={(e) => handleAnswerClick(questionsInfo[currentIndex].questionID, answer.id)} /> 
+                                                <label id={`label_${answer.id}`  } htmlFor={`radio_${answer.id}`}   >  {answer.answerTitle}  </label>
                                             </div> )
                                     })}
                             </> }
@@ -306,7 +305,7 @@ export const Test = (props) => {
                             <label> Quick Navigation: </label>
                             { studentQuestions.map((question) => {
                                 return (
-                                    <button id={question.questionID} className="navigation_button" onClick={(e) => handleQuickNav(e, e.target.id)}> {question.questionID + 1} </button>
+                                    <button id={question.id} className="navigation_button" onClick={(e) => handleQuickNav(e, e.target.id)}> {question.id + 1} </button>
                                 )
                             })}
                         </div> }

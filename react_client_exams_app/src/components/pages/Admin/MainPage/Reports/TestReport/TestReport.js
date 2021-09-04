@@ -39,6 +39,7 @@ export default function TestReport() {
     const [ filterByTags,       setFilterByTags           ] = useState(true);
 
     const [ filteredQuestions,  setFilteredQuestions      ] = useState([]);
+    const [ filterBy,           setFilterby               ]  = useState([{ name: "tags" }, { name: "content" }]);
 
     // ---------------------------------------------------------------------------
 
@@ -183,7 +184,8 @@ export default function TestReport() {
 
             if (filterByTags === true) {
                 question.tags.map((tag) => {
-                    if (tag.toLowerCase().includes(value)) contains = true;
+                    if (tag.toLowerCase().includes(value)) return contains = true;
+                    else return false;
                 });
             } else {
                 if (question.title.toLowerCase().includes(value)) contains = true;
@@ -196,7 +198,7 @@ export default function TestReport() {
 
     // This function gets the student ID from the child component and sets it as the chosen respondent
     const handleRespondentClick = (id) => {
-        if (respondentChosen.studentID !== id) {
+        if (respondentChosen.id !== id) {
             console.log(id);
             setRespondentChosen(id);
         }
@@ -279,7 +281,7 @@ export default function TestReport() {
                     <label> You can use the following buttons to do the same with all the questions in the list. </label>
                     <div id="filter__container">
                         <div id="filter_by__container">
-                            { questions && filteredQuestions && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
+                            { questions && filteredQuestions && <Filter filterStatus={filterStatus} filterBy={filterBy} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
                                 handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
                         </div>
                     </div>

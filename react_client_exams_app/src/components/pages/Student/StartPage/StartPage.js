@@ -53,7 +53,6 @@ export const StartPage = (props) => {
                 state: {  // location state
                     // update: true, 
                     student: {
-                        studentID: student.studentID,
                         fullName: student.fullName,
                         email: email
                     },

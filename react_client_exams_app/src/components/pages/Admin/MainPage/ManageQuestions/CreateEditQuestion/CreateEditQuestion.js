@@ -158,6 +158,11 @@ import styles                                from './CreateEditQuestion.css';
   const saveQuestion = () => {
     console.log(questionID);
 
+    let today = new Date();
+    let date = today.getFullYear() + '-' +(today.getMonth()+1) + '-' + today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time;
+
     fetch('http://localhost:8000/questions', {
       method: 'POST',
       headers: {
@@ -165,13 +170,13 @@ import styles                                from './CreateEditQuestion.css';
     },
     body: JSON.stringify({
         tags: tags,
-        last_update: Date.now,
-        type: questionType,
-        title: questionTitle,
-        text: questionText,
-        difficulty: difficulty,
+        questionType: questionType,
+        questionTitle: questionTitle,
+        questionText: questionText,
+        questionDifficulty: difficulty,
         answers: answers,
-        answersLayout: answersLayout
+        answersLayout: answersLayout,
+        lastUpdate: dateTime
       }),
     })
       .then((res) => res.json())

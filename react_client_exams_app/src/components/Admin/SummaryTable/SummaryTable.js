@@ -16,7 +16,7 @@ export const SummaryTable = ({ test, dateRange, submissions, numPassed, passingP
                     <tr> 
                         <td> 
                             <label>                                     Test ID:                                </label> 
-                            <label key={test && test.testID} className="summary_label__bold">          {test && test.testID}                    </label> 
+                            <label key={test && test.testID} className="summary_label__bold">          {test && test.id}                    </label> 
                         </td> 
                     </tr>
                     <tr> 

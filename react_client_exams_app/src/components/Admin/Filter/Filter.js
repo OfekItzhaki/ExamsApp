@@ -1,14 +1,17 @@
 import styles                   from './Filter.css';
 
-export const Filter = ({ filterStatus, totalAmount, filteredAmount, handleFilterByChange, handleFilterContentChange }) => {
+export const Filter = ({ filterStatus, totalAmount, filteredAmount, filterBy, handleFilterByChange, handleFilterContentChange }) => {
 
     return (
         <div id="filter__container">
             <div id="filter_by__container">
                 <label> Filter by: </label>
                 <select onChange={ (e) => handleFilterByChange(e.target.value) }>
-                    <option value="tags">       tags       </option>
-                    <option value="content">    content    </option>
+                    { filterBy && filterBy.map((by) => {
+                        return (
+                            <option value={by.name}> {by.name} </option>
+                        )
+                    })}
                 </select>
             </div>
 
@@ -17,11 +20,11 @@ export const Filter = ({ filterStatus, totalAmount, filteredAmount, handleFilter
             </div>
 
             <div id="filter_status__container">
-                <label id="filter__status">         Filter is   {filterStatus === false ? "OFF" : "ON"}                                                           </label>
+                <label id="filter__status">         Filter is   {filterStatus === false ? "OFF" : "ON"}                                             </label>
             </div>
 
             <div id="amount_filtered__container">
-                <label id="amount__filtered">       Filtered    {filteredAmount ? filteredAmount : ""} of total {totalAmount ? totalAmount : ""}    </label>
+                <label id="amount__filtered">       Filtered    {filteredAmount ? filteredAmount : "0"} of total {totalAmount ? totalAmount : ""}    </label>
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
         
     }
 
-    const handleShow = (event, questionID) => {
+    const handleShow = (event, id) => {
         event.preventDefault();
         setVisibility(!visibility);
     }
@@ -17,11 +17,11 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
     const handleQuestionClick = (event, question) => {
         event.preventDefault();
 
-        console.log(question.questionID)
+        console.log(question.id)
         if (createEditTest) {
             // Case question is selected
-            if (document.getElementById(`row_${question.questionID}`).className === "space_under border_bottom") {
-                document.getElementById(`row_${question.questionID}`).className = "space_under border_bottom question_selected";
+            if (document.getElementById(`row_${question.id}`).className === "space_under border_bottom") {
+                document.getElementById(`row_${question.id}`).className = "space_under border_bottom question_selected";
 
                 let newSelectedQuestions = selectedQuestions;
                 console.log(newSelectedQuestions)
@@ -30,12 +30,12 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
             }
 
             // Case question is unselected
-            else if (document.getElementById(`row_${question.questionID}`).className === "space_under border_bottom question_selected") {
-                document.getElementById(`row_${question.questionID}`).className = "space_under border_bottom";
+            else if (document.getElementById(`row_${question.id}`).className === "space_under border_bottom question_selected") {
+                document.getElementById(`row_${question.id}`).className = "space_under border_bottom";
                 console.log("hey I am here")
 
                 let newSelectedQuestions = selectedQuestions;
-                console.log(newSelectedQuestions.filter((q) => q.questionID !== question.questionID));
+                console.log(newSelectedQuestions.filter((q) => q.id !== question.id));
                 handleSelectedQuestion(newSelectedQuestions);
             }
         }
@@ -59,12 +59,12 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
                         </tr> }
                         
 
-                        { questions && questions.map((question, i) => (
-                        <tr id={`row_${question.questionID}`} className="space_under border_bottom" key={question}>
+                        { filteredQuestions && filteredQuestions.map((question, i) => (
+                        <tr id={`row_${question.id}`} className="space_under border_bottom" key={question}>
                             <td className="question_id"           key={question.id}>  {question.id} </td>
                             <td className="question_title_tags"   key={question.questionTitle} onClick={(e) => handleQuestionClick(e, question)}> {question.questionTitle} 
                             <br/>
-                                <label id={`text_${question.id}`} className="question_text"  key={question.text} visibility={visibility ? "visible" : "hidden"}> {question.questionText} </label>
+                                <label id={`text_${question.id}`} className="question_text"  key={question.questionText} visibility={visibility ? "visible" : "hidden"}> {question.questionText} </label>
                                 {question.tags.map((tag) => { 
                                     return (
                                     <>
@@ -73,15 +73,15 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
                                     </>)
                                 })} </td>
                             { manageQuestions && <td className="question_update" key={question.lastUpdate}>      {question.lastUpdate}               </td> }
-                            { manageQuestions && <td className="question_type"   key={question.type}>            {question.questionType}             </td> }
+                            { manageQuestions && <td className="question_type"   key={question.questionType}>    {question.questionType}             </td> }
 
                             { manageQuestions && tests && tests.map((test) => {
                                 <>
                                     { test.questions.map((testQuestion) => {
-                                        // console.log("questionID - " + question.questionID);
+                                        // console.log("questionID - " + question.id);
                                         // console.log("questionTitle - " + question.questionName);
-                                        // console.log("testID - " + test.testID);
-                                        // console.log("testQuestionID - " + testQuestion.questionID);
+                                        // console.log("testID - " + test.id);
+                                        // console.log("testQuestionID - " + testQuestion.id);
 
                                         if (testQuestion.id === question.id) ++numOfTests;
 
