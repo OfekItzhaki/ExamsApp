@@ -29,7 +29,7 @@ import TestReport                 from "./components/pages/Admin/MainPage/Report
 
 // --------------------------------------------- Student pages ---------------------------------------------
 import SignUp                     from "./components/pages/Student/SignUp/SignUp";
-import { StartPage }                  from "./components/pages/Student/StartPage/StartPage";
+import StartPage                  from "./components/pages/Student/StartPage/StartPage";
 import Test                       from "./components/pages/Student/Test/Test";
 import AfterSubmit                from "./components/pages/Student/AfterSubmit/AfterSubmit";
 import ReviewTest                 from "./components/pages/Student/ReviewTest/ReviewTest";
@@ -50,8 +50,8 @@ export default function App() {
             <Route path='/error404'                       exact component={ Error404        }   />
             <Route path='/login'                          exact render={ (props) => (<Login                   {...props} isAuthed={false} />) }   />
             <Route path='/forgot-password'                exact render={ (props) => (<ForgotPassword          {...props} isAuthed={false} />) }   />
-exact 
-            {/* Admin */}   exact 
+
+            {/* Admin */}
             <Route path='/admin/main-page'                exact component={MainPage}            />
             <Route path='/admin/create-question'          exact render={ (props) => (<CreateEditQuestion      {...props} isAuthed={true} isAdmin={true} />) }   />
             <Route path='/admin/edit-question'            exact render={ (props) => (<CreateEditQuestion      {...props} isAuthed={true} isAdmin={true} />) }   />

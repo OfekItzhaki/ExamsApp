@@ -7,14 +7,18 @@ export default function ManageTests() {
 
     // ---------------------------- Fetch Info Hooks ---------------------------
 
-    const [ tests,          setTests            ] = useState(null);
+    const [ tests,              setTests           ] = useState(null);
 
-    const [ field,          setField            ] = useState(null);
+    const [ field,              setField           ] = useState(null);
 
     // ----------------------------- Content Hooks -----------------------------
 
-    const [filter,          setFilter           ] = useState(false);
-    const [filterContent,   setFilterContent    ] = useState("");
+    const [ filter,             setFilter          ] = useState(false);
+    const [ filterContent,      setFilterContent   ] = useState("");
+
+    const [ filterStatus,       setFilterStatus    ]  = useState(false);
+    const [ filterByTags,       setFilterByTags    ]  = useState(true);
+    const [ filteredTests,      setFilteredTests   ]  = useState([]);
 
     // ----------------------------------------------------------------------------
 
@@ -35,6 +39,25 @@ export default function ManageTests() {
               test: null
             },
         }); 
+    }
+
+    const handleFilterContentChange = (value) => {
+        
+        if (value === "") setFilterStatus(false);
+        else setFilterStatus(true);
+
+        let newTests = tests;
+        setFilteredTests(newTests.filter((test) => { 
+
+            if (test.testName.toLowerCase().includes(value)) return test;
+            else return null;
+
+        }));
+    }
+
+    const handleFilterByChange = (value) => {
+        if (value === "tags") setFilterByTags(true);
+        else setFilterByTags(false);
     }
 
     const fetchTests = () => {
@@ -78,14 +101,8 @@ export default function ManageTests() {
                 <h1 className="page__header"> Available Tests for {field ? field : ""} </h1>
             </div>
 
-            <div id="filter__container">
-                <div id="filter_keywords__container">    
-                    <label> Filter name by keywords: </label>
-                    <input id="filter__input" type="text" value={filterContent} onChange={(e) => handleFilterChange(e.target.value) } placeholder="Enter a list of keywords separated by commas"/>
-                    <label id="filter_state"> Filter is {filter === false ? "OFF" : "ON"}  </label>
-                </div>
-                <label id="amount_filtered"> Showing {`AMOUNT`} of total {`AMOUNT`} </label>
-            </div>
+            { tests && filteredTests && <Filter filterStatus={filterStatus} totalAmount={questions.length} filteredAmount={filteredQuestions.length} 
+                handleFilterByChange={handleFilterByChange} handleFilterContentChange={handleFilterContentChange}/> }
 
             <div id="table__container">
                 { tests && <TestTable tests={tests} /> }

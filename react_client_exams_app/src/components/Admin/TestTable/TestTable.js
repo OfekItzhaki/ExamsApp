@@ -17,8 +17,8 @@ export const TestTable = ({ tests, handleDelete }) => {
                 
 
                 {tests.map((test) => (
-                <tr className="space_under border_bottom" key={test.testID}>
-                    <td className="test_id">            {test.testID}                                       </td>
+                <tr className="space_under border_bottom" key={test.id}>
+                    <td className="test_id">            {test.id}                                           </td>
                     <td className="test_link">          <button className="regular__button"> Copy </button> </td>
                     <td className="test_name">          {test.testName}                                     </td>
                     <td className="test_amount">        {test.testType}                                     </td>

@@ -1,5 +1,5 @@
 import React, { useEffect,  useState        }   from 'react';
-import        { useHistory, useLocation     }   from 'react-router-dom';
+import        { useHistory     }                from 'react-router-dom';
 import styles                                   from './StartPage.css';
 
 export const StartPage = (props) => {
@@ -12,7 +12,6 @@ export const StartPage = (props) => {
     const [ email,          setEmail            ] = useState("");
 
     const [ linkID,         setLinkID           ] = useState("");
-    const [ link,           setLink             ] = useState("");
     const [ linkExists,     setLinkExists       ] = useState(false);
 
     const [ student,        setStudent          ] = useState(null);
@@ -24,12 +23,6 @@ export const StartPage = (props) => {
         console.log("handle submit");
         event.preventDefault();
 
-        tests.some((test) => {
-            if (test.link === link) {
-                // console.log("links are equel")
-                setTest(test);
-                }
-        });
         findStudent();
     }
 
@@ -40,7 +33,6 @@ export const StartPage = (props) => {
             if (student.fullName.includes(fullName.toLowerCase())) {
                 console.log("student was found");
                 setStudent(student);
-                return true;
             } else {
                 console.log("student wasn't found");
             }
@@ -71,6 +63,27 @@ export const StartPage = (props) => {
         }
     }
 
+
+    const checkLink = (link) => {
+        let exists = false;
+
+        console.log("inside check")
+
+        if (tests !== null) {
+            tests.map((test) => {
+                if (test.link === link) {
+                    setTest(test);
+                    setLinkExists(true);
+                    exists = true;
+                }
+            })
+            
+            if (exists === false) { 
+                history.push("/error404");
+            }
+        }
+    }
+
     const fetchStudents = () => {
         fetch("http://localhost:8000/students", {
             method: 'GET',
@@ -93,19 +106,6 @@ export const StartPage = (props) => {
         .catch((err) => console.log('error fetching tests:' + err))
     }
 
-    const checkLink = (link) => {
-        let exists = false;
-
-        if (tests !== null) {
-            tests.map((test) => {
-                if (test.link === link) {
-                    exists = true;
-                }
-            })
-            
-            return exists;
-        }
-    }
 
     // Meant for fetching the necessary information on first render
     useEffect(() => {
@@ -120,19 +120,14 @@ export const StartPage = (props) => {
 
     useEffect(() => {
         if (props) {
+            console.log(props);
             if (props.location.pathname) {
-
-                if (checkLink(props.location.pathname) === false) { 
-                    history.push("/error404");
-                } else {
-                    setLinkID(props.match.params.randomID)
-                    setLink(props.location.pathname);
-                    setLinkExists(true);
-                }
+                checkLink(props.location.pathname);
+                setLinkID(props.match.params.randomID);
             }
         }
 
-    }, [])
+    }, [tests])
 
       // Meant for fetching the necessary information on first render
   useEffect(() => {
@@ -166,15 +161,17 @@ export const StartPage = (props) => {
 
                                 <tr>
                                     <td> <label> Email: </label> </td>
-                                    <td> <input className="asterisk_input" value={email}        type="text" placeholder="Type something"    onChange={(e) => setEmail(e.target.value)}      required/> </td>
+                                    <td> <input className="asterisk_input" value={email}        type="email" placeholder="Type something"    onChange={(e) => setEmail(e.target.value)}      required/> </td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <button id="submit__button" type="submit"> Submit </button>
+                        <button type="submit"> Submit </button>
                     </div>
                 </form>
             </div> }
         </div>
     )
 };
+
+export default StartPage;

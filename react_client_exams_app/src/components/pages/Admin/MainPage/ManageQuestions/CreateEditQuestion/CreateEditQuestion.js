@@ -25,12 +25,11 @@ import styles                                from './CreateEditQuestion.css';
   // *Answers Table*
   const [ answers,              setAnswers          ]  = useState(
     question ? question.answers : [
-      { "answerID": 0, "answerTitle": "", "correct": true},
-      { "answerID": 1, "answerTitle": "", "correct": false},
-      { "answerID": 2, "answerTitle": "", "correct": false}
+      { "id": 0, "answerTitle": "", "correct": true},
+      { "id": 1, "answerTitle": "", "correct": false},
+      { "id": 2, "answerTitle": "", "correct": false}
     ]
   );
-  const [ answerID,             setAnswerID         ]  = useState(answers ? answers[answers.length - 1].answerID + 1 : 0);
   const [ answersLayout,        setAnswersLayout    ]  = useState("vertical");
 
   // *Tags Table* 
@@ -46,12 +45,11 @@ import styles                                from './CreateEditQuestion.css';
     setQuestionID(questionID + 1);
 
     setAnswers([
-      { "answerID": 0, "answerTitle": "", "correct": true},
-      { "answerID": 1, "answerTitle": "", "correct": false},
-      { "answerID": 2, "answerTitle": "", "correct": false}
+      { "id": 0, "answerTitle": "", "correct": true},
+      { "id": 1, "answerTitle": "", "correct": false},
+      { "id": 2, "answerTitle": "", "correct": false}
     ]);
 
-    setAnswerID(answers ? answers[answers.length - 1].answerID + 1: 0);
     setTags("");
     setAnswersLayout("vertical");
   }
@@ -60,15 +58,14 @@ import styles                                from './CreateEditQuestion.css';
     console.log("add answer");
     event.preventDefault();
     let newPossibleAnswers = answers;
-    newPossibleAnswers.push({ "answerID": answers[answers.length - 1].answerID + 1, "answerTitle": "", correct: false });
+    newPossibleAnswers.push({ "id": answers[answers.length - 1].id + 1, "answerTitle": "", correct: false });
     setAnswers(newPossibleAnswers);
-    setAnswerID(answers[answers.length - 1].answerID + 1);
   }
 
   const removeAnswer = (event, id) => { 
     event.preventDefault(); 
     console.log("remove answer id " + id)
-    setAnswers(answers.filter((answer) => answer.answerID !== id));
+    setAnswers(answers.filter((answer) => answer.id !== id));
   }
   
   const location = useLocation();
@@ -91,7 +88,7 @@ import styles                                from './CreateEditQuestion.css';
     // console.log("possible answers changed")
     let correctAnswer_Counter = 0;
     (answers && answers.map((answer) => {
-      let radio = document.getElementById(`radio_${answer.answerID}`);
+      let radio = document.getElementById(`radio_${answer.id}`);
       radio.checked = answer.correct;
       if (answer.correct === true) {
         correctAnswer_Counter++;
@@ -115,7 +112,7 @@ import styles                                from './CreateEditQuestion.css';
     console.log("handle answer click");
     let newAnswers = answers;
     let amountCorrect = newAnswers.filter((answer) => answer.correct === true)
-    newAnswers.filter((answer) => answer.answerID === id).map((answer) => {
+    newAnswers.filter((answer) => answer.id === id).map((answer) => {
 
       if (amountCorrect.length <= 1) {
         if (answer.correct === false) answer.correct = true;
@@ -145,7 +142,7 @@ import styles                                from './CreateEditQuestion.css';
   const handleAnswerChanged = (id, a) => {
     console.log("handle answer changed");
     let newPossibleAnswers = answers;
-    newPossibleAnswers.filter((answer) => answer.answerID === id).map((answer) => {
+    newPossibleAnswers.filter((answer) => answer.id === id).map((answer) => {
       answer.answerTitle = a;
       return answer;
     });
@@ -167,7 +164,6 @@ import styles                                from './CreateEditQuestion.css';
         'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-        id: questionID,
         tags: tags,
         last_update: Date.now,
         type: questionType,
@@ -189,14 +185,13 @@ import styles                                from './CreateEditQuestion.css';
   const caseEditQuestion = () => {
     let editQuestion = location.state.question;
 
-    setQuestionID(editQuestion.questionID);
-    console.log(`Current questionID: ${editQuestion.questionID}`); 
+    setQuestionID(editQuestion.id);
+    console.log(`Current questionID: ${editQuestion.id}`); 
     
     setQuestionType(editQuestion.questionType);
     setQuestionTitle(editQuestion.questionHeader);
     setQuestionText(editQuestion.questionText);
     setAnswers(editQuestion.answers);
-    setAnswerID(editQuestion.answers[editQuestion.answers.length - 1].answerID + 1);
     setAnswersLayout(editQuestion.answersLayout);
     setTags(editQuestion.tags);
   }
@@ -212,8 +207,8 @@ import styles                                from './CreateEditQuestion.css';
       // Edit question
       if (location.state && location.state.question) caseEditQuestion();
       else {
-        setQuestionID( data && data[data.length - 1].questionID + 1);
-        console.log(`Current questionID: ${data[data.length - 1].questionID + 1}`); 
+        setQuestionID( data && data[data.length - 1].id + 1);
+        console.log(`Current questionID: ${data[data.length - 1].id + 1}`); 
       }
     })
     .catch((err) => console.log('error fetching questions:' + err));
@@ -315,13 +310,13 @@ import styles                                from './CreateEditQuestion.css';
             <tbody>
 
               {answers && answers.map((answer) => (
-              <tr key={answer.answerID}>
-                <td> { answer.answerID === 0 && <label> Possible answers: </label> } </td>
+              <tr key={answer.id}>
+                <td> { answer.id === 0 && <label> Possible answers: </label> } </td>
                 <td className="answer__td"> 
-                  <button type="" onClick={ (e) => removeAnswer(e, answer.answerID) }> X </button>
-                  <input id={`answer_${answer.answerID}` } className="asterisk_input" name="answer" type="text" onChange={(e) => handleAnswerChanged(answer.answerID, e.target.value)} placeholder={`Answer #${answer.answerID}`} required/> 
-                  <input id={`radio_${answer.answerID}`  } name={questionTypes ? (questionType === questionTypes[0] ? questionType : "") : "default"} type="radio" onClick={(e) => handleAnswerClick(answer.answerID)} /> 
-                  <label id={`label_${answer.answerID}`  } htmlFor={`radio_${answer.answerID}`}   >  {answer.correct === true ? "Correct" : "Incorrect"}  </label>
+                  <button type="" onClick={ (e) => removeAnswer(e, answer.id) }> X </button>
+                  <input id={`answer_${answer.id}` } className="asterisk_input" name="answer" type="text" onChange={(e) => handleAnswerChanged(answer.id, e.target.value)} placeholder={`Answer #${answer.id}`} required/> 
+                  <input id={`radio_${answer.id}`  } name={questionTypes ? (questionType === questionTypes[0] ? questionType : "") : "default"} type="radio" onClick={(e) => handleAnswerClick(answer.id)} /> 
+                  <label id={`label_${answer.id}`  } htmlFor={`radio_${answer.id}`}   >  {answer.correct === true ? "Correct" : "Incorrect"}  </label>
                 </td>
               </tr>
               ))}

@@ -61,10 +61,10 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
 
                         { questions && questions.map((question, i) => (
                         <tr id={`row_${question.questionID}`} className="space_under border_bottom" key={question}>
-                            <td className="question_id"           key={question.questionID}>  {question.questionID} </td>
+                            <td className="question_id"           key={question.id}>  {question.id} </td>
                             <td className="question_title_tags"   key={question.questionTitle} onClick={(e) => handleQuestionClick(e, question)}> {question.questionTitle} 
                             <br/>
-                                <label id={`text_${question.questionID}`} className="question_text"  key={question.text} visibility={visibility ? "visible" : "hidden"}> {question.questionText} </label>
+                                <label id={`text_${question.id}`} className="question_text"  key={question.text} visibility={visibility ? "visible" : "hidden"}> {question.questionText} </label>
                                 {question.tags.map((tag) => { 
                                     return (
                                     <>
@@ -83,7 +83,7 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
                                         // console.log("testID - " + test.testID);
                                         // console.log("testQuestionID - " + testQuestion.questionID);
 
-                                        if (testQuestion.questionID === question.questionID) ++numOfTests;
+                                        if (testQuestion.id === question.id) ++numOfTests;
 
                                         // console.log("numOfTests - " + numOfTests);
                                         // console.log("--------------------------------");
@@ -99,10 +99,10 @@ export const QuestionTable = ({  manageQuestions, createEditTest, questions, fil
                             { manageQuestions && <td key="hidden" style={{display: "none"}}> {  numOfTests = 0  } </td> }
 
                             <td className="buttons">
-                                <button className="regular__button" onClick={(e) => handleShow(e, question.questionID)                          }>        Show   </button>
-                                { handleEdit        && <button className="regular__button" onClick={() =>  handleEdit(question.questionID)      }>        Edit   </button> }
-                                { handleDuplicate   && <button className="regular__button" onClick={() =>  handleDuplicate(question.questionID) }>   Duplicate   </button> }
-                                { handleDelete      && <button className="regular__button" onClick={() =>  handleDelete(question.questionID)    }>      Delete   </button> }
+                                <button className="regular__button" onClick={(e) => handleShow(e, question.id)                          }>        Show   </button>
+                                { handleEdit        && <button className="regular__button" onClick={() =>  handleEdit(question.id)      }>        Edit   </button> }
+                                { handleDuplicate   && <button className="regular__button" onClick={() =>  handleDuplicate(question.id) }>   Duplicate   </button> }
+                                { handleDelete      && <button className="regular__button" onClick={() =>  handleDelete(question.id)    }>      Delete   </button> }
                             </td>
                         </tr> ))}
                     </tbody>
